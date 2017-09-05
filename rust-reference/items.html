@@ -145,7 +145,7 @@ which sub-item declarations may appear.</p>
    | <code>?</code><sup>?</sup> <em>LateBoundLifetimeDefs</em><sup>?</sup> <a href="types.html#type-path"><em>TypePath</em></a><br />
    | <code>(</code> <code>?</code><sup>?</sup> <em>LateBoundLifetimeDefs</em><sup>?</sup> <a href="types.html#type-path"><em>TypePath</em></a> <code>)</code></p>
 <p><em>LifetimeBounds</em> :<br />
-   <code>:</code> <a href="tokens.html#lifetime-or-label">LIFETIME_OR_LABEL</a> ( <code>+</code> <a href="tokens.html#lifetime-or-label">LIFETIME_OR_LABEL</a> ) <code>+</code><sup>?</sup></p>
+   <code>:</code> <a href="tokens.html#lifetime-or-label">LIFETIME_OR_LABEL</a> ( <code>+</code> <a href="tokens.html#lifetime-or-label">LIFETIME_OR_LABEL</a> )<sup>*</sup> <code>+</code><sup>?</sup></p>
 <p><em>LateBoundLifetimeDefs</em> :<br />
    <code>for</code> <code>&lt;</code> <em>LifetimeParams</em> <code>,</code><sup>?</sup> <code>&gt;</code></p>
 </blockquote>
@@ -379,7 +379,7 @@ fn main() {}
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 <a href="items.html#functions"><em>Function</em></a>:<br />
-   <code>unsafe</code><sup>?</sup> (<code>extern</code> Abi<sup>?</sup>)<sup>?</sup> <code>fn</code>
+   <code>const</code><sup>?</sup> <code>unsafe</code><sup>?</sup> (<code>extern</code> Abi<sup>?</sup>)<sup>?</sup> <code>fn</code>
 <a href="identifiers.html">IDENTIFIER</a> <a href="items.html#generics"><em>Generics</em></a><sup>?</sup><br />
       <code>(</code> <em>FunctionParameters</em><sup>?</sup> <code>)</code>
 <em>FunctionReturnType</em><sup>?</sup> <a href="items.html#where-clause"><em>WhereClause</em></a><sup>?</sup><br />
@@ -656,7 +656,7 @@ particular layout using the <a href="attributes.html#ffi-attributes"><code>repr<
 <p><em>EnumItemStruct</em> :<br />
    <code>(</code> <a href="items.html#struct-fields"><em>StructFields</em></a><sup>?</sup> <code>)</code></p>
 <p><em>EnumItemWithDiscriminant</em> :<br />
-   <code>=</code> [<em>Expression</em>]</p>
+   <code>=</code> <a href="expressions.html"><em>Expression</em></a></p>
 </blockquote>
 <p>An <em>enumeration</em> is a simultaneous definition of a nominal <a href="types.html#enumerated-types">enumerated type</a> as
 well as a set of <em>constructors</em>, that can be used to create or pattern-match
@@ -856,7 +856,8 @@ in <a href="https://github.com/rust-lang/rfcs/pull/1897">RFC 1897 &quot;Unions v
 <a class="header" href="items.html#constant-items" id="constant-items"><h2>Constant items</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-<a href="items.html#constant-items"><em>ConstantItem</em></a> : FIXME <code>const</code></p>
+<a href="items.html#constant-items"><em>ConstantItem</em></a> :<br />
+   <code>const</code> <a href="identifiers.html">IDENTIFIER</a> <code>:</code> <a href="types.html#type"><em>Type</em></a> <code>=</code> <a href="expressions.html"><em>Expression</em></a></p>
 </blockquote>
 <p>A <em>constant item</em> is a named <em><a href="expressions.html#constant-expressions">constant value</a></em> which is not associated with a
 specific memory location in the program. Constants are essentially inlined
@@ -894,7 +895,8 @@ const BITS_N_STRINGS: BitsNStrings&lt;'static&gt; = BitsNStrings {
 <a class="header" href="items.html#static-items" id="static-items"><h2>Static items</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-<a href="items.html#static-items"><em>StaticItem</em></a> : FIXME</p>
+<a href="items.html#static-items"><em>StaticItem</em></a> :<br />
+   <code>static</code> <code>mut</code>? <a href="identifiers.html">IDENTIFIER</a> <code>:</code> <a href="types.html#type"><em>Type</em></a> <code>=</code> <a href="expressions.html"><em>Expression</em></a> <code>;</code></p>
 </blockquote>
 <p>A <em>static item</em> is similar to a <em>constant</em>, except that it represents a precise
 memory location in the program. A static is never &quot;inlined&quot; at the usage site,

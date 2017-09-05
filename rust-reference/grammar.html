@@ -132,8 +132,8 @@ KW_YIELD          : <code>yield</code></p>
 <a class="header" href="grammar.html#identifiers" id="identifiers"><h3>Identifiers</h3></a>
 <blockquote>
 <p>IDENTIFIER :<br />
-      XID_start XID_continue<sup>*</sup><br />
-   | <code>_</code> XID_continue<sup>+</sup></p>
+      [<code>a</code>-<code>z</code> <code>A</code>-<code>Z</code>] [<code>a</code>-<code>z</code> <code>A</code>-<code>Z</code> <code>0</code>-<code>9</code> <code>_</code>]<sup>*</sup><br />
+   | <code>_</code> [<code>a</code>-<code>z</code> <code>A</code>-<code>Z</code> <code>0</code>-<code>9</code> <code>_</code>]<sup>+</sup></p>
 </blockquote>
 <a class="header" href="grammar.html#comments" id="comments"><h3>Comments</h3></a>
 <blockquote>
@@ -145,13 +145,13 @@ KW_YIELD          : <code>yield</code></p>
 (<em>BlockCommentOrDoc</em> | ~<code>*/</code>)<sup>*</sup> <code>*/</code><br />
    | <code>/**/</code><br />
    | <code>/***/</code></p>
-<p>OUTER_LINE_DOC :<br />
-   <code>//!</code> ~[<code>\n</code> <em>IsolatedCR</em>]<sup>*</sup></p>
-<p>OUTER_BLOCK_DOC :<br />
-   <code>/*!</code> ( <em>BlockCommentOrDoc</em> | ~[<code>*/</code> <em>IsolatedCR</em>] )<sup>*</sup> <code>*/</code></p>
 <p>INNER_LINE_DOC :<br />
-   <code>///</code> (~<code>/</code> ~[<code>\n</code> <em>IsolatedCR</em>]<sup>*</sup>)<sup>?</sup></p>
+   <code>//!</code> ~[<code>\n</code> <em>IsolatedCR</em>]<sup>*</sup></p>
 <p>INNER_BLOCK_DOC :<br />
+   <code>/*!</code> ( <em>BlockCommentOrDoc</em> | ~[<code>*/</code> <em>IsolatedCR</em>] )<sup>*</sup> <code>*/</code></p>
+<p>OUTER_LINE_DOC :<br />
+   <code>///</code> (~<code>/</code> ~[<code>\n</code> <em>IsolatedCR</em>]<sup>*</sup>)<sup>?</sup></p>
+<p>OUTER_BLOCK_DOC :<br />
    <code>/**</code> (~<code>*</code> | <em>BlockCommentOrDoc</em> )
 (<em>BlockCommentOrDoc</em> | ~[<code>*/</code> <em>IsolatedCR</em>])<sup>*</sup> <code>*/</code></p>
 <p><em>BlockCommentOrDoc</em> :<br />
@@ -171,23 +171,9 @@ KW_YIELD          : <code>yield</code></p>
 <p><strong>FIXME</strong></p>
 <p><strong>FIXME</strong></p>
 <p>INTEGER_LITERAL :<br />
-      <code>0x</code> [<code>0</code>-<code>9</code> <code>a</code>-<code>f</code> <code>A</code>-<code>F</code> <code>_</code>]<sup>+</sup> INTEGER_SUFFIX<sup>?</sup><br />
-   | <code>0o</code> [<code>0</code>-<code>7</code> <code>_</code>]<sup>+</sup> INTEGER_SUFFIX<sup>?</sup><br />
-   | <code>0b</code> [<code>0</code> <code>1</code> <code>_</code>]<sup>+</sup> INTEGER_SUFFIX<sup>?</sup><br />
-   | [<code>0</code>-<code>9</code>][<code>0</code>-<code>9</code> <code>_</code>]<sup>*</sup> INTEGER_SUFFIX<sup>?</sup></p>
-<p>INTEGER_SUFFIX :<br />
-      <code>u8</code> | <code>u16</code> | <code>u32</code> | <code>u64</code> | <code>usize</code><br />
-   | <code>i8</code> | <code>u16</code> | <code>i32</code> | <code>i64</code> | <code>usize</code></p>
+   ( DEC_LITERAL | BIN_LITERAL | OCT_LITERAL | HEX_LITERAL )</p>
 <p>FLOAT_LITERAL :<br />
-      [<code>0</code>-<code>9</code>][<code>0</code>-<code>9</code> <code>_</code>]<sup>*</sup> <code>.</code> [<code>0</code>-<code>9</code> <code>_</code>]<sup>*</sup><br />
-   | [<code>0</code>-<code>9</code>][<code>0</code>-<code>9</code> <code>_</code>]<sup>*</sup> <code>.</code> [<code>0</code>-<code>9</code> <code>_</code>]<sup>+</sup>
-FLOAT_EXPONENT<sup>?</sup> FLOAT_SUFFIX<br />
-   | [<code>0</code>-<code>9</code>][<code>0</code>-<code>9</code> <code>_</code>]<sup>*</sup> FLOAT_EXPONENT<sup>?</sup>
-FLOAT_SUFFIX<sup>?</sup></p>
-<p>FLOAT_EXPONENT :<br />
-   (<code>e</code>|<code>E</code>) [<code>0</code>-<code>9</code> <code>_</code>]<sup>+</sup></p>
-<p>FLOAT_SUFFIX :<br />
-   <code>f32</code> | <code>f64</code></p>
+      DEC_LITERAL <code>.</code></p>
 <p>BOOLEAN_LITERAL :<br />
       <code>true</code><br />
    | <code>false</code></p>
@@ -278,7 +264,7 @@ SHEBANG : <code>#!</code> ~[<code>[</code> <code>\n</code>] ~<code>\n</code><sup
    | <code>?</code><sup>?</sup> <em>LateBoundLifetimeDefs</em><sup>?</sup> [<em>TypePath</em>]<br />
    | <code>(</code> <code>?</code><sup>?</sup> <em>LateBoundLifetimeDefs</em><sup>?</sup> [<em>TypePath</em>] <code>)</code></p>
 <p><em>LifetimeBounds</em> :<br />
-   <code>:</code> [LIFETIME_OR_LABEL] ( <code>+</code> [LIFETIME_OR_LABEL] ) <code>+</code><sup>?</sup></p>
+   <code>:</code> [LIFETIME_OR_LABEL] ( <code>+</code> [LIFETIME_OR_LABEL] )<sup>*</sup> <code>+</code><sup>?</sup></p>
 <p><em>LateBoundLifetimeDefs</em> :<br />
    <code>for</code> <code>&lt;</code> <em>LifetimeParams</em> <code>,</code><sup>?</sup> <code>&gt;</code></p>
 <p>[<em>WhereClause</em>] :<a name="where-clause"></a><br />
@@ -311,7 +297,7 @@ SHEBANG : <code>#!</code> ~[<code>[</code> <code>\n</code>] ~<code>\n</code><sup
    ( <code>self</code> | [IDENTIFIER] (<code>as</code> [IDENTIFIER] )<sup>?</sup> )
 ( <code>,</code> <em>UseItems</em> )<sup>?<sup></p>
 <p>[<em>Function</em>]:<br />
-   <code>unsafe</code><sup>?</sup> (<code>extern</code> Abi<sup>?</sup>)<sup>?</sup> <code>fn</code>
+   <code>const</code><sup>?</sup> <code>unsafe</code><sup>?</sup> (<code>extern</code> Abi<sup>?</sup>)<sup>?</sup> <code>fn</code>
 [IDENTIFIER] [<em>Generics</em>]<sup>?</sup><br />
       <code>(</code> <em>FunctionParameters</em><sup>?</sup> <code>)</code>
 <em>FunctionReturnType</em><sup>?</sup> [<em>WhereClause</em>]<sup>?</sup><br />
@@ -377,8 +363,10 @@ SHEBANG : <code>#!</code> ~[<code>[</code> <code>\n</code>] ~<code>\n</code><sup
 <p>[<em>Union</em>] :<br />
    <code>union</code> [<em>Generics</em>]<sup>?</sup> [<em>WhereClause</em>]<sup>?</sup>
 <code>{</code>[<em>StructFields</em>] <code>}</code></p>
-<p>[<em>ConstantItem</em>] : FIXME <code>const</code></p>
-<p>[<em>StaticItem</em>] : FIXME</p>
+<p>[<em>ConstantItem</em>] :<br />
+   <code>const</code> [IDENTIFIER] <code>:</code> [<em>Type</em>] <code>=</code> [<em>Expression</em>]</p>
+<p>[<em>StaticItem</em>] :<br />
+   <code>static</code> <code>mut</code>? [IDENTIFIER] <code>:</code> [<em>Type</em>] <code>=</code> [<em>Expression</em>] <code>;</code></p>
 <p><em>Trait</em> :<br />
    <code>unsafe</code><sup>?</sup><br />
    <code>trait</code> [<em>Identifier</em>]<br />

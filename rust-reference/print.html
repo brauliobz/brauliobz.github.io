@@ -219,10 +219,30 @@ KW_YIELD          : <code>yield</code></p>
 <blockquote>
 <p><strong><sup>Lexer:<sup></strong><br />
 IDENTIFIER :<br />
+      [<code>a</code>-<code>z</code> <code>A</code>-<code>Z</code>] [<code>a</code>-<code>z</code> <code>A</code>-<code>Z</code> <code>0</code>-<code>9</code> <code>_</code>]<sup>*</sup><br />
+   | <code>_</code> [<code>a</code>-<code>z</code> <code>A</code>-<code>Z</code> <code>0</code>-<code>9</code> <code>_</code>]<sup>+</sup></p>
+</blockquote>
+<p>An identifier is any nonempty ASCII<sup class="footnote-reference"><a href="print.html#non_ascii_idents">1</a></sup> string of the following form:</p>
+<p>Either</p>
+<ul>
+<li>The first character is a letter</li>
+<li>The remaining characters are alphanumeric or <code>_</code></li>
+</ul>
+<p>Or</p>
+<ul>
+<li>The first character is <code>_</code></li>
+<li>The identifier is more than one character, <code>_</code> alone is not an identifier</li>
+<li>The remaining characters are alphanumeric or <code>_</code></li>
+</ul>
+<p><sup class="footnote-reference"><a href="print.html#non_ascii_idents">1</a></sup> Non-ASCII characters in identifiers are currently feature-gated. See <a href="https://github.com/rust-lang/rust/issues/28979">issue #28979</a>.</p>
+<!-- When non-ascii identifiers are actually supported:
+<blockquote>
+<p><strong><sup>Lexer:<sup></strong><br />
+IDENTIFIER :<br />
       XID_start XID_continue<sup>*</sup><br />
    | <code>_</code> XID_continue<sup>+</sup></p>
 </blockquote>
-<p>An identifier is any nonempty Unicode<sup class="footnote-reference"><a href="print.html#non_ascii_idents">1</a></sup> string of the following form:</p>
+<p>An identifier is any nonempty Unicode string of the following form:</p>
 <p>Either</p>
 <ul>
 <li>The first character has property <a href="http://unicode.org/cldr/utility/list-unicodeset.jsp?a=%5B%3AXID_Start%3A%5D&amp;abb=on&amp;g=&amp;i="><code>XID_start</code></a></li>
@@ -240,10 +260,7 @@ IDENTIFIER :<br />
 character ranges used to form the more familiar C and Java language-family
 identifiers.</p>
 </blockquote>
-<div class="footnote-definition" id="non_ascii_idents"><sup class="footnote-definition-label">1</sup>
-<p>Non-ASCII characters in identifiers are currently feature
-gated. This is expected to improve soon.</p>
-</div>
+<p>--&gt;</p>
 <a class="header" href="print.html#comments" id="comments"><h1>Comments</h1></a>
 <blockquote>
 <p><strong><sup>Lexer</sup></strong><br />
@@ -255,13 +272,13 @@ LINE_COMMENT :<br />
 (<em>BlockCommentOrDoc</em> | ~<code>*/</code>)<sup>*</sup> <code>*/</code><br />
    | <code>/**/</code><br />
    | <code>/***/</code></p>
-<p>OUTER_LINE_DOC :<br />
-   <code>//!</code> ~[<code>\n</code> <em>IsolatedCR</em>]<sup>*</sup></p>
-<p>OUTER_BLOCK_DOC :<br />
-   <code>/*!</code> ( <em>BlockCommentOrDoc</em> | ~[<code>*/</code> <em>IsolatedCR</em>] )<sup>*</sup> <code>*/</code></p>
 <p>INNER_LINE_DOC :<br />
-   <code>///</code> (~<code>/</code> ~[<code>\n</code> <em>IsolatedCR</em>]<sup>*</sup>)<sup>?</sup></p>
+   <code>//!</code> ~[<code>\n</code> <em>IsolatedCR</em>]<sup>*</sup></p>
 <p>INNER_BLOCK_DOC :<br />
+   <code>/*!</code> ( <em>BlockCommentOrDoc</em> | ~[<code>*/</code> <em>IsolatedCR</em>] )<sup>*</sup> <code>*/</code></p>
+<p>OUTER_LINE_DOC :<br />
+   <code>///</code> (~<code>/</code> ~[<code>\n</code> <em>IsolatedCR</em>]<sup>*</sup>)<sup>?</sup></p>
+<p>OUTER_BLOCK_DOC :<br />
    <code>/**</code> (~<code>*</code> | <em>BlockCommentOrDoc</em> )
 (<em>BlockCommentOrDoc</em> | ~[<code>*/</code> <em>IsolatedCR</em>])<sup>*</sup> <code>*/</code></p>
 <p><em>BlockCommentOrDoc</em> :<br />
@@ -583,10 +600,20 @@ literal</em>. The grammar for recognizing the two kinds of literals is mixed.</p
 <blockquote>
 <p><strong><sup>Lexer</sup></strong><br />
 INTEGER_LITERAL :<br />
-      <code>0x</code> [<code>0</code>-<code>9</code> <code>a</code>-<code>f</code> <code>A</code>-<code>F</code> <code>_</code>]<sup>+</sup> INTEGER_SUFFIX<sup>?</sup><br />
-   | <code>0o</code> [<code>0</code>-<code>7</code> <code>_</code>]<sup>+</sup> INTEGER_SUFFIX<sup>?</sup><br />
-   | <code>0b</code> [<code>0</code> <code>1</code> <code>_</code>]<sup>+</sup> INTEGER_SUFFIX<sup>?</sup><br />
-   | [<code>0</code>-<code>9</code>][<code>0</code>-<code>9</code> <code>_</code>]<sup>*</sup> INTEGER_SUFFIX<sup>?</sup></p>
+   ( DEC_LITERAL | BIN_LITERAL | OCT_LITERAL | HEX_LITERAL )
+INTEGER_SUFFIX<sup>?</sup></p>
+<p>DEC_LITERAL :<br />
+   DEC_DIGIT (DEC_DIGIT|<code>_</code>)<sup>*</sup></p>
+<p>BIN_LITERAL :<br />
+   <code>0b</code> (BIN_DIGIT|<code>_</code>)<sup>*</sup> BIN_DIGIT (BIN_DIGIT|<code>_</code>)<sup>*</sup></p>
+<p>OCT_LITERAL :<br />
+   <code>0o</code> (OCT_DIGIT|<code>_</code>)<sup>*</sup> OCT_DIGIT (OCT_DIGIT|<code>_</code>)<sup>*</sup></p>
+<p>HEX_LITERAL :<br />
+   <code>0x</code> (HEX_DIGIT|<code>_</code>)<sup>*</sup> HEX_DIGIT (HEX_DIGIT|<code>_</code>)<sup>*</sup></p>
+<p>BIN_DIGIT : [<code>0</code>-<code>1</code> <code>_</code>]<br />
+OCT_DIGIT : [<code>0</code>-<code>7</code> <code>_</code>]<br />
+DEC_DIGIT : [<code>0</code>-<code>9</code> <code>_</code>]<br />
+HEX_DIGIT : [<code>0</code>-<code>9</code> <code>a</code>-<code>f</code> <code>A</code>-<code>F</code> <code>_</code>]</p>
 <p>INTEGER_SUFFIX :<br />
       <code>u8</code> | <code>u16</code> | <code>u32</code> | <code>u64</code> | <code>usize</code><br />
    | <code>i8</code> | <code>u16</code> | <code>i32</code> | <code>i64</code> | <code>usize</code></p>
@@ -598,11 +625,14 @@ INTEGER_LITERAL :<br />
 <li>A <em>decimal literal</em> starts with a <em>decimal digit</em> and continues with any
 mixture of <em>decimal digits</em> and <em>underscores</em>.</li>
 <li>A <em>hex literal</em> starts with the character sequence <code>U+0030</code> <code>U+0078</code>
-(<code>0x</code>) and continues as any mixture of hex digits and underscores.</li>
+(<code>0x</code>) and continues as any mixture (with at least one digit) of hex digits
+and underscores.</li>
 <li>An <em>octal literal</em> starts with the character sequence <code>U+0030</code> <code>U+006F</code>
-(<code>0o</code>) and continues as any mixture of octal digits and underscores.</li>
+(<code>0o</code>) and continues as any mixture (with at least one digit) of octal digits
+and underscores.</li>
 <li>A <em>binary literal</em> starts with the character sequence <code>U+0030</code> <code>U+0062</code>
-(<code>0b</code>) and continues as any mixture of binary digits and underscores.</li>
+(<code>0b</code>) and continues as any mixture (with at least one digit) of binary digits
+and underscores.</li>
 </ul>
 <p>Like any literal, an integer literal may be followed (immediately,
 without any spaces) by an <em>integer suffix</em>, which forcibly sets the
@@ -627,15 +657,46 @@ static type error.</p>
 <p>Examples of integer literals of various forms:</p>
 <pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
 #fn main() {
+123;                               // type i32
 123i32;                            // type i32
 123u32;                            // type u32
 123_u32;                           // type u32
+let a: u64 = 123;                  // type u64
+
+0xff;                              // type i32
 0xff_u8;                           // type u8
+
+0o70;                              // type i32
 0o70_i16;                          // type i16
-0b1111_1111_1001_0000_i32;         // type i32
+
+0b1111_1111_1001_0000;             // type i32
+0b1111_1111_1001_0000i32;          // type i64
+0b________1;                       // type i32
+
 0usize;                            // type usize
 
 #}</code></pre></pre>
+<p>Examples of invalid integer literals:</p>
+<pre><code class="language-rust ignore">// invalid suffixes
+
+0invalidSuffix;
+
+// uses numbers of the wrong base
+
+123AFB43;
+0b0102;
+0o0581;
+
+// integers too big for their type (they overflow)
+
+128_i8;
+256_u8;
+
+// bin, hex and octal literals must have at least one digit
+
+0b_;
+0b____;
+</code></pre>
 <!-- FIXME some examples without the suffix -->
 <!-- FIXME some extreme examples -->
 <!-- FIXME examples of the same number in the 4 bases -->
@@ -647,18 +708,18 @@ a single integer literal.</p>
 <blockquote>
 <p><strong><sup>Lexer</sup></strong><br />
 FLOAT_LITERAL :<br />
-      [<code>0</code>-<code>9</code>][<code>0</code>-<code>9</code> <code>_</code>]<sup>*</sup> <code>.</code> [<code>0</code>-<code>9</code> <code>_</code>]<sup>*</sup><br />
-   | [<code>0</code>-<code>9</code>][<code>0</code>-<code>9</code> <code>_</code>]<sup>*</sup> <code>.</code> [<code>0</code>-<code>9</code> <code>_</code>]<sup>+</sup>
-FLOAT_EXPONENT<sup>?</sup> FLOAT_SUFFIX<br />
-   | [<code>0</code>-<code>9</code>][<code>0</code>-<code>9</code> <code>_</code>]<sup>*</sup> FLOAT_EXPONENT<sup>?</sup>
-FLOAT_SUFFIX<sup>?</sup></p>
+      DEC_LITERAL <code>.</code>
+<em>(not immediately followed by <code>.</code>, <code>_</code> or an identifier</em>)<br />
+   | DEC_LITERAL FLOAT_EXPONENT<br />
+   | DEC_LITERAL <code>.</code> DEC_LITERAL FLOAT_EXPONENT<sup>?</sup><br />
+   | DEC_LITERAL (<code>.</code> DEC_LITERAL)<sup>?</sup>
+FLOAT_EXPONENT<sup>?</sup> FLOAT_SUFFIX</p>
 <p>FLOAT_EXPONENT :<br />
-   (<code>e</code>|<code>E</code>) [<code>0</code>-<code>9</code> <code>_</code>]<sup>+</sup></p>
+   (<code>e</code>|<code>E</code>) (<code>+</code>|<code>-</code>)?
+(DEC_DIGIT|<code>_</code>)<sup>*</sup> DEC_DIGIT (DEC_DIGIT|<code>_</code>)<sup>*</sup></p>
 <p>FLOAT_SUFFIX :<br />
    <code>f32</code> | <code>f64</code></p>
 </blockquote>
-<!-- FIXME: conflict with ranges: `1.` vs `1..2` -->
-<!-- FIXME: conflict with integer+method: `1.` vs `1.add(1)` -->
 <p>A <em>floating-point literal</em> has one of two forms:</p>
 <ul>
 <li>A <em>decimal literal</em> followed by a period character <code>U+002E</code> (<code>.</code>). This is
@@ -1030,7 +1091,7 @@ which sub-item declarations may appear.</p>
    | <code>?</code><sup>?</sup> <em>LateBoundLifetimeDefs</em><sup>?</sup> <a href="types.html#type-path"><em>TypePath</em></a><br />
    | <code>(</code> <code>?</code><sup>?</sup> <em>LateBoundLifetimeDefs</em><sup>?</sup> <a href="types.html#type-path"><em>TypePath</em></a> <code>)</code></p>
 <p><em>LifetimeBounds</em> :<br />
-   <code>:</code> <a href="tokens.html#lifetime-or-label">LIFETIME_OR_LABEL</a> ( <code>+</code> <a href="tokens.html#lifetime-or-label">LIFETIME_OR_LABEL</a> ) <code>+</code><sup>?</sup></p>
+   <code>:</code> <a href="tokens.html#lifetime-or-label">LIFETIME_OR_LABEL</a> ( <code>+</code> <a href="tokens.html#lifetime-or-label">LIFETIME_OR_LABEL</a> )<sup>*</sup> <code>+</code><sup>?</sup></p>
 <p><em>LateBoundLifetimeDefs</em> :<br />
    <code>for</code> <code>&lt;</code> <em>LifetimeParams</em> <code>,</code><sup>?</sup> <code>&gt;</code></p>
 </blockquote>
@@ -1264,7 +1325,7 @@ fn main() {}
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 <a href="print.html#functions"><em>Function</em></a>:<br />
-   <code>unsafe</code><sup>?</sup> (<code>extern</code> Abi<sup>?</sup>)<sup>?</sup> <code>fn</code>
+   <code>const</code><sup>?</sup> <code>unsafe</code><sup>?</sup> (<code>extern</code> Abi<sup>?</sup>)<sup>?</sup> <code>fn</code>
 <a href="identifiers.html">IDENTIFIER</a> <a href="print.html#generics"><em>Generics</em></a><sup>?</sup><br />
       <code>(</code> <em>FunctionParameters</em><sup>?</sup> <code>)</code>
 <em>FunctionReturnType</em><sup>?</sup> <a href="print.html#where-clause"><em>WhereClause</em></a><sup>?</sup><br />
@@ -1541,7 +1602,7 @@ particular layout using the <a href="attributes.html#ffi-attributes"><code>repr<
 <p><em>EnumItemStruct</em> :<br />
    <code>(</code> <a href="print.html#struct-fields"><em>StructFields</em></a><sup>?</sup> <code>)</code></p>
 <p><em>EnumItemWithDiscriminant</em> :<br />
-   <code>=</code> [<em>Expression</em>]</p>
+   <code>=</code> <a href="expressions.html"><em>Expression</em></a></p>
 </blockquote>
 <p>An <em>enumeration</em> is a simultaneous definition of a nominal <a href="types.html#enumerated-types">enumerated type</a> as
 well as a set of <em>constructors</em>, that can be used to create or pattern-match
@@ -1741,7 +1802,8 @@ in <a href="https://github.com/rust-lang/rfcs/pull/1897">RFC 1897 &quot;Unions v
 <a class="header" href="print.html#constant-items" id="constant-items"><h2>Constant items</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-<a href="print.html#constant-items"><em>ConstantItem</em></a> : FIXME <code>const</code></p>
+<a href="print.html#constant-items"><em>ConstantItem</em></a> :<br />
+   <code>const</code> <a href="identifiers.html">IDENTIFIER</a> <code>:</code> <a href="types.html#type"><em>Type</em></a> <code>=</code> <a href="expressions.html"><em>Expression</em></a></p>
 </blockquote>
 <p>A <em>constant item</em> is a named <em><a href="expressions.html#constant-expressions">constant value</a></em> which is not associated with a
 specific memory location in the program. Constants are essentially inlined
@@ -1779,7 +1841,8 @@ const BITS_N_STRINGS: BitsNStrings&lt;'static&gt; = BitsNStrings {
 <a class="header" href="print.html#static-items" id="static-items"><h2>Static items</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-<a href="print.html#static-items"><em>StaticItem</em></a> : FIXME</p>
+<a href="print.html#static-items"><em>StaticItem</em></a> :<br />
+   <code>static</code> <code>mut</code>? <a href="identifiers.html">IDENTIFIER</a> <code>:</code> <a href="types.html#type"><em>Type</em></a> <code>=</code> <a href="expressions.html"><em>Expression</em></a> <code>;</code></p>
 </blockquote>
 <p>A <em>static item</em> is similar to a <em>constant</em>, except that it represents a precise
 memory location in the program. A static is never &quot;inlined&quot; at the usage site,
@@ -6325,8 +6388,8 @@ KW_YIELD          : <code>yield</code></p>
 <a class="header" href="print.html#identifiers-1" id="identifiers-1"><h3>Identifiers</h3></a>
 <blockquote>
 <p>IDENTIFIER :<br />
-      XID_start XID_continue<sup>*</sup><br />
-   | <code>_</code> XID_continue<sup>+</sup></p>
+      [<code>a</code>-<code>z</code> <code>A</code>-<code>Z</code>] [<code>a</code>-<code>z</code> <code>A</code>-<code>Z</code> <code>0</code>-<code>9</code> <code>_</code>]<sup>*</sup><br />
+   | <code>_</code> [<code>a</code>-<code>z</code> <code>A</code>-<code>Z</code> <code>0</code>-<code>9</code> <code>_</code>]<sup>+</sup></p>
 </blockquote>
 <a class="header" href="print.html#comments-1" id="comments-1"><h3>Comments</h3></a>
 <blockquote>
@@ -6338,13 +6401,13 @@ KW_YIELD          : <code>yield</code></p>
 (<em>BlockCommentOrDoc</em> | ~<code>*/</code>)<sup>*</sup> <code>*/</code><br />
    | <code>/**/</code><br />
    | <code>/***/</code></p>
-<p>OUTER_LINE_DOC :<br />
-   <code>//!</code> ~[<code>\n</code> <em>IsolatedCR</em>]<sup>*</sup></p>
-<p>OUTER_BLOCK_DOC :<br />
-   <code>/*!</code> ( <em>BlockCommentOrDoc</em> | ~[<code>*/</code> <em>IsolatedCR</em>] )<sup>*</sup> <code>*/</code></p>
 <p>INNER_LINE_DOC :<br />
-   <code>///</code> (~<code>/</code> ~[<code>\n</code> <em>IsolatedCR</em>]<sup>*</sup>)<sup>?</sup></p>
+   <code>//!</code> ~[<code>\n</code> <em>IsolatedCR</em>]<sup>*</sup></p>
 <p>INNER_BLOCK_DOC :<br />
+   <code>/*!</code> ( <em>BlockCommentOrDoc</em> | ~[<code>*/</code> <em>IsolatedCR</em>] )<sup>*</sup> <code>*/</code></p>
+<p>OUTER_LINE_DOC :<br />
+   <code>///</code> (~<code>/</code> ~[<code>\n</code> <em>IsolatedCR</em>]<sup>*</sup>)<sup>?</sup></p>
+<p>OUTER_BLOCK_DOC :<br />
    <code>/**</code> (~<code>*</code> | <em>BlockCommentOrDoc</em> )
 (<em>BlockCommentOrDoc</em> | ~[<code>*/</code> <em>IsolatedCR</em>])<sup>*</sup> <code>*/</code></p>
 <p><em>BlockCommentOrDoc</em> :<br />
@@ -6364,23 +6427,9 @@ KW_YIELD          : <code>yield</code></p>
 <p><strong>FIXME</strong></p>
 <p><strong>FIXME</strong></p>
 <p>INTEGER_LITERAL :<br />
-      <code>0x</code> [<code>0</code>-<code>9</code> <code>a</code>-<code>f</code> <code>A</code>-<code>F</code> <code>_</code>]<sup>+</sup> INTEGER_SUFFIX<sup>?</sup><br />
-   | <code>0o</code> [<code>0</code>-<code>7</code> <code>_</code>]<sup>+</sup> INTEGER_SUFFIX<sup>?</sup><br />
-   | <code>0b</code> [<code>0</code> <code>1</code> <code>_</code>]<sup>+</sup> INTEGER_SUFFIX<sup>?</sup><br />
-   | [<code>0</code>-<code>9</code>][<code>0</code>-<code>9</code> <code>_</code>]<sup>*</sup> INTEGER_SUFFIX<sup>?</sup></p>
-<p>INTEGER_SUFFIX :<br />
-      <code>u8</code> | <code>u16</code> | <code>u32</code> | <code>u64</code> | <code>usize</code><br />
-   | <code>i8</code> | <code>u16</code> | <code>i32</code> | <code>i64</code> | <code>usize</code></p>
+   ( DEC_LITERAL | BIN_LITERAL | OCT_LITERAL | HEX_LITERAL )</p>
 <p>FLOAT_LITERAL :<br />
-      [<code>0</code>-<code>9</code>][<code>0</code>-<code>9</code> <code>_</code>]<sup>*</sup> <code>.</code> [<code>0</code>-<code>9</code> <code>_</code>]<sup>*</sup><br />
-   | [<code>0</code>-<code>9</code>][<code>0</code>-<code>9</code> <code>_</code>]<sup>*</sup> <code>.</code> [<code>0</code>-<code>9</code> <code>_</code>]<sup>+</sup>
-FLOAT_EXPONENT<sup>?</sup> FLOAT_SUFFIX<br />
-   | [<code>0</code>-<code>9</code>][<code>0</code>-<code>9</code> <code>_</code>]<sup>*</sup> FLOAT_EXPONENT<sup>?</sup>
-FLOAT_SUFFIX<sup>?</sup></p>
-<p>FLOAT_EXPONENT :<br />
-   (<code>e</code>|<code>E</code>) [<code>0</code>-<code>9</code> <code>_</code>]<sup>+</sup></p>
-<p>FLOAT_SUFFIX :<br />
-   <code>f32</code> | <code>f64</code></p>
+      DEC_LITERAL <code>.</code></p>
 <p>BOOLEAN_LITERAL :<br />
       <code>true</code><br />
    | <code>false</code></p>
@@ -6471,7 +6520,7 @@ SHEBANG : <code>#!</code> ~[<code>[</code> <code>\n</code>] ~<code>\n</code><sup
    | <code>?</code><sup>?</sup> <em>LateBoundLifetimeDefs</em><sup>?</sup> [<em>TypePath</em>]<br />
    | <code>(</code> <code>?</code><sup>?</sup> <em>LateBoundLifetimeDefs</em><sup>?</sup> [<em>TypePath</em>] <code>)</code></p>
 <p><em>LifetimeBounds</em> :<br />
-   <code>:</code> [LIFETIME_OR_LABEL] ( <code>+</code> [LIFETIME_OR_LABEL] ) <code>+</code><sup>?</sup></p>
+   <code>:</code> [LIFETIME_OR_LABEL] ( <code>+</code> [LIFETIME_OR_LABEL] )<sup>*</sup> <code>+</code><sup>?</sup></p>
 <p><em>LateBoundLifetimeDefs</em> :<br />
    <code>for</code> <code>&lt;</code> <em>LifetimeParams</em> <code>,</code><sup>?</sup> <code>&gt;</code></p>
 <p>[<em>WhereClause</em>] :<a name="where-clause"></a><br />
@@ -6504,7 +6553,7 @@ SHEBANG : <code>#!</code> ~[<code>[</code> <code>\n</code>] ~<code>\n</code><sup
    ( <code>self</code> | [IDENTIFIER] (<code>as</code> [IDENTIFIER] )<sup>?</sup> )
 ( <code>,</code> <em>UseItems</em> )<sup>?<sup></p>
 <p>[<em>Function</em>]:<br />
-   <code>unsafe</code><sup>?</sup> (<code>extern</code> Abi<sup>?</sup>)<sup>?</sup> <code>fn</code>
+   <code>const</code><sup>?</sup> <code>unsafe</code><sup>?</sup> (<code>extern</code> Abi<sup>?</sup>)<sup>?</sup> <code>fn</code>
 [IDENTIFIER] [<em>Generics</em>]<sup>?</sup><br />
       <code>(</code> <em>FunctionParameters</em><sup>?</sup> <code>)</code>
 <em>FunctionReturnType</em><sup>?</sup> [<em>WhereClause</em>]<sup>?</sup><br />
@@ -6570,8 +6619,10 @@ SHEBANG : <code>#!</code> ~[<code>[</code> <code>\n</code>] ~<code>\n</code><sup
 <p>[<em>Union</em>] :<br />
    <code>union</code> [<em>Generics</em>]<sup>?</sup> [<em>WhereClause</em>]<sup>?</sup>
 <code>{</code>[<em>StructFields</em>] <code>}</code></p>
-<p>[<em>ConstantItem</em>] : FIXME <code>const</code></p>
-<p>[<em>StaticItem</em>] : FIXME</p>
+<p>[<em>ConstantItem</em>] :<br />
+   <code>const</code> [IDENTIFIER] <code>:</code> [<em>Type</em>] <code>=</code> [<em>Expression</em>]</p>
+<p>[<em>StaticItem</em>] :<br />
+   <code>static</code> <code>mut</code>? [IDENTIFIER] <code>:</code> [<em>Type</em>] <code>=</code> [<em>Expression</em>] <code>;</code></p>
 <p><em>Trait</em> :<br />
    <code>unsafe</code><sup>?</sup><br />
    <code>trait</code> [<em>Identifier</em>]<br />

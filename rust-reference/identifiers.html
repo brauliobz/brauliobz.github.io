@@ -72,10 +72,30 @@
 <blockquote>
 <p><strong><sup>Lexer:<sup></strong><br />
 IDENTIFIER :<br />
+      [<code>a</code>-<code>z</code> <code>A</code>-<code>Z</code>] [<code>a</code>-<code>z</code> <code>A</code>-<code>Z</code> <code>0</code>-<code>9</code> <code>_</code>]<sup>*</sup><br />
+   | <code>_</code> [<code>a</code>-<code>z</code> <code>A</code>-<code>Z</code> <code>0</code>-<code>9</code> <code>_</code>]<sup>+</sup></p>
+</blockquote>
+<p>An identifier is any nonempty ASCII<sup class="footnote-reference"><a href="identifiers.html#non_ascii_idents">1</a></sup> string of the following form:</p>
+<p>Either</p>
+<ul>
+<li>The first character is a letter</li>
+<li>The remaining characters are alphanumeric or <code>_</code></li>
+</ul>
+<p>Or</p>
+<ul>
+<li>The first character is <code>_</code></li>
+<li>The identifier is more than one character, <code>_</code> alone is not an identifier</li>
+<li>The remaining characters are alphanumeric or <code>_</code></li>
+</ul>
+<p><sup class="footnote-reference"><a href="identifiers.html#non_ascii_idents">1</a></sup> Non-ASCII characters in identifiers are currently feature-gated. See <a href="https://github.com/rust-lang/rust/issues/28979">issue #28979</a>.</p>
+<!-- When non-ascii identifiers are actually supported:
+<blockquote>
+<p><strong><sup>Lexer:<sup></strong><br />
+IDENTIFIER :<br />
       XID_start XID_continue<sup>*</sup><br />
    | <code>_</code> XID_continue<sup>+</sup></p>
 </blockquote>
-<p>An identifier is any nonempty Unicode<sup class="footnote-reference"><a href="identifiers.html#non_ascii_idents">1</a></sup> string of the following form:</p>
+<p>An identifier is any nonempty Unicode string of the following form:</p>
 <p>Either</p>
 <ul>
 <li>The first character has property <a href="http://unicode.org/cldr/utility/list-unicodeset.jsp?a=%5B%3AXID_Start%3A%5D&amp;abb=on&amp;g=&amp;i="><code>XID_start</code></a></li>
@@ -93,10 +113,7 @@ IDENTIFIER :<br />
 character ranges used to form the more familiar C and Java language-family
 identifiers.</p>
 </blockquote>
-<div class="footnote-definition" id="non_ascii_idents"><sup class="footnote-definition-label">1</sup>
-<p>Non-ASCII characters in identifiers are currently feature
-gated. This is expected to improve soon.</p>
-</div>
+<p>--&gt;</p>
 
                 </div>
 
