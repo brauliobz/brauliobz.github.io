@@ -171,9 +171,35 @@ KW_YIELD          : <code>yield</code></p>
 <p><strong>FIXME</strong></p>
 <p><strong>FIXME</strong></p>
 <p>INTEGER_LITERAL :<br />
-   ( DEC_LITERAL | BIN_LITERAL | OCT_LITERAL | HEX_LITERAL )</p>
+   ( DEC_LITERAL | BIN_LITERAL | OCT_LITERAL | HEX_LITERAL )
+INTEGER_SUFFIX<sup>?</sup></p>
+<p>DEC_LITERAL :<br />
+   DEC_DIGIT (DEC_DIGIT|<code>_</code>)<sup>*</sup></p>
+<p>BIN_LITERAL :<br />
+   <code>0b</code> (BIN_DIGIT|<code>_</code>)<sup>*</sup> BIN_DIGIT (BIN_DIGIT|<code>_</code>)<sup>*</sup></p>
+<p>OCT_LITERAL :<br />
+   <code>0o</code> (OCT_DIGIT|<code>_</code>)<sup>*</sup> OCT_DIGIT (OCT_DIGIT|<code>_</code>)<sup>*</sup></p>
+<p>HEX_LITERAL :<br />
+   <code>0x</code> (HEX_DIGIT|<code>_</code>)<sup>*</sup> HEX_DIGIT (HEX_DIGIT|<code>_</code>)<sup>*</sup></p>
+<p>BIN_DIGIT : [<code>0</code>-<code>1</code> <code>_</code>]<br />
+OCT_DIGIT : [<code>0</code>-<code>7</code> <code>_</code>]<br />
+DEC_DIGIT : [<code>0</code>-<code>9</code> <code>_</code>]<br />
+HEX_DIGIT : [<code>0</code>-<code>9</code> <code>a</code>-<code>f</code> <code>A</code>-<code>F</code> <code>_</code>]</p>
+<p>INTEGER_SUFFIX :<br />
+      <code>u8</code> | <code>u16</code> | <code>u32</code> | <code>u64</code> | <code>usize</code><br />
+   | <code>i8</code> | <code>u16</code> | <code>i32</code> | <code>i64</code> | <code>usize</code></p>
 <p>FLOAT_LITERAL :<br />
-      DEC_LITERAL <code>.</code></p>
+      DEC_LITERAL <code>.</code>
+<em>(not immediately followed by <code>.</code>, <code>_</code> or an identifier</em>)<br />
+   | DEC_LITERAL FLOAT_EXPONENT<br />
+   | DEC_LITERAL <code>.</code> DEC_LITERAL FLOAT_EXPONENT<sup>?</sup><br />
+   | DEC_LITERAL (<code>.</code> DEC_LITERAL)<sup>?</sup>
+FLOAT_EXPONENT<sup>?</sup> FLOAT_SUFFIX</p>
+<p>FLOAT_EXPONENT :<br />
+   (<code>e</code>|<code>E</code>) (<code>+</code>|<code>-</code>)?
+(DEC_DIGIT|<code>_</code>)<sup>*</sup> DEC_DIGIT (DEC_DIGIT|<code>_</code>)<sup>*</sup></p>
+<p>FLOAT_SUFFIX :<br />
+   <code>f32</code> | <code>f64</code></p>
 <p>BOOLEAN_LITERAL :<br />
       <code>true</code><br />
    | <code>false</code></p>
@@ -623,38 +649,61 @@ FIXME include shorthand?</p>
 </blockquote>
 <a class="header" href="grammar.html#patterns" id="patterns"><h3>Patterns</h3></a>
 <blockquote>
-<p><em>Pattern</em> :<br />
-      [<em>WildcardPattern</em>]<br />
+<p><em>Pattern</em> :<a name="pattern-syntax"></a><br />
+      [<em>LiteralPattern</em>]<br />
+   | [<em>WildcardPattern</em>]<br />
+   | [<em>RangePattern</em>]<br />
    | [<em>ReferencePattern</em>]<br />
+   | [<em>IdentifierPattern</em>]<br />
+   | [<em>BoxPattern</em>]<br />
    | [<em>StructPattern</em>]<br />
+   | [<em>TuplePattern</em>]<br />
    | [<em>TupleStructPattern</em>]<br />
    | [<em>SlicePattern</em>]<br />
-   | [<em>IdentifierPattern</em>]<br />
-   | [<em>PathPattern</em>]<br />
-   | [<em>LiteralPattern</em>]<br />
-   | [<em>RangePattern</em>]<br />
-   | [<em>BoxPattern</em>]</p>
-<p><em>WildcardPattern</em> :<br />
+   | [<em>PathPattern</em>]</p>
+<p><em>LiteralPattern</em> :<a name="literal-pattern-syntax"></a><br />
+      LITERAL<br />
+   | <code>-</code> LITERAL</p>
+<p><em>WildcardPattern</em> :<a name="wildcard-pattern-syntax"></a><br />
    <code>_</code></p>
-<p><em>ReferencePattern</em> :<br />
+<p><em>RangePattern</em> :<a name="reference-pattern-syntax"></a><br />
+   <strong>FIXME</strong></p>
+<p><em>ReferencePattern</em> :<a name="reference-pattern-syntax"></a><br />
       (<code>&amp;</code>|<code>&amp;&amp;</code>) <em>Pattern</em><br />
    | (<code>&amp;</code>|<code>&amp;&amp;</code>) <em>Mutability</em> <em>Pattern</em></p>
-<p><em>TupleStructPattern</em> :<br />
-   <strong>FIXME</strong></p>
-<p><em>SlicePattern</em> :<br />
-   <strong>FIXME</strong></p>
-<p>_IdentifierPattern :<br />
+<p>_IdentifierPattern :<a name="identifier-pattern-syntax"></a><br />
       <code>mut</code> IDENTIFIER<br />
    | <code>mut</code> IDENTIFIER <code>@</code> <em>Pattern</em><br />
    | <code>ref</code> IDENTIFIER <code>@</code> <em>Pattern</em></p>
-<p><em>PathPattern</em> :<br />
+<p><em>BoxPattern</em> :<a name="box-pattern-syntax"></a><br />
+   <code>box</code> <strong>FIXME</strong></p>
+<p><em>StructPattern</em> :<a name="struct-pattern-syntax"></a><br />
+   <em>Path</em> <code>{</code><br />
+      <em>StructPatternElements</em> <sup>?</sup><br />
+   <code>}</code></p>
+<p><em>StructPatternElements</em> :<br />
+      <em>StructPatternFields</em> (<code>,</code> <em>StructPatternEtCetera</em>) ?<br />
+   | <em>StructPatternEtCetera</em></p>
+<p><em>StructPatternFields</em> :<br />
+   <em>StructPatternField</em> (<code>,</code> <em>StructPatternField</em>) <sup>*</sup></p>
+<p><em>StructPatternField</em> :<br />
+   <em>OuterAttribute</em> <sup>*</sup><br />
+   (<br />
+         INTEGER_LITERAL <code>:</code> [<em>Pattern</em>]<br />
+      | IDENTIFIER <code>:</code> [<em>Pattern</em>]<br />
+      | <code>box</code><sup>?</sup> <code>ref</code><sup>?</sup> <code>mut</code><sup>?</sup>
+IDENTIFIER<br />
+   )</p>
+<p><em>StructPatternEtCetera</em> :<br />
+   <em>OuterAttribute</em> <sup>*</sup><br />
+   <code>..</code></p>
+<p><em>TupleStructPattern</em> :<a name="tuplestruct-pattern-syntax"></a><br />
    <strong>FIXME</strong></p>
-<p><em>LiteralPattern</em> :<br />
-      LITERAL<br />
-   | <code>-</code> LITERAL</p>
-<p><em>RangePattern</em> :<br />
+<p><em>TuplePattern</em> :<a name="tuple-pattern-syntax"></a><br />
    <strong>FIXME</strong></p>
-<p><em>BoxPattern</em> :<br />
+<p><em>SlicePattern</em> :<a name="slice-pattern-syntax"></a><br />
+   <strong>FIXME</strong></p>
+<p><em>PathPattern</em> :<a name="path-pattern-syntax"></a><br />
    <strong>FIXME</strong></p>
 </blockquote>
 <a class="header" href="grammar.html#types" id="types"><h3>Types</h3></a>

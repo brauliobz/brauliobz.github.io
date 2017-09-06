@@ -5001,19 +5001,29 @@ fn bar() {
 <a class="header" href="print.html#patterns" id="patterns"><h1>Patterns</h1></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-<em>Pattern</em> :<br />
-      <a href="print.html#wildcard-pattern"><em>WildcardPattern</em></a><br />
-   | <a href="print.html#reference-patterns"><em>ReferencePattern</em></a><br />
-   | <a href="print.html#struct-patterns"><em>StructPattern</em></a><br />
-   | <a href="print.html#tuplestruct-patterns"><em>TupleStructPattern</em></a><br />
-   | <a href="print.html#slice-patterns"><em>SlicePattern</em></a><br />
-   | <a href="print.html#identifier-patterns"><em>IdentifierPattern</em></a><br />
-   | <a href="print.html#path-patterns"><em>PathPattern</em></a><br />
-   | <a href="print.html#literal-patterns"><em>LiteralPattern</em></a><br />
-   | <a href="print.html#range-patterns"><em>RangePattern</em></a><br />
-   | <a href="print.html#box-pattern"><em>BoxPattern</em></a></p>
+<em>Pattern</em> :<a name="pattern-syntax"></a><br />
+      <a href="print.html#literal-pattern-syntax"><em>LiteralPattern</em></a><br />
+   | <a href="print.html#wildcard-pattern-syntax"><em>WildcardPattern</em></a><br />
+   | <a href="print.html#range-pattern-syntax"><em>RangePattern</em></a><br />
+   | <a href="print.html#reference-pattern-syntax"><em>ReferencePattern</em></a><br />
+   | <a href="print.html#identifier-pattern-syntax"><em>IdentifierPattern</em></a><br />
+   | <a href="print.html#box-pattern-syntax"><em>BoxPattern</em></a><br />
+   | <a href="print.html#struct-pattern-syntax"><em>StructPattern</em></a><br />
+   | <a href="print.html#tuple-pattern-syntax"><em>TuplePattern</em></a><br />
+   | <a href="print.html#tuplestruct-pattern-syntax"><em>TupleStructPattern</em></a><br />
+   | <a href="print.html#slice-pattern-syntax"><em>SlicePattern</em></a><br />
+   | <a href="print.html#path-pattern-syntax"><em>PathPattern</em></a></p>
 </blockquote>
 <!-- FIXME: pattern introduction -->
+<p>Patterns can be used in:</p>
+<ul>
+<li>Let declarations</li>
+<li>Match expressions</li>
+<li>If let expressions</li>
+<li>While let expressions</li>
+<li>Function parameters</li>
+<li>Inside other patterns</li>
+</ul>
 <!-- FIXME: pattern main uses (functions, match, let, if let, while let, etc.) -->
 <a class="header" href="print.html#destructuring" id="destructuring"><h2>Destructuring</h2></a>
 <p>Patterns can be used to <em>destructure</em> structs, enums, and tuples. Destructuring
@@ -5050,21 +5060,70 @@ match message {
 <!-- FIXME: ignoring multiple values: .. -->
 <!-- FIXME: binding: @ -->
 <!-- FIXME: guards: _Pattern_ `if` _Expression_ -->
+<a class="header" href="print.html#literal-patterns" id="literal-patterns"><h2>Literal patterns</h2></a>
+<blockquote>
+<p><strong><sup>Syntax</sup></strong><br />
+<em>LiteralPattern</em> :<a name="literal-pattern-syntax"></a><br />
+      LITERAL<br />
+   | <code>-</code> LITERAL</p>
+</blockquote>
+<p>Literal patterns match exactly the value they represent.</p>
+<p>For example, this loop:</p>
+<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+#fn main() {
+for i in -2..5 {
+    match i {
+        -1 =&gt; println!(&quot;It's minus one&quot;),
+        1 =&gt; println!(&quot;It's a one&quot;),
+        2|4 =&gt; println!(&quot;It's either a two or a four&quot;),
+        _ =&gt; println!(&quot;Matched none of the arms&quot;),
+    }
+}
+
+#}</code></pre></pre>
+<p>prints</p>
+<pre><code class="language-text">Matched none of the arms
+It's minus one
+Matched none of the arms
+It's a one
+It's either a two or a four
+Matched none of the arms
+It's either a two or a four
+</code></pre>
+<!-- FIXME float points are accepted, but are being deprecated -->
 <a class="header" href="print.html#wildcard-pattern" id="wildcard-pattern"><h2>Wildcard pattern</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-<em>WildcardPattern</em> :<br />
+<em>WildcardPattern</em> :<a name="wildcard-pattern-syntax"></a><br />
    <code>_</code></p>
 </blockquote>
-<!-- FIXME: explain wildcard patterns -->
+<!-- FIXME explain the wildcard pattern -->
+<p>The <em>wildcard pattern</em> means any value or the value does not matter.</p>
+<!-- FIXME where can it be used? -->
+<!-- FIXME examples -->
+<a class="header" href="print.html#range-patterns" id="range-patterns"><h2>Range patterns</h2></a>
+<blockquote>
+<p><strong><sup>Syntax</sup></strong><br />
+<em>RangePattern</em> :<a name="reference-pattern-syntax"></a><br />
+   <strong>FIXME</strong></p>
+</blockquote>
+<!-- FIXME: explain range patterns -->
+<p>Range patterns match ...</p>
+<p>Range patterns only work on scalar types (like integers and characters; not
+like arrays and structs, which have sub-components). A range pattern may not be
+a sub-range of another range pattern inside the same <code>match</code>.</p>
+<!-- FIXME examples -->
+<!-- which types can be used here? -->
+<!-- FIXME floating point literals use here is being deprecated -->
 <a class="header" href="print.html#reference-patterns" id="reference-patterns"><h2>Reference patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-<em>ReferencePattern</em> :<br />
+<em>ReferencePattern</em> :<a name="reference-pattern-syntax"></a><br />
       (<code>&amp;</code>|<code>&amp;&amp;</code>) <em>Pattern</em><br />
    | (<code>&amp;</code>|<code>&amp;&amp;</code>) <em>Mutability</em> <em>Pattern</em></p>
 </blockquote>
 <!-- FIXME: explain reference patterns  -->
+<!-- FIXME: explain why the `&&` is part of the grammar -->
 <p>Patterns can also dereference pointers by using the <code>&amp;</code>, <code>&amp;mut</code> and <code>box</code>
 symbols, as appropriate. For example, these two matches on <code>x: &amp;i32</code> are
 equivalent:</p>
@@ -5077,28 +5136,10 @@ let z = match x { &amp;0 =&gt; &quot;zero&quot;, _ =&gt; &quot;some&quot; };
 assert_eq!(y, z);
 
 #}</code></pre></pre>
-<a class="header" href="print.html#struct-patterns" id="struct-patterns"><h2>Struct patterns</h2></a>
-<!-- FIXME: explain struct patterns -->
-<!-- FIXME: destructuring patterns -->
-<a class="header" href="print.html#tuplestruct-patterns" id="tuplestruct-patterns"><h2>TupleStruct patterns</h2></a>
-<blockquote>
-<p><strong><sup>Syntax</sup></strong><br />
-<em>TupleStructPattern</em> :<br />
-   <strong>FIXME</strong></p>
-</blockquote>
-<!-- FIXME: explain tuple patterns -->
-<!-- FIXME: includes enum variants? -->
-<a class="header" href="print.html#slice-patterns" id="slice-patterns"><h2>Slice patterns</h2></a>
-<blockquote>
-<p><strong><sup>Syntax</sup></strong><br />
-<em>SlicePattern</em> :<br />
-   <strong>FIXME</strong></p>
-</blockquote>
-<!-- FIXME: explain slice patterns -->
 <a class="header" href="print.html#identifier-patterns" id="identifier-patterns"><h2>Identifier patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-_IdentifierPattern :<br />
+_IdentifierPattern :<a name="identifier-pattern-syntax"></a><br />
       <code>mut</code> IDENTIFIER<br />
    | <code>mut</code> IDENTIFIER <code>@</code> <em>Pattern</em><br />
    | <code>ref</code> IDENTIFIER <code>@</code> <em>Pattern</em></p>
@@ -5119,39 +5160,72 @@ match x {
 matched value (depending on the matched value's type). This can be changed to
 bind to a reference by using the <code>ref</code> keyword, or to a mutable reference using
 <code>ref mut</code>.</p>
-<a class="header" href="print.html#path-patterns" id="path-patterns"><h2>Path patterns</h2></a>
-<blockquote>
-<p><strong><sup>Syntax</sup></strong><br />
-<em>PathPattern</em> :<br />
-   <strong>FIXME</strong></p>
-</blockquote>
-<!-- FIXME: explain paths in patterns -->
-<a class="header" href="print.html#literal-patterns" id="literal-patterns"><h2>Literal patterns</h2></a>
-<blockquote>
-<p><strong><sup>Syntax</sup></strong><br />
-<em>LiteralPattern</em> :<br />
-      LITERAL<br />
-   | <code>-</code> LITERAL</p>
-</blockquote>
-<!-- FIXME: explain literal patterns -->
-<a class="header" href="print.html#range-patterns" id="range-patterns"><h2>Range patterns</h2></a>
-<blockquote>
-<p><strong><sup>Syntax</sup></strong><br />
-<em>RangePattern</em> :<br />
-   <strong>FIXME</strong></p>
-</blockquote>
-<!-- FIXME: explain range patterns -->
-<p>Range patterns only work on scalar types (like integers and characters; not
-like arrays and structs, which have sub-components). A range pattern may not be
-a sub-range of another range pattern inside the same <code>match</code>.</p>
+<!-- explain the difference between `& var` and `ref var` in patterns -->
 <a class="header" href="print.html#box-pattern" id="box-pattern"><h2>Box pattern</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-<em>BoxPattern</em> :<br />
-   <strong>FIXME</strong></p>
+<em>BoxPattern</em> :<a name="box-pattern-syntax"></a><br />
+   <code>box</code> <strong>FIXME</strong></p>
 </blockquote>
 <!-- FIXME: explain box patterns -->
-<!-- FIXME: find out whether they're not stable -->
+<!-- FIXME: they're not stable -->
+<a class="header" href="print.html#struct-patterns" id="struct-patterns"><h2>Struct patterns</h2></a>
+<blockquote>
+<p><strong><sup>Syntax</sup></strong><br />
+<em>StructPattern</em> :<a name="struct-pattern-syntax"></a><br />
+   <em>Path</em> <code>{</code><br />
+      <em>StructPatternElements</em> <sup>?</sup><br />
+   <code>}</code></p>
+<p><em>StructPatternElements</em> :<br />
+      <em>StructPatternFields</em> (<code>,</code> <em>StructPatternEtCetera</em>) <sup>?</sup><br />
+   | <em>StructPatternEtCetera</em></p>
+<p><em>StructPatternFields</em> :<br />
+   <em>StructPatternField</em> (<code>,</code> <em>StructPatternField</em>) <sup>*</sup></p>
+<p><em>StructPatternField</em> :<br />
+   <em>OuterAttribute</em> <sup>*</sup><br />
+   (<br />
+         INTEGER_LITERAL <code>:</code> <a href="print.html#pattern-syntax"><em>Pattern</em></a><br />
+      | IDENTIFIER <code>:</code> <a href="print.html#pattern-syntax"><em>Pattern</em></a><br />
+      | <code>box</code><sup>?</sup> <code>ref</code><sup>?</sup> <code>mut</code><sup>?</sup>
+IDENTIFIER<br />
+   )</p>
+<p><em>StructPatternEtCetera</em> :<br />
+   <em>OuterAttribute</em> <sup>*</sup><br />
+   <code>..</code></p>
+</blockquote>
+<!-- FIXME: explain struct patterns -->
+<!-- FIXME: destructuring patterns -->
+<p>Struct patterns match ...</p>
+<a class="header" href="print.html#tuplestruct-patterns" id="tuplestruct-patterns"><h2>TupleStruct patterns</h2></a>
+<blockquote>
+<p><strong><sup>Syntax</sup></strong><br />
+<em>TupleStructPattern</em> :<a name="tuplestruct-pattern-syntax"></a><br />
+   <strong>FIXME</strong></p>
+</blockquote>
+<!-- FIXME: explain tuple struct patterns -->
+<!-- FIXME: includes enum variants? Yes! -->
+<a class="header" href="print.html#tuple-patterns" id="tuple-patterns"><h2>Tuple patterns</h2></a>
+<blockquote>
+<p><strong><sup>Syntax</sup></strong><br />
+<em>TuplePattern</em> :<a name="tuple-pattern-syntax"></a><br />
+   <strong>FIXME</strong></p>
+</blockquote>
+<!-- FIXME: explain tuple patterns -->
+<a class="header" href="print.html#slice-patterns" id="slice-patterns"><h2>Slice patterns</h2></a>
+<blockquote>
+<p><strong><sup>Syntax</sup></strong><br />
+<em>SlicePattern</em> :<a name="slice-pattern-syntax"></a><br />
+   <strong>FIXME</strong></p>
+</blockquote>
+<!-- FIXME: explain slice patterns -->
+<!-- FIXME: this is not stable -->
+<a class="header" href="print.html#path-patterns" id="path-patterns"><h2>Path patterns</h2></a>
+<blockquote>
+<p><strong><sup>Syntax</sup></strong><br />
+<em>PathPattern</em> :<a name="path-pattern-syntax"></a><br />
+   <strong>FIXME</strong></p>
+</blockquote>
+<!-- FIXME: explain paths in patterns -->
 <a class="header" href="print.html#type-system" id="type-system"><h1>Type system</h1></a>
 <a class="header" href="print.html#types" id="types"><h1>Types</h1></a>
 <blockquote>
@@ -6427,9 +6501,35 @@ KW_YIELD          : <code>yield</code></p>
 <p><strong>FIXME</strong></p>
 <p><strong>FIXME</strong></p>
 <p>INTEGER_LITERAL :<br />
-   ( DEC_LITERAL | BIN_LITERAL | OCT_LITERAL | HEX_LITERAL )</p>
+   ( DEC_LITERAL | BIN_LITERAL | OCT_LITERAL | HEX_LITERAL )
+INTEGER_SUFFIX<sup>?</sup></p>
+<p>DEC_LITERAL :<br />
+   DEC_DIGIT (DEC_DIGIT|<code>_</code>)<sup>*</sup></p>
+<p>BIN_LITERAL :<br />
+   <code>0b</code> (BIN_DIGIT|<code>_</code>)<sup>*</sup> BIN_DIGIT (BIN_DIGIT|<code>_</code>)<sup>*</sup></p>
+<p>OCT_LITERAL :<br />
+   <code>0o</code> (OCT_DIGIT|<code>_</code>)<sup>*</sup> OCT_DIGIT (OCT_DIGIT|<code>_</code>)<sup>*</sup></p>
+<p>HEX_LITERAL :<br />
+   <code>0x</code> (HEX_DIGIT|<code>_</code>)<sup>*</sup> HEX_DIGIT (HEX_DIGIT|<code>_</code>)<sup>*</sup></p>
+<p>BIN_DIGIT : [<code>0</code>-<code>1</code> <code>_</code>]<br />
+OCT_DIGIT : [<code>0</code>-<code>7</code> <code>_</code>]<br />
+DEC_DIGIT : [<code>0</code>-<code>9</code> <code>_</code>]<br />
+HEX_DIGIT : [<code>0</code>-<code>9</code> <code>a</code>-<code>f</code> <code>A</code>-<code>F</code> <code>_</code>]</p>
+<p>INTEGER_SUFFIX :<br />
+      <code>u8</code> | <code>u16</code> | <code>u32</code> | <code>u64</code> | <code>usize</code><br />
+   | <code>i8</code> | <code>u16</code> | <code>i32</code> | <code>i64</code> | <code>usize</code></p>
 <p>FLOAT_LITERAL :<br />
-      DEC_LITERAL <code>.</code></p>
+      DEC_LITERAL <code>.</code>
+<em>(not immediately followed by <code>.</code>, <code>_</code> or an identifier</em>)<br />
+   | DEC_LITERAL FLOAT_EXPONENT<br />
+   | DEC_LITERAL <code>.</code> DEC_LITERAL FLOAT_EXPONENT<sup>?</sup><br />
+   | DEC_LITERAL (<code>.</code> DEC_LITERAL)<sup>?</sup>
+FLOAT_EXPONENT<sup>?</sup> FLOAT_SUFFIX</p>
+<p>FLOAT_EXPONENT :<br />
+   (<code>e</code>|<code>E</code>) (<code>+</code>|<code>-</code>)?
+(DEC_DIGIT|<code>_</code>)<sup>*</sup> DEC_DIGIT (DEC_DIGIT|<code>_</code>)<sup>*</sup></p>
+<p>FLOAT_SUFFIX :<br />
+   <code>f32</code> | <code>f64</code></p>
 <p>BOOLEAN_LITERAL :<br />
       <code>true</code><br />
    | <code>false</code></p>
@@ -6879,38 +6979,61 @@ FIXME include shorthand?</p>
 </blockquote>
 <a class="header" href="print.html#patterns-1" id="patterns-1"><h3>Patterns</h3></a>
 <blockquote>
-<p><em>Pattern</em> :<br />
-      [<em>WildcardPattern</em>]<br />
+<p><em>Pattern</em> :<a name="pattern-syntax"></a><br />
+      [<em>LiteralPattern</em>]<br />
+   | [<em>WildcardPattern</em>]<br />
+   | [<em>RangePattern</em>]<br />
    | [<em>ReferencePattern</em>]<br />
+   | [<em>IdentifierPattern</em>]<br />
+   | [<em>BoxPattern</em>]<br />
    | [<em>StructPattern</em>]<br />
+   | [<em>TuplePattern</em>]<br />
    | [<em>TupleStructPattern</em>]<br />
    | [<em>SlicePattern</em>]<br />
-   | [<em>IdentifierPattern</em>]<br />
-   | [<em>PathPattern</em>]<br />
-   | [<em>LiteralPattern</em>]<br />
-   | [<em>RangePattern</em>]<br />
-   | [<em>BoxPattern</em>]</p>
-<p><em>WildcardPattern</em> :<br />
+   | [<em>PathPattern</em>]</p>
+<p><em>LiteralPattern</em> :<a name="literal-pattern-syntax"></a><br />
+      LITERAL<br />
+   | <code>-</code> LITERAL</p>
+<p><em>WildcardPattern</em> :<a name="wildcard-pattern-syntax"></a><br />
    <code>_</code></p>
-<p><em>ReferencePattern</em> :<br />
+<p><em>RangePattern</em> :<a name="reference-pattern-syntax"></a><br />
+   <strong>FIXME</strong></p>
+<p><em>ReferencePattern</em> :<a name="reference-pattern-syntax"></a><br />
       (<code>&amp;</code>|<code>&amp;&amp;</code>) <em>Pattern</em><br />
    | (<code>&amp;</code>|<code>&amp;&amp;</code>) <em>Mutability</em> <em>Pattern</em></p>
-<p><em>TupleStructPattern</em> :<br />
-   <strong>FIXME</strong></p>
-<p><em>SlicePattern</em> :<br />
-   <strong>FIXME</strong></p>
-<p>_IdentifierPattern :<br />
+<p>_IdentifierPattern :<a name="identifier-pattern-syntax"></a><br />
       <code>mut</code> IDENTIFIER<br />
    | <code>mut</code> IDENTIFIER <code>@</code> <em>Pattern</em><br />
    | <code>ref</code> IDENTIFIER <code>@</code> <em>Pattern</em></p>
-<p><em>PathPattern</em> :<br />
+<p><em>BoxPattern</em> :<a name="box-pattern-syntax"></a><br />
+   <code>box</code> <strong>FIXME</strong></p>
+<p><em>StructPattern</em> :<a name="struct-pattern-syntax"></a><br />
+   <em>Path</em> <code>{</code><br />
+      <em>StructPatternElements</em> <sup>?</sup><br />
+   <code>}</code></p>
+<p><em>StructPatternElements</em> :<br />
+      <em>StructPatternFields</em> (<code>,</code> <em>StructPatternEtCetera</em>) ?<br />
+   | <em>StructPatternEtCetera</em></p>
+<p><em>StructPatternFields</em> :<br />
+   <em>StructPatternField</em> (<code>,</code> <em>StructPatternField</em>) <sup>*</sup></p>
+<p><em>StructPatternField</em> :<br />
+   <em>OuterAttribute</em> <sup>*</sup><br />
+   (<br />
+         INTEGER_LITERAL <code>:</code> [<em>Pattern</em>]<br />
+      | IDENTIFIER <code>:</code> [<em>Pattern</em>]<br />
+      | <code>box</code><sup>?</sup> <code>ref</code><sup>?</sup> <code>mut</code><sup>?</sup>
+IDENTIFIER<br />
+   )</p>
+<p><em>StructPatternEtCetera</em> :<br />
+   <em>OuterAttribute</em> <sup>*</sup><br />
+   <code>..</code></p>
+<p><em>TupleStructPattern</em> :<a name="tuplestruct-pattern-syntax"></a><br />
    <strong>FIXME</strong></p>
-<p><em>LiteralPattern</em> :<br />
-      LITERAL<br />
-   | <code>-</code> LITERAL</p>
-<p><em>RangePattern</em> :<br />
+<p><em>TuplePattern</em> :<a name="tuple-pattern-syntax"></a><br />
    <strong>FIXME</strong></p>
-<p><em>BoxPattern</em> :<br />
+<p><em>SlicePattern</em> :<a name="slice-pattern-syntax"></a><br />
+   <strong>FIXME</strong></p>
+<p><em>PathPattern</em> :<a name="path-pattern-syntax"></a><br />
    <strong>FIXME</strong></p>
 </blockquote>
 <a class="header" href="print.html#types-1" id="types-1"><h3>Types</h3></a>
