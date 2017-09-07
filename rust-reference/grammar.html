@@ -672,9 +672,9 @@ FIXME include shorthand?</p>
       (<code>&amp;</code>|<code>&amp;&amp;</code>) <em>Pattern</em><br />
    | (<code>&amp;</code>|<code>&amp;&amp;</code>) <em>Mutability</em> <em>Pattern</em></p>
 <p>_IdentifierPattern :<a name="identifier-pattern-syntax"></a><br />
-      <code>mut</code> IDENTIFIER<br />
-   | <code>mut</code> IDENTIFIER <code>@</code> <em>Pattern</em><br />
-   | <code>ref</code> IDENTIFIER <code>@</code> <em>Pattern</em></p>
+      IDENTIFIER (<code>@</code> <em>Pattern</em> ) <sup>?</sup><br />
+   | <code>mut</code> IDENTIFIER (<code>@</code> <em>Pattern</em> ) <sup>?</sup><br />
+   | <code>ref</code> <code>mut</code><sup>?</sup> IDENTIFIER (<code>@</code> <em>Pattern</em> ) <sup>?</sup></p>
 <p><em>BoxPattern</em> :<a name="box-pattern-syntax"></a><br />
    <code>box</code> <strong>FIXME</strong></p>
 <p><em>StructPattern</em> :<a name="struct-pattern-syntax"></a><br />

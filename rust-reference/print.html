@@ -91,6 +91,8 @@ specific to <code>rustc</code> itself, and should not be taken as a specificatio
 the Rust language. We intend to produce such a document someday, but this
 is what we have for now.</p>
 <p>You may also be interested in the <a href="../grammar.html">grammar</a>.</p>
+<p>You can contribute to this document by opening an issue or sending a pull
+request to <a href="https://github.com/rust-lang-nursery/reference/">the Rust Reference repository</a>.</p>
 <p>N. B. This document may be incomplete. Documenting everything might take a
 while. We have a <a href="https://github.com/rust-lang-nursery/reference/issues/9">big issue</a> to track documentation for every Rust feature,
 so check that out if you can't find something here.</p>
@@ -839,9 +841,9 @@ syntax, and yet are not implementable as functions. Instead, they are given
 names, and invoked through a consistent syntax: <code>some_extension!(...)</code>.</p>
 <p>Users of <code>rustc</code> can define new macros in two ways:</p>
 <ul>
-<li><a href="../book/macros.html">Macros</a> define new syntax in a higher-level,
+<li><a href="macros-by-example.html">Macros by Example</a> define new syntax in a higher-level,
 declarative way.</li>
-<li><a href="../book/procedural-macros.html">Procedural Macros</a> can be used to implement custom derive.</li>
+<li><a href="procedural-macros.html">Procedural Macros</a> can be used to implement custom derive.</li>
 </ul>
 <p>And one unstable way: <a href="../unstable-book/language-features/plugin.html">compiler plugins</a>.</p>
 <a class="header" href="print.html#macros-by-example" id="macros-by-example"><h1>Macros By Example</h1></a>
@@ -5014,17 +5016,57 @@ fn bar() {
    | <a href="print.html#slice-pattern-syntax"><em>SlicePattern</em></a><br />
    | <a href="print.html#path-pattern-syntax"><em>PathPattern</em></a></p>
 </blockquote>
-<!-- FIXME: pattern introduction -->
-<p>Patterns can be used in:</p>
+<p>Patterns in Rust are used to match values against structures and to,
+optionally, bind variables to values inside these structures. They are also
+used in variable declarations and function/closure parameters, though most of
+the time simply as an identifier that binds to any value.</p>
+<p>For example, the pattern used in:</p>
+<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+#fn main() {
+# struct Car;
+# struct Computer;
+# struct Person {
+#     name: String,
+#     car: Option&lt;Car&gt;,
+#     computer: Option&lt;Computer&gt;
+#     age: u8,
+# }
+# let person = Person {
+#     name: String::from(&quot;John&quot;),
+#     car: Some(Car),
+#     computer: None,
+#     age: 15,
+# };
+if let
+    Person {
+        car: Some(_),
+        age: person_age @ 13...19,
+        name: ref person_name,
+        ..
+    } = person
+{
+    println!(&quot;{} has a car and is {} years old.&quot;, person_name, person_age);
+}
+
+#}</code></pre></pre>
+<p>does four things:</p>
 <ul>
-<li>Let declarations</li>
-<li>Match expressions</li>
-<li>If let expressions</li>
-<li>While let expressions</li>
-<li>Function parameters</li>
+<li>Tests if <code>person</code> has the <code>car</code> field filled with something.</li>
+<li>Tests if the person's <code>age</code> field is between 13 and 19, and binds its value to
+the <code>person_age</code> variable.</li>
+<li>Binds a reference to the <code>name</code> field to the variable <code>person_name</code>.</li>
+<li>Ignores the rest of the fields of <code>person</code>, i.e., they can have any value and
+are not bound to any variables.</li>
+</ul>
+<p>Patterns are used in:</p>
+<ul>
+<li><a href="statements.html#let-expressions"><code>let</code> declarations</a></li>
+<li><a href="items.html#functions">Function</a> and <a href="expressions.html#closures">closure</a> parameters</li>
+<li><a href="expressions.html#match-expressions"><code>match</code> expressions</a></li>
+<li><a href="expressons.html#if-let-expresssions"><code>if let</code> expressions</a></li>
+<li><a href="expressions.html#"><code>while let</code> expressions</a></li>
 <li>Inside other patterns</li>
 </ul>
-<!-- FIXME: pattern main uses (functions, match, let, if let, while let, etc.) -->
 <a class="header" href="print.html#destructuring" id="destructuring"><h2>Destructuring</h2></a>
 <p>Patterns can be used to <em>destructure</em> structs, enums, and tuples. Destructuring
 breaks a value up into its component pieces. The syntax used is the same as
@@ -5055,11 +5097,6 @@ match message {
 #}</code></pre></pre>
 <a class="header" href="print.html#refutability" id="refutability"><h2>Refutability</h2></a>
 <!-- FIXME: irrefutable patterns -->
-<!-- FIXME: multiple patterns: a | b -->
-<!-- FIXME: ignoring one value: _ -->
-<!-- FIXME: ignoring multiple values: .. -->
-<!-- FIXME: binding: @ -->
-<!-- FIXME: guards: _Pattern_ `if` _Expression_ -->
 <a class="header" href="print.html#literal-patterns" id="literal-patterns"><h2>Literal patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
@@ -5101,6 +5138,10 @@ It's either a two or a four
 <p>The <em>wildcard pattern</em> means any value or the value does not matter.</p>
 <!-- FIXME where can it be used? -->
 <!-- FIXME examples -->
+<!-- FIXME example: ignore function parameter -->
+<!-- FIXME example: ignore a field from a tuple -->
+<!-- FIXME example: ignore a field from a struct -->
+<!-- FIXME example: ignore the field of an enum: use Some(_) -->
 <a class="header" href="print.html#range-patterns" id="range-patterns"><h2>Range patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
@@ -5140,11 +5181,13 @@ assert_eq!(y, z);
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 _IdentifierPattern :<a name="identifier-pattern-syntax"></a><br />
-      <code>mut</code> IDENTIFIER<br />
-   | <code>mut</code> IDENTIFIER <code>@</code> <em>Pattern</em><br />
-   | <code>ref</code> IDENTIFIER <code>@</code> <em>Pattern</em></p>
+      IDENTIFIER (<code>@</code> <em>Pattern</em> ) <sup>?</sup><br />
+   | <code>mut</code> IDENTIFIER (<code>@</code> <em>Pattern</em> ) <sup>?</sup><br />
+   | <code>ref</code> <code>mut</code><sup>?</sup> IDENTIFIER (<code>@</code> <em>Pattern</em> ) <sup>?</sup></p>
 </blockquote>
 <!-- FIXME: explain identifier patterns -->
+<!-- FIXME: do not talk about subpatterns initially -->
+<!-- FIXME: mention that IDENTIFIER pattern is the commonly used one in let and function parameters -->
 <p>Subpatterns can also be bound to variables by the use of the syntax <code>variable @ subpattern</code>. For example:</p>
 <pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
 #fn main() {
@@ -5177,7 +5220,7 @@ bind to a reference by using the <code>ref</code> keyword, or to a mutable refer
       <em>StructPatternElements</em> <sup>?</sup><br />
    <code>}</code></p>
 <p><em>StructPatternElements</em> :<br />
-      <em>StructPatternFields</em> (<code>,</code> <em>StructPatternEtCetera</em>) <sup>?</sup><br />
+      <em>StructPatternFields</em> (<code>,</code> <em>StructPatternEtCetera</em>) ?<br />
    | <em>StructPatternEtCetera</em></p>
 <p><em>StructPatternFields</em> :<br />
    <em>StructPatternField</em> (<code>,</code> <em>StructPatternField</em>) <sup>*</sup></p>
@@ -7002,9 +7045,9 @@ FIXME include shorthand?</p>
       (<code>&amp;</code>|<code>&amp;&amp;</code>) <em>Pattern</em><br />
    | (<code>&amp;</code>|<code>&amp;&amp;</code>) <em>Mutability</em> <em>Pattern</em></p>
 <p>_IdentifierPattern :<a name="identifier-pattern-syntax"></a><br />
-      <code>mut</code> IDENTIFIER<br />
-   | <code>mut</code> IDENTIFIER <code>@</code> <em>Pattern</em><br />
-   | <code>ref</code> IDENTIFIER <code>@</code> <em>Pattern</em></p>
+      IDENTIFIER (<code>@</code> <em>Pattern</em> ) <sup>?</sup><br />
+   | <code>mut</code> IDENTIFIER (<code>@</code> <em>Pattern</em> ) <sup>?</sup><br />
+   | <code>ref</code> <code>mut</code><sup>?</sup> IDENTIFIER (<code>@</code> <em>Pattern</em> ) <sup>?</sup></p>
 <p><em>BoxPattern</em> :<a name="box-pattern-syntax"></a><br />
    <code>box</code> <strong>FIXME</strong></p>
 <p><em>StructPattern</em> :<a name="struct-pattern-syntax"></a><br />
