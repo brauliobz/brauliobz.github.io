@@ -96,7 +96,7 @@ the time simply as an identifier that binds to any value.</p>
 # struct Person {
 #     name: String,
 #     car: Option&lt;Car&gt;,
-#     computer: Option&lt;Computer&gt;
+#     computer: Option&lt;Computer&gt;,
 #     age: u8,
 # }
 # let person = Person {
@@ -128,11 +128,12 @@ are not bound to any variables.</li>
 </ul>
 <p>Patterns are used in:</p>
 <ul>
-<li><a href="statements.html#let-expressions"><code>let</code> declarations</a></li>
-<li><a href="items.html#functions">Function</a> and <a href="expressions.html#closures">closure</a> parameters</li>
+<li><a href="statements.html#let-statements"><code>let</code> declarations</a></li>
+<li><a href="items.html#functions">Function</a> and <a href="expressions.html#closure-expressions">closure</a>
+parameters</li>
 <li><a href="expressions.html#match-expressions"><code>match</code> expressions</a></li>
-<li><a href="expressons.html#if-let-expresssions"><code>if let</code> expressions</a></li>
-<li><a href="expressions.html#"><code>while let</code> expressions</a></li>
+<li><a href="expressions.html#if-let-expressions"><code>if let</code> expressions</a></li>
+<li><a href="expressions.html#while-let-loops"><code>while let</code> expressions</a></li>
 <li>Inside other patterns</li>
 </ul>
 <a class="header" href="patterns.html#destructuring" id="destructuring"><h2>Destructuring</h2></a>
@@ -165,15 +166,21 @@ match message {
 #}</code></pre></pre>
 <a class="header" href="patterns.html#refutability" id="refutability"><h2>Refutability</h2></a>
 <!-- FIXME: irrefutable patterns -->
+<!-- FIXME: which things don't accept irrefutable patterns? -->
+<!-- FIXME: which things don't accept refutable patterns? -->
 <a class="header" href="patterns.html#literal-patterns" id="literal-patterns"><h2>Literal patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 <em>LiteralPattern</em> :<a name="literal-pattern-syntax"></a><br />
-      LITERAL<br />
-   | <code>-</code> LITERAL</p>
+   <code>-</code><sup>?</sup> ( CHAR_LITERAL | INTEGER_LITERAL | FLOAT_LITERAL )</p>
 </blockquote>
-<p>Literal patterns match exactly the value they represent.</p>
-<p>For example, this loop:</p>
+<p><em>Literal patterns</em> match exactly the value they represent. Since negative numbers are
+not literals in Rust, literal patterns also accept an optional minus sign before the
+literal.</p>
+<p>Floating-point literals are currently accepted, but due to the complexity of comparing
+them, they are going to be forbidden in a future version of Rust (see
+<a href="https://github.com/rust-lang/rust/issues/41620">issue #41620</a>).</p>
+<p>Example:</p>
 <pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
 #fn main() {
 for i in -2..5 {
@@ -195,7 +202,6 @@ It's either a two or a four
 Matched none of the arms
 It's either a two or a four
 </code></pre>
-<!-- FIXME float points are accepted, but are being deprecated -->
 <a class="header" href="patterns.html#wildcard-pattern" id="wildcard-pattern"><h2>Wildcard pattern</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
@@ -204,6 +210,9 @@ It's either a two or a four
 </blockquote>
 <!-- FIXME explain the wildcard pattern -->
 <p>The <em>wildcard pattern</em> means any value or the value does not matter.</p>
+<p>For example:</p>
+<pre><code>    
+</code></pre>
 <!-- FIXME where can it be used? -->
 <!-- FIXME examples -->
 <!-- FIXME example: ignore function parameter -->
