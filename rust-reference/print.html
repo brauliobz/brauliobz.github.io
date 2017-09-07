@@ -5145,6 +5145,7 @@ It's either a two or a four
 <p>For example:</p>
 <pre><code>    
 </code></pre>
+<!-- FIXME but it can be bound to a variable -->
 <!-- FIXME where can it be used? -->
 <!-- FIXME examples -->
 <!-- FIXME example: ignore function parameter -->
@@ -5155,7 +5156,7 @@ It's either a two or a four
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 <em>RangePattern</em> :<a name="reference-pattern-syntax"></a><br />
-   <strong>FIXME</strong></p>
+   <em>Expression</em> <code>...</code> <em>Expression</em></p>
 </blockquote>
 <!-- FIXME: explain range patterns -->
 <p>Range patterns match ...</p>
@@ -5169,8 +5170,7 @@ a sub-range of another range pattern inside the same <code>match</code>.</p>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 <em>ReferencePattern</em> :<a name="reference-pattern-syntax"></a><br />
-      (<code>&amp;</code>|<code>&amp;&amp;</code>) <em>Pattern</em><br />
-   | (<code>&amp;</code>|<code>&amp;&amp;</code>) <em>Mutability</em> <em>Pattern</em></p>
+   (<code>&amp;</code>|<code>&amp;&amp;</code>) <code>mut</code><sup>?</sup> <em>Pattern</em></p>
 </blockquote>
 <!-- FIXME: explain reference patterns  -->
 <!-- FIXME: explain why the `&&` is part of the grammar -->
@@ -5217,7 +5217,7 @@ bind to a reference by using the <code>ref</code> keyword, or to a mutable refer
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 <em>BoxPattern</em> :<a name="box-pattern-syntax"></a><br />
-   <code>box</code> <strong>FIXME</strong></p>
+   <code>box</code> <a href="print.html#pattern-syntax"><em>Pattern</em></a></p>
 </blockquote>
 <!-- FIXME: explain box patterns -->
 <!-- FIXME: they're not stable -->
@@ -5260,7 +5260,14 @@ IDENTIFIER<br />
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 <em>TuplePattern</em> :<a name="tuple-pattern-syntax"></a><br />
-   <strong>FIXME</strong></p>
+   <code>(</code> <em>TupplePatternItems</em><sup>?</sup> <code>)</code></p>
+<p><em>TuplePatternItems</em> :<br />
+      <a href="print.html#pattern-syntax"><em>Pattern</em></a> <code>,</code><br />
+   | <a href="print.html#pattern-syntax"><em>Pattern</em></a> (<code>,</code> <a href="print.html#pattern-syntax"><em>Pattern</em></a>)<sup>+</sup> <code>,</code><sup>?</sup><br />
+   | <code>..</code><br />
+   | (<a href="print.html#pattern-syntax"><em>Pattern</em></a> <code>,</code>)<sup>+</sup> <code>..</code><br />
+   | <code>..</code> (<code>,</code> <a href="print.html#pattern-syntax"><em>Pattern</em></a>)<sup>+</sup> <code>,</code><sup>?</sup><br />
+   | (<a href="print.html#pattern-syntax"><em>Pattern</em></a> <code>,</code>)<sup>+</sup> <code>..</code> (<code>,</code> <a href="print.html#pattern-syntax"><em>Pattern</em></a>)<sup>+</sup> <code>,</code><sup>?</sup></p>
 </blockquote>
 <!-- FIXME: explain tuple patterns -->
 <a class="header" href="print.html#slice-patterns" id="slice-patterns"><h2>Slice patterns</h2></a>
@@ -7048,16 +7055,15 @@ FIXME include shorthand?</p>
 <p><em>WildcardPattern</em> :<a name="wildcard-pattern-syntax"></a><br />
    <code>_</code></p>
 <p><em>RangePattern</em> :<a name="reference-pattern-syntax"></a><br />
-   <strong>FIXME</strong></p>
+   <em>Expression</em> <code>...</code> <em>Expression</em></p>
 <p><em>ReferencePattern</em> :<a name="reference-pattern-syntax"></a><br />
-      (<code>&amp;</code>|<code>&amp;&amp;</code>) <em>Pattern</em><br />
-   | (<code>&amp;</code>|<code>&amp;&amp;</code>) <em>Mutability</em> <em>Pattern</em></p>
+   (<code>&amp;</code>|<code>&amp;&amp;</code>) <code>mut</code><sup>?</sup> <em>Pattern</em></p>
 <p>_IdentifierPattern :<a name="identifier-pattern-syntax"></a><br />
       IDENTIFIER (<code>@</code> <em>Pattern</em> ) <sup>?</sup><br />
    | <code>mut</code> IDENTIFIER (<code>@</code> <em>Pattern</em> ) <sup>?</sup><br />
    | <code>ref</code> <code>mut</code><sup>?</sup> IDENTIFIER (<code>@</code> <em>Pattern</em> ) <sup>?</sup></p>
 <p><em>BoxPattern</em> :<a name="box-pattern-syntax"></a><br />
-   <code>box</code> <strong>FIXME</strong></p>
+   <code>box</code> [<em>Pattern</em>]</p>
 <p><em>StructPattern</em> :<a name="struct-pattern-syntax"></a><br />
    <em>Path</em> <code>{</code><br />
       <em>StructPatternElements</em> <sup>?</sup><br />
@@ -7081,7 +7087,14 @@ IDENTIFIER<br />
 <p><em>TupleStructPattern</em> :<a name="tuplestruct-pattern-syntax"></a><br />
    <strong>FIXME</strong></p>
 <p><em>TuplePattern</em> :<a name="tuple-pattern-syntax"></a><br />
-   <strong>FIXME</strong></p>
+   <code>(</code> <em>TupplePatternItems</em><sup>?</sup> <code>)</code></p>
+<p><em>TuplePatternItems</em> :<br />
+      [<em>Pattern</em>] <code>,</code><br />
+   | [<em>Pattern</em>] (<code>,</code> [<em>Pattern</em>])<sup>+</sup> <code>,</code><sup>?</sup><br />
+   | <code>..</code><br />
+   | ([<em>Pattern</em>] <code>,</code>)<sup>+</sup> <code>..</code><br />
+   | <code>..</code> (<code>,</code> [<em>Pattern</em>])<sup>+</sup> <code>,</code><sup>?</sup><br />
+   | ([<em>Pattern</em>] <code>,</code>)<sup>+</sup> <code>..</code> (<code>,</code> [<em>Pattern</em>])<sup>+</sup> <code>,</code><sup>?</sup></p>
 <p><em>SlicePattern</em> :<a name="slice-pattern-syntax"></a><br />
    <strong>FIXME</strong></p>
 <p><em>PathPattern</em> :<a name="path-pattern-syntax"></a><br />
