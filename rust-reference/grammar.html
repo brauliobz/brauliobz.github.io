@@ -669,10 +669,9 @@ FIXME include shorthand?</p>
    <em>Expression</em> <code>...</code> <em>Expression</em></p>
 <p><em>ReferencePattern</em> :<a name="reference-pattern-syntax"></a><br />
    (<code>&amp;</code>|<code>&amp;&amp;</code>) <code>mut</code><sup>?</sup> <em>Pattern</em></p>
-<p>_IdentifierPattern :<a name="identifier-pattern-syntax"></a><br />
-      IDENTIFIER (<code>@</code> <em>Pattern</em> ) <sup>?</sup><br />
-   | <code>mut</code> IDENTIFIER (<code>@</code> <em>Pattern</em> ) <sup>?</sup><br />
-   | <code>ref</code> <code>mut</code><sup>?</sup> IDENTIFIER (<code>@</code> <em>Pattern</em> ) <sup>?</sup></p>
+<p><em>IdentifierPattern</em> :<a name="identifier-pattern-syntax"></a><br />
+      <code>mut</code><sup>?</sup> IDENTIFIER (<code>@</code> [<em>Pattern</em>] ) <sup>?</sup><br />
+   | <code>ref</code> <code>mut</code><sup>?</sup> IDENTIFIER (<code>@</code> [<em>Pattern</em>] ) <sup>?</sup></p>
 <p><em>BoxPattern</em> :<a name="box-pattern-syntax"></a><br />
    <code>box</code> [<em>Pattern</em>]</p>
 <p><em>StructPattern</em> :<a name="struct-pattern-syntax"></a><br />
@@ -680,7 +679,7 @@ FIXME include shorthand?</p>
       <em>StructPatternElements</em> <sup>?</sup><br />
    <code>}</code></p>
 <p><em>StructPatternElements</em> :<br />
-      <em>StructPatternFields</em> (<code>,</code> <em>StructPatternEtCetera</em>) ?<br />
+      <em>StructPatternFields</em> (<code>,</code> | <code>,</code> <em>StructPatternEtCetera</em>)<sup>?</sup><br />
    | <em>StructPatternEtCetera</em></p>
 <p><em>StructPatternFields</em> :<br />
    <em>StructPatternField</em> (<code>,</code> <em>StructPatternField</em>) <sup>*</sup></p>
@@ -696,18 +695,18 @@ IDENTIFIER<br />
    <em>OuterAttribute</em> <sup>*</sup><br />
    <code>..</code></p>
 <p><em>TupleStructPattern</em> :<a name="tuplestruct-pattern-syntax"></a><br />
-   <strong>FIXME</strong></p>
+   <em>Path</em> <code>(</code> <em>TupleStructItems</em> <code>)</code></p>
+<p><em>TupleStructItems</em> :<br />
+      [<em>Pattern</em>] ( <code>,</code> [<em>Pattern</em>] )<sup>*</sup> <code>,</code><sup>?</sup><br />
+   | ([<em>Pattern</em>] <code>,</code>)<sup>*</sup> <code>..</code> ( (<code>,</code> [<em>Pattern</em>])<sup>+</sup> <code>,</code><sup>?</sup> )<sup>?</sup></p>
 <p><em>TuplePattern</em> :<a name="tuple-pattern-syntax"></a><br />
    <code>(</code> <em>TupplePatternItems</em><sup>?</sup> <code>)</code></p>
 <p><em>TuplePatternItems</em> :<br />
       [<em>Pattern</em>] <code>,</code><br />
    | [<em>Pattern</em>] (<code>,</code> [<em>Pattern</em>])<sup>+</sup> <code>,</code><sup>?</sup><br />
-   | <code>..</code><br />
-   | ([<em>Pattern</em>] <code>,</code>)<sup>+</sup> <code>..</code><br />
-   | <code>..</code> (<code>,</code> [<em>Pattern</em>])<sup>+</sup> <code>,</code><sup>?</sup><br />
-   | ([<em>Pattern</em>] <code>,</code>)<sup>+</sup> <code>..</code> (<code>,</code> [<em>Pattern</em>])<sup>+</sup> <code>,</code><sup>?</sup></p>
+   | ([<em>Pattern</em>] <code>,</code>)<sup>*</sup> <code>..</code> ( (<code>,</code> [<em>Pattern</em>])<sup>+</sup> <code>,</code><sup>?</sup> )<sup>?</sup></p>
 <p><em>SlicePattern</em> :<a name="slice-pattern-syntax"></a><br />
-   <strong>FIXME</strong></p>
+   <code>[</code> <strong>FIXME</strong> <code>]</code></p>
 <p><em>PathPattern</em> :<a name="path-pattern-syntax"></a><br />
    <strong>FIXME</strong></p>
 </blockquote>
