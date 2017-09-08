@@ -69,96 +69,102 @@
 
                 <div id="content" class="content">
                     <a class="header" href="grammar.html#grammar" id="grammar"><h1>Grammar</h1></a>
+<!--
+    WARNING: this file is generated automatically. It joins all
+    **lexer** and **syntax** blocks of the Reference.  If you want to edit
+    the grammar, apply your changes to each corresponding section and
+    call the join script to update this file.
+-->
 <a class="header" href="grammar.html#lexical-productions" id="lexical-productions"><h2>Lexical productions</h2></a>
 <a class="header" href="grammar.html#keywords" id="keywords"><h3>Keywords</h3></a>
 <blockquote>
-<p>KW_AS             : <code>as</code><br />
-KW_BOX            : <code>box</code><br />
-KW_BREAK          : <code>break</code><br />
-KW_CONST          : <code>const</code><br />
-KW_CONTINUE       : <code>continue</code><br />
-KW_CRATE          : <code>crate</code><br />
-KW_ELSE           : <code>else</code><br />
-KW_ENUM           : <code>enum</code><br />
-KW_EXTERN         : <code>extern</code><br />
-KW_FALSE          : <code>false</code><br />
-KW_FN             : <code>fn</code><br />
-KW_FOR            : <code>for</code><br />
-KW_IF             : <code>if</code><br />
-KW_IMPL           : <code>impl</code><br />
-KW_IN             : <code>in</code><br />
-KW_LET            : <code>let</code><br />
-KW_LOOP           : <code>loop</code><br />
-KW_MATCH          : <code>match</code><br />
-KW_MOD            : <code>mod</code><br />
-KW_MOVE           : <code>move</code><br />
-KW_MUT            : <code>mut</code><br />
-KW_PUB            : <code>pub</code><br />
-KW_REF            : <code>ref</code><br />
-KW_RETURN         : <code>return</code><br />
-KW_SELFVALUE      : <code>self</code><br />
-KW_SELFTYPE       : <code>Self</code><br />
-KW_STATIC         : <code>static</code><br />
-KW_STRUCT         : <code>struct</code><br />
-KW_SUPER          : <code>super</code><br />
-KW_TRAIT          : <code>trait</code><br />
-KW_TRUE           : <code>true</code><br />
-KW_TYPE           : <code>type</code><br />
-KW_UNSAFE         : <code>unsafe</code><br />
-KW_USE            : <code>use</code><br />
-KW_WHERE          : <code>wher</code><br />
-KW_WHILE          : <code>while</code></p>
-<p>KW_CATCH          : <code>catch</code><br />
-KW_DEFAULT        : <code>default</code><br />
-KW_UNION          : <code>union</code><br />
-KW_STATICLIFETIME : <code>'static</code></p>
-<p>KW_ABSTRACT       : <code>abstract</code><br />
-KW_ALIGNOF        : <code>alignof</code><br />
-KW_BECOME         : <code>become</code><br />
-KW_DO             : <code>do</code><br />
-KW_FINAL          : <code>final</code><br />
-KW_MACRO          : <code>macro</code><br />
-KW_OFFSETOF       : <code>offsetof</code><br />
-KW_OVERRIDE       : <code>override</code><br />
-KW_PRIV           : <code>priv</code><br />
-KW_PROC           : <code>proc</code><br />
-KW_PURE           : <code>pure</code><br />
-KW_SIZEOF         : <code>sizeof</code><br />
-KW_TYPEOF         : <code>typeof</code><br />
-KW_UNSIZED        : <code>unsized</code><br />
-KW_VIRTUAL        : <code>virtual</code><br />
-KW_YIELD          : <code>yield</code></p>
+<p><a href="grammar.html#kw_as">KW_AS</a> :<a name="kw_as"></a> <code>as</code><br />
+<a href="grammar.html#kw_box">KW_BOX</a> :<a name="kw_box"></a> <code>box</code><br />
+<a href="grammar.html#kw_break">KW_BREAK</a> :<a name="kw_break"></a> <code>break</code><br />
+<a href="grammar.html#kw_const">KW_CONST</a> :<a name="kw_const"></a> <code>const</code><br />
+<a href="grammar.html#kw_continue">KW_CONTINUE</a> :<a name="kw_continue"></a> <code>continue</code><br />
+<a href="grammar.html#kw_crate">KW_CRATE</a> :<a name="kw_crate"></a> <code>crate</code><br />
+<a href="grammar.html#kw_else">KW_ELSE</a> :<a name="kw_else"></a> <code>else</code><br />
+<a href="grammar.html#kw_enum">KW_ENUM</a> :<a name="kw_enum"></a> <code>enum</code><br />
+<a href="grammar.html#kw_extern">KW_EXTERN</a> :<a name="kw_extern"></a> <code>extern</code><br />
+<a href="grammar.html#kw_false">KW_FALSE</a> :<a name="kw_false"></a> <code>false</code><br />
+<a href="grammar.html#kw_fn">KW_FN</a> :<a name="kw_fn"></a> <code>fn</code><br />
+<a href="grammar.html#kw_for">KW_FOR</a> :<a name="kw_for"></a> <code>for</code><br />
+<a href="grammar.html#kw_if">KW_IF</a> :<a name="kw_if"></a> <code>if</code><br />
+<a href="grammar.html#kw_impl">KW_IMPL</a> :<a name="kw_impl"></a> <code>impl</code><br />
+<a href="grammar.html#kw_in">KW_IN</a> :<a name="kw_in"></a> <code>in</code><br />
+<a href="grammar.html#kw_let">KW_LET</a> :<a name="kw_let"></a> <code>let</code><br />
+<a href="grammar.html#kw_loop">KW_LOOP</a> :<a name="kw_loop"></a> <code>loop</code><br />
+<a href="grammar.html#kw_match">KW_MATCH</a> :<a name="kw_match"></a> <code>match</code><br />
+<a href="grammar.html#kw_mod">KW_MOD</a> :<a name="kw_mod"></a> <code>mod</code><br />
+<a href="grammar.html#kw_move">KW_MOVE</a> :<a name="kw_move"></a> <code>move</code><br />
+<a href="grammar.html#kw_mut">KW_MUT</a> :<a name="kw_mut"></a> <code>mut</code><br />
+<a href="grammar.html#kw_pub">KW_PUB</a> :<a name="kw_pub"></a> <code>pub</code><br />
+<a href="grammar.html#kw_ref">KW_REF</a> :<a name="kw_ref"></a> <code>ref</code><br />
+<a href="grammar.html#kw_return">KW_RETURN</a> :<a name="kw_return"></a> <code>return</code><br />
+<a href="grammar.html#kw_selfvalue">KW_SELFVALUE</a> :<a name="kw_selfvalue"></a> <code>self</code><br />
+<a href="grammar.html#kw_selftype">KW_SELFTYPE</a> :<a name="kw_selftype"></a> <code>Self</code><br />
+<a href="grammar.html#kw_static">KW_STATIC</a> :<a name="kw_static"></a> <code>static</code><br />
+<a href="grammar.html#kw_struct">KW_STRUCT</a> :<a name="kw_struct"></a> <code>struct</code><br />
+<a href="grammar.html#kw_super">KW_SUPER</a> :<a name="kw_super"></a> <code>super</code><br />
+<a href="grammar.html#kw_trait">KW_TRAIT</a> :<a name="kw_trait"></a> <code>trait</code><br />
+<a href="grammar.html#kw_true">KW_TRUE</a> :<a name="kw_true"></a> <code>true</code><br />
+<a href="grammar.html#kw_type">KW_TYPE</a> :<a name="kw_type"></a> <code>type</code><br />
+<a href="grammar.html#kw_unsafe">KW_UNSAFE</a> :<a name="kw_unsafe"></a> <code>unsafe</code><br />
+<a href="grammar.html#kw_use">KW_USE</a> :<a name="kw_use"></a> <code>use</code><br />
+<a href="grammar.html#kw_where">KW_WHERE</a> :<a name="kw_where"></a> <code>where</code><br />
+<a href="grammar.html#kw_while">KW_WHILE</a> :<a name="kw_while"></a> <code>while</code></p>
+<p><a href="grammar.html#kw_catch">KW_CATCH</a> :<a name="kw_catch"></a> <code>catch</code><br />
+<a href="grammar.html#kw_default">KW_DEFAULT</a> :<a name="kw_default"></a> <code>default</code><br />
+<a href="grammar.html#kw_union">KW_UNION</a> :<a name="kw_union"></a> <code>union</code><br />
+<a href="grammar.html#kw_staticlifetime">KW_STATICLIFETIME</a> :<a name="kw_staticlifetime"></a> <code>'static</code></p>
+<p><a href="grammar.html#kw_abstract">KW_ABSTRACT</a> :<a name="kw_abstract"></a> <code>abstract</code><br />
+<a href="grammar.html#kw_alignof">KW_ALIGNOF</a> :<a name="kw_alignof"></a> <code>alignof</code><br />
+<a href="grammar.html#kw_become">KW_BECOME</a> :<a name="kw_become"></a> <code>become</code><br />
+<a href="grammar.html#kw_do">KW_DO</a> :<a name="kw_do"></a> <code>do</code><br />
+<a href="grammar.html#kw_final">KW_FINAL</a> :<a name="kw_final"></a> <code>final</code><br />
+<a href="grammar.html#kw_macro">KW_MACRO</a> :<a name="kw_macro"></a> <code>macro</code><br />
+<a href="grammar.html#kw_offsetof">KW_OFFSETOF</a> :<a name="kw_offsetof"></a> <code>offsetof</code><br />
+<a href="grammar.html#kw_override">KW_OVERRIDE</a> :<a name="kw_override"></a> <code>override</code><br />
+<a href="grammar.html#kw_priv">KW_PRIV</a> :<a name="kw_priv"></a> <code>priv</code><br />
+<a href="grammar.html#kw_proc">KW_PROC</a> :<a name="kw_proc"></a> <code>proc</code><br />
+<a href="grammar.html#kw_pure">KW_PURE</a> :<a name="kw_pure"></a> <code>pure</code><br />
+<a href="grammar.html#kw_sizeof">KW_SIZEOF</a> :<a name="kw_sizeof"></a> <code>sizeof</code><br />
+<a href="grammar.html#kw_typeof">KW_TYPEOF</a> :<a name="kw_typeof"></a> <code>typeof</code><br />
+<a href="grammar.html#kw_unsized">KW_UNSIZED</a> :<a name="kw_unsized"></a> <code>unsized</code><br />
+<a href="grammar.html#kw_virtual">KW_VIRTUAL</a> :<a name="kw_virtual"></a> <code>virtual</code><br />
+<a href="grammar.html#kw_yield">KW_YIELD</a> :<a name="kw_yield"></a> <code>yield</code></p>
 </blockquote>
 <a class="header" href="grammar.html#identifiers" id="identifiers"><h3>Identifiers</h3></a>
 <blockquote>
-<p>IDENTIFIER :<br />
+<p><a href="grammar.html#identifier">IDENTIFIER</a> :<a name="identifier"></a><br />
       [<code>a</code>-<code>z</code> <code>A</code>-<code>Z</code>] [<code>a</code>-<code>z</code> <code>A</code>-<code>Z</code> <code>0</code>-<code>9</code> <code>_</code>]<sup>*</sup><br />
    | <code>_</code> [<code>a</code>-<code>z</code> <code>A</code>-<code>Z</code> <code>0</code>-<code>9</code> <code>_</code>]<sup>+</sup></p>
 </blockquote>
 <a class="header" href="grammar.html#comments" id="comments"><h3>Comments</h3></a>
 <blockquote>
-<p>LINE_COMMENT :<br />
+<p><a href="grammar.html#line_comment">LINE_COMMENT</a> :<a name="line_comment"></a><br />
       <code>//</code> (~[<code>/</code> <code>!</code>] | <code>//</code>) ~<code>\n</code><sup>*</sup><br />
    | <code>//</code></p>
-<p>BLOCK_COMMENT :<br />
+<p><a href="grammar.html#block_comment">BLOCK_COMMENT</a> :<a name="block_comment"></a><br />
       <code>/*</code> (~[<code>*</code> <code>!</code>] | <code>**</code> | <em>BlockCommentOrDoc</em>)
 (<em>BlockCommentOrDoc</em> | ~<code>*/</code>)<sup>*</sup> <code>*/</code><br />
    | <code>/**/</code><br />
    | <code>/***/</code></p>
-<p>INNER_LINE_DOC :<br />
+<p><a href="grammar.html#inner_line_doc">INNER_LINE_DOC</a> :<a name="inner_line_doc"></a><br />
    <code>//!</code> ~[<code>\n</code> <em>IsolatedCR</em>]<sup>*</sup></p>
-<p>INNER_BLOCK_DOC :<br />
+<p><a href="grammar.html#inner_block_doc">INNER_BLOCK_DOC</a> :<a name="inner_block_doc"></a><br />
    <code>/*!</code> ( <em>BlockCommentOrDoc</em> | ~[<code>*/</code> <em>IsolatedCR</em>] )<sup>*</sup> <code>*/</code></p>
-<p>OUTER_LINE_DOC :<br />
+<p><a href="grammar.html#outer_line_doc">OUTER_LINE_DOC</a> :<a name="outer_line_doc"></a><br />
    <code>///</code> (~<code>/</code> ~[<code>\n</code> <em>IsolatedCR</em>]<sup>*</sup>)<sup>?</sup></p>
-<p>OUTER_BLOCK_DOC :<br />
+<p><a href="grammar.html#outer_block_doc">OUTER_BLOCK_DOC</a> :<a name="outer_block_doc"></a><br />
    <code>/**</code> (~<code>*</code> | <em>BlockCommentOrDoc</em> )
 (<em>BlockCommentOrDoc</em> | ~[<code>*/</code> <em>IsolatedCR</em>])<sup>*</sup> <code>*/</code></p>
-<p><em>BlockCommentOrDoc</em> :<br />
+<p><a href="grammar.html#blockcommentordoc"><em>BlockCommentOrDoc</em></a> :<a name="blockcommentordoc"></a><br />
       BLOCK_COMMENT<br />
    | OUTER_BLOCK_DOC<br />
    | INNER_BLOCK_DOC</p>
-<p><em>IsolatedCR</em> :<br />
+<p><a href="grammar.html#isolatedcr"><em>IsolatedCR</em></a> :<a name="isolatedcr"></a><br />
    <em>A <code>\r</code> not followed by a <code>\n</code></em></p>
 </blockquote>
 <a class="header" href="grammar.html#tokens" id="tokens"><h3>Tokens</h3></a>
@@ -170,230 +176,229 @@ KW_YIELD          : <code>yield</code></p>
 <p><strong>FIXME</strong></p>
 <p><strong>FIXME</strong></p>
 <p><strong>FIXME</strong></p>
-<p>INTEGER_LITERAL :<br />
+<p><a href="grammar.html#integer_literal">INTEGER_LITERAL</a> :<a name="integer_literal"></a><br />
    ( DEC_LITERAL | BIN_LITERAL | OCT_LITERAL | HEX_LITERAL )
 INTEGER_SUFFIX<sup>?</sup></p>
-<p>DEC_LITERAL :<br />
+<p><a href="grammar.html#dec_literal">DEC_LITERAL</a> :<a name="dec_literal"></a><br />
    DEC_DIGIT (DEC_DIGIT|<code>_</code>)<sup>*</sup></p>
-<p>BIN_LITERAL :<br />
+<p><a href="grammar.html#bin_literal">BIN_LITERAL</a> :<a name="bin_literal"></a><br />
    <code>0b</code> (BIN_DIGIT|<code>_</code>)<sup>*</sup> BIN_DIGIT (BIN_DIGIT|<code>_</code>)<sup>*</sup></p>
-<p>OCT_LITERAL :<br />
+<p><a href="grammar.html#oct_literal">OCT_LITERAL</a> :<a name="oct_literal"></a><br />
    <code>0o</code> (OCT_DIGIT|<code>_</code>)<sup>*</sup> OCT_DIGIT (OCT_DIGIT|<code>_</code>)<sup>*</sup></p>
-<p>HEX_LITERAL :<br />
+<p><a href="grammar.html#hex_literal">HEX_LITERAL</a> :<a name="hex_literal"></a><br />
    <code>0x</code> (HEX_DIGIT|<code>_</code>)<sup>*</sup> HEX_DIGIT (HEX_DIGIT|<code>_</code>)<sup>*</sup></p>
-<p>BIN_DIGIT : [<code>0</code>-<code>1</code> <code>_</code>]<br />
-OCT_DIGIT : [<code>0</code>-<code>7</code> <code>_</code>]<br />
-DEC_DIGIT : [<code>0</code>-<code>9</code> <code>_</code>]<br />
-HEX_DIGIT : [<code>0</code>-<code>9</code> <code>a</code>-<code>f</code> <code>A</code>-<code>F</code> <code>_</code>]</p>
-<p>INTEGER_SUFFIX :<br />
+<p><a href="grammar.html#bin_digit">BIN_DIGIT</a> :<a name="bin_digit"></a> <a href="grammar.html#oct_digit"><code>0</code>-<code>1</code> <code>_</code></a> :<a name="oct_digit"></a> <a href="grammar.html#dec_digit"><code>0</code>-<code>7</code> <code>_</code></a> :<a name="dec_digit"></a> <a href="grammar.html#hex_digit"><code>0</code>-<code>9</code> <code>_</code></a> :<a name="hex_digit"></a> [<code>0</code>-<code>9</code> <code>a</code>-<code>f</code> <code>A</code>-<code>F</code> <code>_</code>]</p>
+<p><a href="grammar.html#integer_suffix">INTEGER_SUFFIX</a> :<a name="integer_suffix"></a><br />
       <code>u8</code> | <code>u16</code> | <code>u32</code> | <code>u64</code> | <code>usize</code><br />
    | <code>i8</code> | <code>u16</code> | <code>i32</code> | <code>i64</code> | <code>usize</code></p>
-<p>FLOAT_LITERAL :<br />
+<p><a href="grammar.html#float_literal">FLOAT_LITERAL</a> :<a name="float_literal"></a><br />
       DEC_LITERAL <code>.</code>
 <em>(not immediately followed by <code>.</code>, <code>_</code> or an identifier</em>)<br />
    | DEC_LITERAL FLOAT_EXPONENT<br />
    | DEC_LITERAL <code>.</code> DEC_LITERAL FLOAT_EXPONENT<sup>?</sup><br />
    | DEC_LITERAL (<code>.</code> DEC_LITERAL)<sup>?</sup>
 FLOAT_EXPONENT<sup>?</sup> FLOAT_SUFFIX</p>
-<p>FLOAT_EXPONENT :<br />
+<p><a href="grammar.html#float_exponent">FLOAT_EXPONENT</a> :<a name="float_exponent"></a><br />
    (<code>e</code>|<code>E</code>) (<code>+</code>|<code>-</code>)?
 (DEC_DIGIT|<code>_</code>)<sup>*</sup> DEC_DIGIT (DEC_DIGIT|<code>_</code>)<sup>*</sup></p>
-<p>FLOAT_SUFFIX :<br />
+<p><a href="grammar.html#float_suffix">FLOAT_SUFFIX</a> :<a name="float_suffix"></a><br />
    <code>f32</code> | <code>f64</code></p>
-<p>BOOLEAN_LITERAL :<br />
+<p><a href="grammar.html#boolean_literal">BOOLEAN_LITERAL</a> :<a name="boolean_literal"></a><br />
       <code>true</code><br />
    | <code>false</code></p>
-<p>EQ            : <code>=</code><br />
-LT            : <code>&lt;</code><br />
-LE            : <code>&lt;=</code><br />
-EQEQ          : <code>==</code><br />
-NE            : <code>!=</code><br />
-GE            : <code>&gt;=</code><br />
-GT            : <code>&gt;</code><br />
-ANDAND        : <code>&amp;&amp;</code><br />
-OROR          : <code>||</code><br />
-NOT           : <code>!</code><br />
-TILDE         : <code>~</code></p>
-<p>AT            : <code>@</code><br />
-DOT           : <code>.</code><br />
-DOTDOT        : <code>..</code><br />
-DOTDOTDOT     : <code>...</code><br />
-COMMA         : <code>,</code><br />
-SEMI          : <code>;</code><br />
-COLON         : <code>:</code><br />
-MOD_SEPARATOR : <code>::</code><br />
-RIGHT_ARROW   : <code>-&gt;</code><br />
-LEFT_ARROW    : <code>&lt;-</code><br />
-FAT_ARROW     : <code>=&gt;</code><br />
-POUND         : <code>#</code><br />
-DOLLAR        : <code>$</code><br />
-QUESTION      : <code>?</code></p>
-<p>OPEN_PAREN    : <code>(</code><br />
-CLOSE_PAREN   : <code>)</code><br />
-OPEN_BRACKET  : <code>[</code><br />
-CLOSE_BRACKET : <code>]</code><br />
-OPEN_BRACE    : <code>{</code><br />
-CLOSE_BRACE   : <code>}</code></p>
+<p><a href="grammar.html#eq">EQ</a> :<a name="eq"></a> <code>=</code><br />
+<a href="grammar.html#lt">LT</a> :<a name="lt"></a> <code>&lt;</code><br />
+<a href="grammar.html#le">LE</a> :<a name="le"></a> <code>&lt;=</code><br />
+<a href="grammar.html#eqeq">EQEQ</a> :<a name="eqeq"></a> <code>==</code><br />
+<a href="grammar.html#ne">NE</a> :<a name="ne"></a> <code>!=</code><br />
+<a href="grammar.html#ge">GE</a> :<a name="ge"></a> <code>&gt;=</code><br />
+<a href="grammar.html#gt">GT</a> :<a name="gt"></a> <code>&gt;</code><br />
+<a href="grammar.html#andand">ANDAND</a> :<a name="andand"></a> <code>&amp;&amp;</code><br />
+<a href="grammar.html#oror">OROR</a> :<a name="oror"></a> <code>||</code><br />
+<a href="grammar.html#not">NOT</a> :<a name="not"></a> <code>!</code><br />
+<a href="grammar.html#tilde">TILDE</a> :<a name="tilde"></a> <code>~</code></p>
+<p><a href="grammar.html#at">AT</a> :<a name="at"></a> <code>@</code><br />
+<a href="grammar.html#dot">DOT</a> :<a name="dot"></a> <code>.</code><br />
+<a href="grammar.html#dotdot">DOTDOT</a> :<a name="dotdot"></a> <code>..</code><br />
+<a href="grammar.html#dotdotdot">DOTDOTDOT</a> :<a name="dotdotdot"></a> <code>...</code><br />
+<a href="grammar.html#comma">COMMA</a> :<a name="comma"></a> <code>,</code><br />
+<a href="grammar.html#semi">SEMI</a> :<a name="semi"></a> <code>;</code><br />
+<a href="grammar.html#colon">COLON</a> :<a name="colon"></a> <code>:</code><br />
+<a href="grammar.html#mod_separator">MOD_SEPARATOR</a> :<a name="mod_separator"></a> <code>::</code><br />
+<a href="grammar.html#right_arrow">RIGHT_ARROW</a> :<a name="right_arrow"></a> <code>-&gt;</code><br />
+<a href="grammar.html#left_arrow">LEFT_ARROW</a> :<a name="left_arrow"></a> <code>&lt;-</code><br />
+<a href="grammar.html#fat_arrow">FAT_ARROW</a> :<a name="fat_arrow"></a> <code>=&gt;</code><br />
+<a href="grammar.html#pound">POUND</a> :<a name="pound"></a> <code>#</code><br />
+<a href="grammar.html#dollar">DOLLAR</a> :<a name="dollar"></a> <code>$</code><br />
+<a href="grammar.html#question">QUESTION</a> :<a name="question"></a> <code>?</code></p>
+<p><a href="grammar.html#underscore">UNDERSCORE</a> :<a name="underscore"></a> <code>_</code><br />
+<a href="grammar.html#lifetime_or_label">LIFETIME_OR_LABEL</a> :<a name="lifetime_or_label"></a> <code>'</code> IDENTIFIER <a name="lifetime-or-label"></a></p>
+<p><a href="grammar.html#open_paren">OPEN_PAREN</a> :<a name="open_paren"></a> <code>(</code><br />
+<a href="grammar.html#close_paren">CLOSE_PAREN</a> :<a name="close_paren"></a> <code>)</code><br />
+<a href="grammar.html#open_bracket">OPEN_BRACKET</a> :<a name="open_bracket"></a> <code>[</code><br />
+<a href="grammar.html#close_bracket">CLOSE_BRACKET</a> :<a name="close_bracket"></a> <code>]</code><br />
+<a href="grammar.html#open_brace">OPEN_BRACE</a> :<a name="open_brace"></a> <code>{</code><br />
+<a href="grammar.html#close_brace">CLOSE_BRACE</a> :<a name="close_brace"></a> <code>}</code></p>
 </blockquote>
 <a class="header" href="grammar.html#crates-and-source-files" id="crates-and-source-files"><h3>Crates and source files</h3></a>
 <blockquote>
-<p>UTF8BOM : <code>\uFEFF</code><br />
-SHEBANG : <code>#!</code> ~[<code>[</code> <code>\n</code>] ~<code>\n</code><sup>*</sup></p>
+<p><a href="grammar.html#utf8bom">UTF8BOM</a> :<a name="utf8bom"></a> <code>\uFEFF</code><br />
+<a href="grammar.html#shebang">SHEBANG</a> :<a name="shebang"></a> <code>#!</code> ~[<code>[</code> <code>\n</code>] ~<code>\n</code><sup>*</sup></p>
 </blockquote>
 <a class="header" href="grammar.html#syntactical-productions" id="syntactical-productions"><h2>Syntactical productions</h2></a>
 <a class="header" href="grammar.html#crates-and-source-files-1" id="crates-and-source-files-1"><h3>Crates and source files</h3></a>
 <blockquote>
-<p><em>Crate</em> :<br />
+<p><a href="grammar.html#crate"><em>Crate</em></a> :<a name="crate"></a><br />
    UTF8BOM<sup>?</sup><br />
    SHEBANG<sup>?</sup><br />
-   [<em>InnerAttribute</em>]<sup>*</sup><br />
-   [<em>Item</em>]<sup>*</sup></p>
+   <a href="grammar.html#innerattribute"><em>InnerAttribute</em></a><sup>*</sup><br />
+   <a href="grammar.html#item"><em>Item</em></a><sup>*</sup></p>
 </blockquote>
 <a class="header" href="grammar.html#items" id="items"><h3>Items</h3></a>
 <blockquote>
-<p>[<em>Item</em>]:<br />
-   [<em>OuterAttribute</em>]<sup>*</sup> [<em>Visibility</em>]<br />
+<p><a href="grammar.html#item"><em>Item</em></a>:<br />
+   <a href="grammar.html#outerattribute"><em>OuterAttribute</em></a><sup>*</sup> <a href="grammar.html#visibility"><em>Visibility</em></a><br />
    (<br />
-          [<em>Module</em>]<br />
-      | [<em>ExternCrate</em>]<br />
-      | [<em>UseDeclaration</em>]<br />
-      | [<em>Function</em>]<br />
-      | [<em>TypeAlias</em>]<br />
-      | [<em>Struct</em>]<br />
-      | [<em>Enumeration</em>]<br />
-      | [<em>Union</em>]<br />
-      | [<em>ConstantItem</em>]<br />
-      | [<em>StaticItem</em>]<br />
-      | [<em>Trait</em>]<br />
-      | [<em>Implementation</em>]<br />
-      | [<em>ExternBlock</em>]<br />
+          <a href="grammar.html#module"><em>Module</em></a><br />
+      | <a href="grammar.html#externcrate"><em>ExternCrate</em></a><br />
+      | <a href="grammar.html#usedeclaration"><em>UseDeclaration</em></a><br />
+      | <a href="grammar.html#function"><em>Function</em></a><br />
+      | <a href="grammar.html#typealias"><em>TypeAlias</em></a><br />
+      | <a href="grammar.html#struct"><em>Struct</em></a><br />
+      | <a href="grammar.html#enumeration"><em>Enumeration</em></a><br />
+      | <a href="grammar.html#union"><em>Union</em></a><br />
+      | <a href="grammar.html#constantitem"><em>ConstantItem</em></a><br />
+      | <a href="grammar.html#staticitem"><em>StaticItem</em></a><br />
+      | <a href="grammar.html#trait"><em>Trait</em></a><br />
+      | <a href="grammar.html#implementation"><em>Implementation</em></a><br />
+      | <a href="grammar.html#externblock"><em>ExternBlock</em></a><br />
       | <em>Macro</em><br />
       | <em>MacroDefinition</em><br />
    )</p>
-<p>[<em>Generics</em>] :<a name="generics"></a><br />
+<p><a href="grammar.html#generics"><em>Generics</em></a> :<a name="generics"></a><a name="generics"></a><br />
    <code>&lt;</code> <em>GenericParams</em><sup>?</sup> <code>&gt;</code></p>
-<p><em>GenericParams</em> :<br />
+<p><a href="grammar.html#genericparams"><em>GenericParams</em></a> :<a name="genericparams"></a><br />
       <em>LifetimeParams</em> <code>,</code><sup>?</sup><br />
    | <em>TypeParams</em> <code>,</code><sup>?</sup><br />
    | <em>LifetimeParams</em> <code>,</code> <em>TypeParams</em> <code>,</code><sup>?</sup></p>
-<p><em>LifetimeParams</em> :<br />
+<p><a href="grammar.html#lifetimeparams"><em>LifetimeParams</em></a> :<a name="lifetimeparams"></a><br />
    <em>LifetimeParam</em> (<code>,</code> <em>LifetimeParam</em>)<sup>*</sup></p>
-<p><em>LifetimeParam</em> :<br />
-   [LIFETIME_OR_LABEL] <em>LifetimeBounds</em><sup>?</sup></p>
+<p><a href="grammar.html#lifetimeparam"><em>LifetimeParam</em></a> :<a name="lifetimeparam"></a><br />
+   <a href="grammar.html#lifetime_or_label">LIFETIME_OR_LABEL</a> <em>LifetimeBounds</em><sup>?</sup></p>
 <p><em>TypeParams</em>:<br />
    <em>TypeParam</em> (<code>,</code> <em>TypeParam</em>)<sup>*</sup></p>
-<p><em>TypeParam</em> :<br />
-   [IDENTIFIER] <em>TypeParamBounds</em><sup>?</sup> ( <code>=</code> [<em>Type</em>] )<sup>?</sup></p>
-<p><em>TypeParamBounds</em> :<br />
-      [LIFETIME_OR_LABEL]<br />
-   | <code>(</code> [LIFETIME_OR_LABEL] <code>)</code><br />
-   | <code>?</code><sup>?</sup> <em>LateBoundLifetimeDefs</em><sup>?</sup> [<em>TypePath</em>]<br />
-   | <code>(</code> <code>?</code><sup>?</sup> <em>LateBoundLifetimeDefs</em><sup>?</sup> [<em>TypePath</em>] <code>)</code></p>
-<p><em>LifetimeBounds</em> :<br />
-   <code>:</code> [LIFETIME_OR_LABEL] ( <code>+</code> [LIFETIME_OR_LABEL] )<sup>*</sup> <code>+</code><sup>?</sup></p>
-<p><em>LateBoundLifetimeDefs</em> :<br />
+<p><a href="grammar.html#typeparam"><em>TypeParam</em></a> :<a name="typeparam"></a><br />
+   <a href="grammar.html#identifier">IDENTIFIER</a> <em>TypeParamBounds</em><sup>?</sup> ( <code>=</code> <a href="grammar.html#type"><em>Type</em></a> )<sup>?</sup></p>
+<p><a href="grammar.html#typeparambounds"><em>TypeParamBounds</em></a> :<a name="typeparambounds"></a><br />
+      <a href="grammar.html#lifetime_or_label">LIFETIME_OR_LABEL</a><br />
+   | <code>(</code> <a href="grammar.html#lifetime_or_label">LIFETIME_OR_LABEL</a> <code>)</code><br />
+   | <code>?</code><sup>?</sup> <em>LateBoundLifetimeDefs</em><sup>?</sup> <a href="grammar.html#typepath"><em>TypePath</em></a><br />
+   | <code>(</code> <code>?</code><sup>?</sup> <em>LateBoundLifetimeDefs</em><sup>?</sup> <a href="grammar.html#typepath"><em>TypePath</em></a> <code>)</code></p>
+<p><a href="grammar.html#lifetimebounds"><em>LifetimeBounds</em></a> :<a name="lifetimebounds"></a><br />
+   <code>:</code> <a href="grammar.html#lifetime_or_label">LIFETIME_OR_LABEL</a> ( <code>+</code> <a href="grammar.html#lifetime_or_label">LIFETIME_OR_LABEL</a> )<sup>*</sup> <code>+</code><sup>?</sup></p>
+<p><a href="grammar.html#lateboundlifetimedefs"><em>LateBoundLifetimeDefs</em></a> :<a name="lateboundlifetimedefs"></a><br />
    <code>for</code> <code>&lt;</code> <em>LifetimeParams</em> <code>,</code><sup>?</sup> <code>&gt;</code></p>
-<p>[<em>WhereClause</em>] :<a name="where-clause"></a><br />
+<p><a href="grammar.html#whereclause"><em>WhereClause</em></a> :<a name="whereclause"></a><a name="where-clause"></a><br />
    <code>where</code> ( <em>WhereClauseItem</em> ( <code>,</code> <em>WhereClauseItem</em> )<sup>*</sup> <code>,</code><sup>?</sup> )<sup>?</sup></p>
-<p><em>WhereClauseItem</em> :<br />
+<p><a href="grammar.html#whereclauseitem"><em>WhereClauseItem</em></a> :<a name="whereclauseitem"></a><br />
       <em>LifetimeWhereClauseItem</em><br />
    | <em>TypeBoundWhereClauseItem</em><br />
    | <em>TypeEqualWhereClauseItem</em></p>
-<p><em>LifetimeWhereClauseItem</em> :<br />
-   [LIFETIME_OR_LABEL] <em>LifetimeBounds</em></p>
-<p><em>TypeBoundWhereClauseItem</em> :<br />
-   <em>LateBoundLifetimeDefs</em><sup>?</sup> [<em>Type</em>] <code>:</code> <em>TypeParamBounds</em></p>
-<p><em>TypeEqualWhereClauseItem</em> :<br />
-   <em>LateBoundLifetimeDefs</em><sup>?</sup> [<em>Type</em>] (<code>=</code>|<code>==</code>) [<em>Type</em>]</p>
-<p>[<em>Module</em>] :<br />
-      <code>mod</code> [IDENTIFIER] <code>;</code><br />
-   | <code>mod</code> [IDENTIFIER] <code>{</code><br />
-        [<em>InnerAttribute</em>]<sup>*</sup><br />
-        [<em>Item</em>]<sup>*</sup><br />
+<p><a href="grammar.html#lifetimewhereclauseitem"><em>LifetimeWhereClauseItem</em></a> :<a name="lifetimewhereclauseitem"></a><br />
+   <a href="grammar.html#lifetime_or_label">LIFETIME_OR_LABEL</a> <em>LifetimeBounds</em></p>
+<p><a href="grammar.html#typeboundwhereclauseitem"><em>TypeBoundWhereClauseItem</em></a> :<a name="typeboundwhereclauseitem"></a><br />
+   <em>LateBoundLifetimeDefs</em><sup>?</sup> <a href="grammar.html#type"><em>Type</em></a> <code>:</code> <em>TypeParamBounds</em></p>
+<p><a href="grammar.html#typeequalwhereclauseitem"><em>TypeEqualWhereClauseItem</em></a> :<a name="typeequalwhereclauseitem"></a><br />
+   <em>LateBoundLifetimeDefs</em><sup>?</sup> <a href="grammar.html#type"><em>Type</em></a> (<code>=</code>|<code>==</code>) <a href="grammar.html#type"><em>Type</em></a></p>
+<p><a href="grammar.html#module"><em>Module</em></a> :<a name="module"></a><br />
+      <code>mod</code> <a href="grammar.html#identifier">IDENTIFIER</a> <code>;</code><br />
+   | <code>mod</code> <a href="grammar.html#identifier">IDENTIFIER</a> <code>{</code><br />
+        <a href="grammar.html#innerattribute"><em>InnerAttribute</em></a><sup>*</sup><br />
+        <a href="grammar.html#item"><em>Item</em></a><sup>*</sup><br />
       <code>}</code></p>
-<p>[<em>ExternCrate</em>] :<br />
-   <code>extern</code> <code>crate</code> [IDENTIFIER] (<code>as</code> [IDENTIFIER])<sup>?</sup> <code>;</code></p>
-<p><em>UseDeclaration</em> :<br />
-      <code>use</code> <code>::</code><sup>?</sup> [<em>NonGlobalPath</em>]<br />
-   | <code>use</code> <code>::</code><sup>?</sup> [<em>NonGlobalPath</em>] <code>as</code> [IDENTIFIER]<br />
-   | <code>use</code> <code>::</code><sup>?</sup> [<em>NonGlobalPath</em>] <code>::</code> <code>*</code><br />
-   | <code>use</code> <code>::</code><sup>?</sup> [<em>NonGlobalPath</em>] <code>::</code> <code>{</code> <em>UseItems</em> <code>}</code><br />
+<p><a href="grammar.html#externcrate"><em>ExternCrate</em></a> :<a name="externcrate"></a><br />
+   <code>extern</code> <code>crate</code> <a href="grammar.html#identifier">IDENTIFIER</a> (<code>as</code> <a href="grammar.html#identifier">IDENTIFIER</a>)<sup>?</sup> <code>;</code></p>
+<p><a href="grammar.html#usedeclaration"><em>UseDeclaration</em></a> :<a name="usedeclaration"></a><br />
+      <code>use</code> <code>::</code><sup>?</sup> <a href="grammar.html#nonglobalpath"><em>NonGlobalPath</em></a><br />
+   | <code>use</code> <code>::</code><sup>?</sup> <a href="grammar.html#nonglobalpath"><em>NonGlobalPath</em></a> <code>as</code> <a href="grammar.html#identifier">IDENTIFIER</a><br />
+   | <code>use</code> <code>::</code><sup>?</sup> <a href="grammar.html#nonglobalpath"><em>NonGlobalPath</em></a> <code>::</code> <code>*</code><br />
+   | <code>use</code> <code>::</code><sup>?</sup> <a href="grammar.html#nonglobalpath"><em>NonGlobalPath</em></a> <code>::</code> <code>{</code> <em>UseItems</em> <code>}</code><br />
    | <code>use</code> <code>::</code><sup>?</sup> <code>{</code> <em>UseItems</em> <code>}</code></p>
-<p><em>UseItems</em> :<br />
-   ( <code>self</code> | [IDENTIFIER] (<code>as</code> [IDENTIFIER] )<sup>?</sup> )
+<p><a href="grammar.html#useitems"><em>UseItems</em></a> :<a name="useitems"></a><br />
+   ( <code>self</code> | <a href="grammar.html#identifier">IDENTIFIER</a> (<code>as</code> <a href="grammar.html#identifier">IDENTIFIER</a> )<sup>?</sup> )
 ( <code>,</code> <em>UseItems</em> )<sup>?<sup></p>
-<p>[<em>Function</em>]:<br />
+<p><a href="grammar.html#function"><em>Function</em></a>:<br />
    <code>const</code><sup>?</sup> <code>unsafe</code><sup>?</sup> (<code>extern</code> Abi<sup>?</sup>)<sup>?</sup> <code>fn</code>
-[IDENTIFIER] [<em>Generics</em>]<sup>?</sup><br />
+<a href="grammar.html#identifier">IDENTIFIER</a> <a href="grammar.html#generics"><em>Generics</em></a><sup>?</sup><br />
       <code>(</code> <em>FunctionParameters</em><sup>?</sup> <code>)</code>
-<em>FunctionReturnType</em><sup>?</sup> [<em>WhereClause</em>]<sup>?</sup><br />
+<em>FunctionReturnType</em><sup>?</sup> <a href="grammar.html#whereclause"><em>WhereClause</em></a><sup>?</sup><br />
       <em>BlockWithInnerAttributes</em></p>
 <p><em>Abi</em>:<br />
    STRING_LITERAL</p>
 <p><em>FunctionParameters</em>:<br />
    <code>(</code> <code>)</code></p>
 <p><em>FunctionReturnType</em>:<br />
-   <code>-&gt;</code> [<em>Type</em>]</p>
-<p><em>BlockWithInnerAttributes</em> :<br />
+   <code>-&gt;</code> <a href="grammar.html#type"><em>Type</em></a></p>
+<p><a href="grammar.html#blockwithinnerattributes"><em>BlockWithInnerAttributes</em></a> :<a name="blockwithinnerattributes"></a><br />
    <code>{</code><br />
-      [<em>InnerAttribute</em>]<sup>*</sup><br />
-      [<em>Statement</em>]<sup>*</sup><br />
+      <a href="grammar.html#innerattribute"><em>InnerAttribute</em></a><sup>*</sup><br />
+      <a href="grammar.html#statement"><em>Statement</em></a><sup>*</sup><br />
    <code>}</code></p>
-<p>[<em>TypeAlias</em>] : FIXME</p>
-<p>[<em>Struct</em>] :<br />
+<p><a href="grammar.html#typealias"><em>TypeAlias</em></a> :<a name="typealias"></a> FIXME</p>
+<p><a href="grammar.html#struct"><em>Struct</em></a> :<a name="struct"></a><br />
       <em>StructStruct</em><br />
    | <em>TupleStruct</em></p>
-<p><em>StructStruct</em> :<br />
+<p><a href="grammar.html#structstruct"><em>StructStruct</em></a> :<a name="structstruct"></a><br />
    <code>struct</code>
-[IDENTIFIER] 
-[<em>Generics</em>]<sup>?</sup>
-[<em>WhereClause</em>]<sup>?</sup>
+<a href="grammar.html#identifier">IDENTIFIER</a> 
+<a href="grammar.html#generics"><em>Generics</em></a><sup>?</sup>
+<a href="grammar.html#whereclause"><em>WhereClause</em></a><sup>?</sup>
 ( <code>{</code> <em>StructFields</em><sup>?</sup> <code>}</code> | <code>;</code> )</p>
-<p><em>TupleStruct</em> :<br />
+<p><a href="grammar.html#tuplestruct"><em>TupleStruct</em></a> :<a name="tuplestruct"></a><br />
    <code>struct</code>
-[IDENTIFIER] 
-[<em>Generics</em>]<sup>?</sup>
+<a href="grammar.html#identifier">IDENTIFIER</a> 
+<a href="grammar.html#generics"><em>Generics</em></a><sup>?</sup>
 <code>(</code> <em>TupleFields</em><sup>?</sup> <code>)</code>
-[<em>WhereClause</em>]<sup>?</sup>
+<a href="grammar.html#whereclause"><em>WhereClause</em></a><sup>?</sup>
 <code>;</code></p>
-<p>[<em>StructFields</em>] :<a name="struct-fields"></a><br />
+<p><a href="grammar.html#structfields"><em>StructFields</em></a> :<a name="structfields"></a><a name="struct-fields"></a><br />
    <em>StructField</em> (<code>,</code> <em>StructField</em>)<sup>*</sup> <code>,</code><sup>?</sup></p>
-<p><em>StructField</em> :<br />
-   [<em>OuterAttribute</em>]<sup>*</sup><br />
-   [<em>Visibility</em>]<sup>?</sup><br />
-   [IDENTIFIER] <code>:</code> [<em>Type</em>]</p>
-<p>[<em>TupleFields</em>] :<a name="tuple-fields"></a><br />
+<p><a href="grammar.html#structfield"><em>StructField</em></a> :<a name="structfield"></a><br />
+   <a href="grammar.html#outerattribute"><em>OuterAttribute</em></a><sup>*</sup><br />
+   <a href="grammar.html#visibility"><em>Visibility</em></a><sup>?</sup><br />
+   <a href="grammar.html#identifier">IDENTIFIER</a> <code>:</code> <a href="grammar.html#type"><em>Type</em></a></p>
+<p><a href="grammar.html#tuplefields"><em>TupleFields</em></a> :<a name="tuplefields"></a><a name="tuple-fields"></a><br />
    <em>TupleField</em> (<code>,</code> <em>TupleField</em>)<sup>*</sup> <code>,</code><sup>?</sup></p>
-<p><em>TupleField</em> :<br />
-   [<em>OuterAttribute</em>]<sup>*</sup><br />
-   [<em>Visibility</em>]<sup>?</sup><br />
-   [<em>Type</em>]</p>
-<p>[<em>Enumeration</em>] :<br />
+<p><a href="grammar.html#tuplefield"><em>TupleField</em></a> :<a name="tuplefield"></a><br />
+   <a href="grammar.html#outerattribute"><em>OuterAttribute</em></a><sup>*</sup><br />
+   <a href="grammar.html#visibility"><em>Visibility</em></a><sup>?</sup><br />
+   <a href="grammar.html#type"><em>Type</em></a></p>
+<p><a href="grammar.html#enumeration"><em>Enumeration</em></a> :<a name="enumeration"></a><br />
    <code>enum</code>
-[IDENTIFIER] 
-[<em>Generics</em>]<sup>?</sup>
-[<em>WhereClause</em>]<sup>?</sup>
+<a href="grammar.html#identifier">IDENTIFIER</a> 
+<a href="grammar.html#generics"><em>Generics</em></a><sup>?</sup>
+<a href="grammar.html#whereclause"><em>WhereClause</em></a><sup>?</sup>
 <code>{</code> <em>EnumItems</em><sup>?</sup> <code>}</code></p>
-<p><em>EnumItems</em> :<br />
+<p><a href="grammar.html#enumitems"><em>EnumItems</em></a> :<a name="enumitems"></a><br />
    <em>EnumItem</em> ( <code>,</code> <em>EnumItem</em> )<sup>*</sup> <code>,</code><sup>?</sup></p>
-<p><em>EnumItem</em> :<br />
+<p><a href="grammar.html#enumitem"><em>EnumItem</em></a> :<a name="enumitem"></a><br />
    <em>OuterAttribute</em><sup>*</sup><br />
-   [IDENTIFIER] ( <em>EnumItemTuple</em> | <em>EnumItemStruct</em>
+   <a href="grammar.html#identifier">IDENTIFIER</a> ( <em>EnumItemTuple</em> | <em>EnumItemStruct</em>
 | <em>EnumItemWithDiscriminant</em> )<sup>?</sup></p>
-<p><em>EnumItemTuple</em> :<br />
-   <code>(</code> [<em>TupleFields</em>]<sup>?</sup> <code>)</code></p>
-<p><em>EnumItemStruct</em> :<br />
-   <code>(</code> [<em>StructFields</em>]<sup>?</sup> <code>)</code></p>
-<p><em>EnumItemWithDiscriminant</em> :<br />
-   <code>=</code> [<em>Expression</em>]</p>
-<p>[<em>Union</em>] :<br />
-   <code>union</code> [<em>Generics</em>]<sup>?</sup> [<em>WhereClause</em>]<sup>?</sup>
-<code>{</code>[<em>StructFields</em>] <code>}</code></p>
-<p>[<em>ConstantItem</em>] :<br />
-   <code>const</code> [IDENTIFIER] <code>:</code> [<em>Type</em>] <code>=</code> [<em>Expression</em>]</p>
-<p>[<em>StaticItem</em>] :<br />
-   <code>static</code> <code>mut</code>? [IDENTIFIER] <code>:</code> [<em>Type</em>] <code>=</code> [<em>Expression</em>] <code>;</code></p>
-<p><em>Trait</em> :<br />
+<p><a href="grammar.html#enumitemtuple"><em>EnumItemTuple</em></a> :<a name="enumitemtuple"></a><br />
+   <code>(</code> <a href="grammar.html#tuplefields"><em>TupleFields</em></a><sup>?</sup> <code>)</code></p>
+<p><a href="grammar.html#enumitemstruct"><em>EnumItemStruct</em></a> :<a name="enumitemstruct"></a><br />
+   <code>(</code> <a href="grammar.html#structfields"><em>StructFields</em></a><sup>?</sup> <code>)</code></p>
+<p><a href="grammar.html#enumitemwithdiscriminant"><em>EnumItemWithDiscriminant</em></a> :<a name="enumitemwithdiscriminant"></a><br />
+   <code>=</code> <a href="grammar.html#expression"><em>Expression</em></a></p>
+<p><a href="grammar.html#union"><em>Union</em></a> :<a name="union"></a><br />
+   <code>union</code> <a href="grammar.html#generics"><em>Generics</em></a><sup>?</sup> <a href="grammar.html#whereclause"><em>WhereClause</em></a><sup>?</sup>
+<code>{</code><a href="grammar.html#structfields"><em>StructFields</em></a> <code>}</code></p>
+<p><a href="grammar.html#constantitem"><em>ConstantItem</em></a> :<a name="constantitem"></a><br />
+   <code>const</code> <a href="grammar.html#identifier">IDENTIFIER</a> <code>:</code> <a href="grammar.html#type"><em>Type</em></a> <code>=</code> <a href="grammar.html#expression"><em>Expression</em></a></p>
+<p><a href="grammar.html#staticitem"><em>StaticItem</em></a> :<a name="staticitem"></a><br />
+   <code>static</code> <code>mut</code>? <a href="grammar.html#identifier">IDENTIFIER</a> <code>:</code> <a href="grammar.html#type"><em>Type</em></a> <code>=</code> <a href="grammar.html#expression"><em>Expression</em></a> <code>;</code></p>
+<p><a href="grammar.html#trait"><em>Trait</em></a> :<a name="trait"></a><br />
    <code>unsafe</code><sup>?</sup><br />
    <code>trait</code> [<em>Identifier</em>]<br />
    <a href="grammar.html#type-parameters"><em>Type-Parameters</em></a><sup>?</sup><br />
@@ -405,16 +410,16 @@ SHEBANG : <code>#!</code> ~[<code>[</code> <code>\n</code>] ~<code>\n</code><sup
    <em>Trait-Method</em> | <em>Trait-Const</em> | <em>Trait-Type</em></p>
 <p><em>Trait-Method</em> :<br />
    <em>Type-Method</em> | <em>Method</em></p>
-<p>[<em>Implementation</em>] :<br />
-<code>unsafe</code>? <code>impl</code> [<em>Generics</em>] (<code>!</code>? <em>TraitName</em> <code>for</code>)? (<em>TypeName</em> | <code>..</code>) <code>{</code><br />
+<p><a href="grammar.html#implementation"><em>Implementation</em></a> :<a name="implementation"></a><br />
+<code>unsafe</code>? <code>impl</code> <a href="grammar.html#generics"><em>Generics</em></a> (<code>!</code>? <em>TraitName</em> <code>for</code>)? (<em>TypeName</em> | <code>..</code>) <code>{</code><br />
    <em>InnerAttributes?</em><br />
    <em>ImplementationItems?</em><br />
 <code>}</code></p>
-<p>[<em>ExternBlock</em>] : <code>extern</code> FIXME</p>
+<p><a href="grammar.html#externblock"><em>ExternBlock</em></a> :<a name="externblock"></a> <code>extern</code> FIXME</p>
 </blockquote>
 <a class="header" href="grammar.html#visibility-and-privacy" id="visibility-and-privacy"><h3>Visibility and Privacy</h3></a>
 <blockquote>
-<p><em>Visibility</em> :<br />
+<p><a href="grammar.html#visibility"><em>Visibility</em></a> :<a name="visibility"></a><br />
       EMPTY<br />
    | <code>pub</code><br />
    | <code>pub</code> <code>(</code> <code>crate</code> <code>)</code><br />
@@ -424,34 +429,34 @@ SHEBANG : <code>#!</code> ~[<code>[</code> <code>\n</code>] ~<code>\n</code><sup
 </blockquote>
 <a class="header" href="grammar.html#attributes" id="attributes"><h3>Attributes</h3></a>
 <blockquote>
-<p><em>Attribute</em> :<br />
+<p><a href="grammar.html#attribute"><em>Attribute</em></a> :<a name="attribute"></a><br />
    <em>InnerAttribute</em> | <em>OuterAttribute</em></p>
-<p><em>InnerAttribute</em> :<br />
+<p><a href="grammar.html#innerattribute"><em>InnerAttribute</em></a> :<a name="innerattribute"></a><br />
    <code>#![</code> MetaItem <code>]</code></p>
-<p><em>OuterAttribute</em> :<br />
+<p><a href="grammar.html#outerattribute"><em>OuterAttribute</em></a> :<a name="outerattribute"></a><br />
    <code>#[</code> MetaItem <code>]</code></p>
-<p><em>MetaItem</em> :<br />
+<p><a href="grammar.html#metaitem"><em>MetaItem</em></a> :<a name="metaitem"></a><br />
       IDENTIFIER<br />
    | IDENTIFIER <code>=</code> LITERAL<br />
    | IDENTIFIER <code>(</code> <em>MetaSeq</em> <code>)</code><br />
    | IDENTIFIER <code>(</code> <em>MetaSeq</em> <code>,</code> <code>)</code></p>
-<p><em>MetaSeq</em> :<br />
+<p><a href="grammar.html#metaseq"><em>MetaSeq</em></a> :<a name="metaseq"></a><br />
       EMPTY<br />
    | <em>MetaItem</em><br />
    | <em>MetaSeq</em> <code>,</code> <em>MetaItem</em></p>
 </blockquote>
 <a class="header" href="grammar.html#statements" id="statements"><h3>Statements</h3></a>
 <blockquote>
-<p><em>Statement</em> :<br />
-   [<em>DeclarationStatement</em>] | [<em>Expression</em>] | <code>;</code></p>
-<p><em>DeclarationStatement</em> :<br />
-   [<em>Item</em>] | [<em>LocalVariablesDeclaration</em>]</p>
-<p><em>LocalVariablesDeclaration</em> :<br />
-   <code>let</code> [<em>Pattern</em>] ( <code>:</code> [<em>Type</em>] )<sup>?</sup> (<code>=</code> [<em>Expression</em>] )<sup>?</sup> <code>;</code></p>
-<p><em>ExpressionStatement</em> :<br />
+<p><a href="grammar.html#statement"><em>Statement</em></a> :<a name="statement"></a><br />
+   <a href="grammar.html#declarationstatement"><em>DeclarationStatement</em></a> | <a href="grammar.html#expression"><em>Expression</em></a> | <code>;</code></p>
+<p><a href="grammar.html#declarationstatement"><em>DeclarationStatement</em></a> :<a name="declarationstatement"></a><br />
+   <a href="grammar.html#item"><em>Item</em></a> | <a href="grammar.html#localvariablesdeclaration"><em>LocalVariablesDeclaration</em></a></p>
+<p><a href="grammar.html#localvariablesdeclaration"><em>LocalVariablesDeclaration</em></a> :<a name="localvariablesdeclaration"></a><br />
+   <code>let</code> <a href="grammar.html#pattern"><em>Pattern</em></a> ( <code>:</code> <a href="grammar.html#type"><em>Type</em></a> )<sup>?</sup> (<code>=</code> <a href="grammar.html#expression"><em>Expression</em></a> )<sup>?</sup> <code>;</code></p>
+<p><a href="grammar.html#expressionstatement"><em>ExpressionStatement</em></a> :<a name="expressionstatement"></a><br />
       <em>ExpressionWithBlock</em><br />
    | <em>ExpressionWithoutBlock</em> <code>;</code></p>
-<p><em>ExpressionWithBlock</em> :<br />
+<p><a href="grammar.html#expressionwithblock"><em>ExpressionWithBlock</em></a> :<a name="expressionwithblock"></a><br />
       BlockExpression<br />
    | LoopExpression<br />
    | IfExpression<br />
@@ -463,87 +468,87 @@ SHEBANG : <code>#!</code> ~[<code>[</code> <code>\n</code>] ~<code>\n</code><sup
 </blockquote>
 <a class="header" href="grammar.html#expressions" id="expressions"><h3>Expressions</h3></a>
 <blockquote>
-<p>[<em>Expression</em>] :<br />
-      [<em>LiteralExpression</em>]<br />
+<p><a href="grammar.html#expression"><em>Expression</em></a> :<a name="expression"></a><br />
+      <a href="grammar.html#literalexpression"><em>LiteralExpression</em></a><br />
    | [<em>PathExpression</em>]<br />
-   | [<em>TupleExpression</em>]<br />
+   | <a href="grammar.html#tupleexpression"><em>TupleExpression</em></a><br />
    | [<em>StructExpression</em>]<br />
    | [<em>EnumerationVariantExpression</em>]<br />
-   | [<em>BlockExpression</em>]<br />
+   | <a href="grammar.html#blockexpression"><em>BlockExpression</em></a><br />
    | [<em>MethodCallExpression</em>]<br />
-   | [<em>FieldExpression</em>]<br />
-   | [<em>TupleIndexingExpression</em>]<br />
+   | <a href="grammar.html#fieldexpression"><em>FieldExpression</em></a><br />
+   | <a href="grammar.html#tupleindexingexpression"><em>TupleIndexingExpression</em></a><br />
    | [<em>CallExpression</em>]<br />
-   | [<em>ClosureExpression</em>]<br />
-   | [<em>ArrayExpression</em>]<br />
-   | [<em>IndexExpression</em>]<br />
-   | [<em>RangeExpression</em>]<br />
-   | [<em>OperatorExpression</em>]<br />
-   | [<em>GroupedExpression</em>]<br />
-   | [<em>LoopExpression</em>]<br />
-   | [<em>ContinueExpression</em>]<br />
-   | [<em>BreakExpression</em>]<br />
-   | [<em>IfExpression</em>]<br />
-   | [<em>MatchExpression</em>]<br />
-   | [<em>IfLetExpression</em>]<br />
-   | [<em>WhileLetExpression</em>]<br />
-   | [<em>ReturnExpression</em>]</p>
-<p>[<em>LiteralExpression</em>] :<br />
+   | <a href="grammar.html#closureexpression"><em>ClosureExpression</em></a><br />
+   | <a href="grammar.html#arrayexpression"><em>ArrayExpression</em></a><br />
+   | <a href="grammar.html#indexexpression"><em>IndexExpression</em></a><br />
+   | <a href="grammar.html#rangeexpression"><em>RangeExpression</em></a><br />
+   | <a href="grammar.html#operatorexpression"><em>OperatorExpression</em></a><br />
+   | <a href="grammar.html#groupedexpression"><em>GroupedExpression</em></a><br />
+   | <a href="grammar.html#loopexpression"><em>LoopExpression</em></a><br />
+   | <a href="grammar.html#continueexpression"><em>ContinueExpression</em></a><br />
+   | <a href="grammar.html#breakexpression"><em>BreakExpression</em></a><br />
+   | <a href="grammar.html#ifexpression"><em>IfExpression</em></a><br />
+   | <a href="grammar.html#matchexpression"><em>MatchExpression</em></a><br />
+   | <a href="grammar.html#ifletexpression"><em>IfLetExpression</em></a><br />
+   | <a href="grammar.html#whileletexpression"><em>WhileLetExpression</em></a><br />
+   | <a href="grammar.html#returnexpression"><em>ReturnExpression</em></a></p>
+<p><a href="grammar.html#literalexpression"><em>LiteralExpression</em></a> :<a name="literalexpression"></a><br />
       [CHARACTER_LITERAL]<br />
    | [STRING_LITERAL]<br />
    | [RAW_STRING_LITERAL]<br />
    | [BYTE_LITERAL]<br />
    | [BYTE_STRING_LITERAL]<br />
    | [RAW_BYTE_STRING_LITERAL]<br />
-   | [INTEGER_LITERAL]<br />
-   | [FLOAT_LITERAL]<br />
-   | [BOOLEAN_LITERAL]</p>
+   | <a href="grammar.html#integer_literal">INTEGER_LITERAL</a><br />
+   | <a href="grammar.html#float_literal">FLOAT_LITERAL</a><br />
+   | <a href="grammar.html#boolean_literal">BOOLEAN_LITERAL</a></p>
 <p>FIXME</p>
-<p><em>TupleExpression</em> :<br />
-      <code>(</code> [<em>Expression</em>] <code>,</code> <code>)</code><br />
-   | <code>(</code> [<em>Expression</em>] (<code>,</code> [<em>Expression</em>] )<sup>+</sup>
+<p><a href="grammar.html#tupleexpression"><em>TupleExpression</em></a> :<a name="tupleexpression"></a><br />
+      <code>(</code> <a href="grammar.html#expression"><em>Expression</em></a> <code>,</code> <code>)</code><br />
+   | <code>(</code> <a href="grammar.html#expression"><em>Expression</em></a> (<code>,</code> <a href="grammar.html#expression"><em>Expression</em></a> )<sup>+</sup>
 <code>,</code><sup>?</sup> <code>)</code></p>
 <p>FIXME
 FIXME include shorthand?</p>
 <p>FIXME</p>
 <p>FIXME</p>
-<p><em>BlockExpression</em> :<br />
+<p><a href="grammar.html#blockexpression"><em>BlockExpression</em></a> :<a name="blockexpression"></a><br />
    <code>{</code><br />
-      [<em>InnerAttribute</em>]*<br />
-      [<em>Statement</em>]*<br />
+      <a href="grammar.html#innerattribute"><em>InnerAttribute</em></a>*<br />
+      <a href="grammar.html#statement"><em>Statement</em></a>*<br />
    <code>}</code></p>
 <p>FIXME</p>
 <p>FIXME</p>
-<p><em>FieldExpression</em> :<br />
-   [<em>Expression</em>] <code>.</code> [IDENTIFIER]</p>
-<p><em>TupleIndexingExpression</em> :<br />
-   [<em>Expression</em>] <code>.</code> [DECIMAL_LITERAL]</p>
+<p><a href="grammar.html#fieldexpression"><em>FieldExpression</em></a> :<a name="fieldexpression"></a><br />
+   <a href="grammar.html#expression"><em>Expression</em></a> <code>.</code> <a href="grammar.html#identifier">IDENTIFIER</a></p>
+<p><a href="grammar.html#tupleindexingexpression"><em>TupleIndexingExpression</em></a> :<a name="tupleindexingexpression"></a><br />
+   <a href="grammar.html#expression"><em>Expression</em></a> <code>.</code> [DECIMAL_LITERAL]</p>
 <p>FIXME</p>
-<p>[<em>ClosureExpression</em>] :<br />
+<p><a href="grammar.html#closureexpression"><em>ClosureExpression</em></a> :<a name="closureexpression"></a><br />
       <code>move</code><sup>?</sup> <code>|</code> ParameterList<sup>?</sup> <code>|</code>
-[<em>Expression</em>]<br />
+<a href="grammar.html#expression"><em>Expression</em></a><br />
    | <code>move</code><sup>?</sup> <code>|</code> ParameterList<sup>?</sup> <code>|</code> <code>-&gt;</code> <em>Type</em>
-[<em>BlockExpression</em>]</p>
-<p>[<em>ArrayExpression</em>] :<br />
+<a href="grammar.html#blockexpression"><em>BlockExpression</em></a></p>
+<p><a href="grammar.html#arrayexpression"><em>ArrayExpression</em></a> :<a name="arrayexpression"></a><br />
       <code>[</code>  <code>]</code><br />
-   | <code>[</code> [<em>Expression</em>] ( <code>,</code> [<em>Expression</em>] )<sup>*</sup> <code>,</code><sup>?</sup> <code>]</code><br />
-   | <code>[</code> [<em>Expression</em>] <code>;</code> [<em>Expression</em>] <code>]</code></p>
-<p>[<em>IndexExpression</em>] :<br />
-   [<em>Expression</em>] <code>[</code> [<em>Expression</em>] <code>]</code></p>
-<p><em>RangeExpression</em> :<br />
+   | <code>[</code> <a href="grammar.html#expression"><em>Expression</em></a> ( <code>,</code> <a href="grammar.html#expression"><em>Expression</em></a> )<sup>*</sup> <code>,</code><sup>?</sup> <code>]</code><br />
+   | <code>[</code> <a href="grammar.html#expression"><em>Expression</em></a> <code>;</code> <a href="grammar.html#expression"><em>Expression</em></a> <code>]</code></p>
+<p><a href="grammar.html#indexexpression"><em>IndexExpression</em></a> :<a name="indexexpression"></a><br />
+   <a href="grammar.html#expression"><em>Expression</em></a> <code>[</code> <a href="grammar.html#expression"><em>Expression</em></a> <code>]</code></p>
+<p><a href="grammar.html#rangeexpression"><em>RangeExpression</em></a> :<a name="rangeexpression"></a><br />
       <em>RangeExpr</em><br />
    | <em>RangeFromExpr</em><br />
    | <em>RangeToExpr</em><br />
    | <em>RangeFullExpr</em></p>
-<p><em>RangeExpr</em> :<br />
-   [<em>Expression</em>] <code>..</code> [<em>Expression</em>]</p>
-<p><em>RangeFromExpr</em> :<br />
-   [<em>Expression</em>] <code>..</code></p>
-<p><em>RangeToExpr</em> :<br />
-   <code>..</code> [<em>Expression</em>]</p>
-<p><em>RangeFullExpr</em> :<br />
+<p><a href="grammar.html#rangeexpr"><em>RangeExpr</em></a> :<a name="rangeexpr"></a><br />
+   <a href="grammar.html#expression"><em>Expression</em></a> <code>..</code> <a href="grammar.html#expression"><em>Expression</em></a></p>
+<p><a href="grammar.html#rangefromexpr"><em>RangeFromExpr</em></a> :<a name="rangefromexpr"></a><br />
+   <a href="grammar.html#expression"><em>Expression</em></a> <code>..</code></p>
+<p><a href="grammar.html#rangetoexpr"><em>RangeToExpr</em></a> :<a name="rangetoexpr"></a><br />
+   <code>..</code> <a href="grammar.html#expression"><em>Expression</em></a></p>
+<p><a href="grammar.html#rangefullexpr"><em>RangeFullExpr</em></a> :<a name="rangefullexpr"></a><br />
    <code>..</code></p>
-<p><em>OperatorExpression</em> :<br />
+<p><a href="grammar.html#operatorexpression"><em>OperatorExpression</em></a> :<a name="operatorexpression"></a><br />
       <a href="grammar.html#borrow-operators"><em>BorrowExpression</em></a><br />
    | <a href="grammar.html#the-dereference-operator"><em>DereferenceExpression</em></a><br />
    | <a href="grammar.html#the--operator"><em>ErrorPropagationExpression</em></a><br />
@@ -554,196 +559,196 @@ FIXME include shorthand?</p>
    | <a href="grammar.html#type-cast-expressions"><em>TypeCastExpression</em></a><br />
    | <a href="grammar.html#assignment-expressions"><em>AssignmentExpression</em></a><br />
    | <a href="grammar.html#compound-assignment-expressions"><em>CompoundAssignmentExpression</em></a></p>
-<p><em>BorrowExpression</em> :<br />
-      <code>&amp;</code> [<em>Expression</em>]<br />
-   | <code>&amp;</code> <code>mut</code> [<em>Expression</em>]</p>
-<p><em>DereferenceExpression</em> :<br />
-   <code>*</code> [<em>Expression</em>]</p>
-<p><em>ErrorPropagationExpression</em> :<br />
-   [<em>Expression</em>] <code>?</code></p>
-<p><em>NegationExpression</em> :<br />
-      <code>-</code> [<em>Expression</em>]<br />
-   | <code>!</code> [<em>Expression</em>]</p>
-<p><em>ArithmeticOrLogicalExpression</em> :<br />
-      [<em>Expression</em>] <code>+</code> [<em>Expression</em>]<br />
-   | [<em>Expression</em>] <code>-</code> [<em>Expression</em>]<br />
-   | [<em>Expression</em>] <code>*</code> [<em>Expression</em>]<br />
-   | [<em>Expression</em>] <code>/</code> [<em>Expression</em>]<br />
-   | [<em>Expression</em>] <code>%</code> [<em>Expression</em>]<br />
-   | [<em>Expression</em>] <code>&amp;</code> [<em>Expression</em>]<br />
-   | [<em>Expression</em>] <code>|</code> [<em>Expression</em>]<br />
-   | [<em>Expression</em>] <code>^</code> [<em>Expression</em>]<br />
-   | [<em>Expression</em>] <code>&lt;&lt;</code> [<em>Expression</em>]<br />
-   | [<em>Expression</em>] <code>&gt;&gt;</code> [<em>Expression</em>]</p>
-<p><em>ComparisonExpression</em> :<br />
-      [<em>Expression</em>] <code>==</code> [<em>Expression</em>]<br />
-   | [<em>Expression</em>] <code>!=</code> [<em>Expression</em>]<br />
-   | [<em>Expression</em>] <code>&gt;</code> [<em>Expression</em>]<br />
-   | [<em>Expression</em>] <code>&lt;</code> [<em>Expression</em>]<br />
-   | [<em>Expression</em>] <code>&gt;=</code> [<em>Expression</em>]<br />
-   | [<em>Expression</em>] <code>&lt;=</code> [<em>Expression</em>]</p>
-<p><em>LazyBooleanExpression</em> :<br />
-      [<em>Expression</em>] <code>||</code> [<em>Expression</em>]<br />
-   | [<em>Expression</em>] <code>&amp;&amp;</code> [<em>Expression</em>]</p>
-<p><em>TypeCastExpression</em> :<br />
-   [<em>Expression</em>] <code>as</code> [IDENTIFIER]</p>
-<p><em>AssignmentExpression</em> :<br />
-   | [<em>Expression</em>] <code>=</code> [<em>Expression</em>]</p>
-<p><em>CompoundAssignmentExpression</em> :<br />
-      [<em>Expression</em>] <code>+=</code> [<em>Expression</em>]<br />
-   | [<em>Expression</em>] <code>-=</code> [<em>Expression</em>]<br />
-   | [<em>Expression</em>] <code>*=</code> [<em>Expression</em>]<br />
-   | [<em>Expression</em>] <code>/=</code> [<em>Expression</em>]<br />
-   | [<em>Expression</em>] <code>%=</code> [<em>Expression</em>]<br />
-   | [<em>Expression</em>] <code>&amp;=</code> [<em>Expression</em>]<br />
-   | [<em>Expression</em>] <code>|=</code> [<em>Expression</em>]<br />
-   | [<em>Expression</em>] <code>^=</code> [<em>Expression</em>]<br />
-   | [<em>Expression</em>] <code>&lt;&lt;=</code> [<em>Expression</em>]<br />
-   | [<em>Expression</em>] <code>&gt;&gt;=</code> [<em>Expression</em>]</p>
-<p><em>GroupedExpression</em> :<br />
-   <code>(</code> [<em>Expression</em>] <code>)</code></p>
-<p><em>LoopExpression</em> :<br />
+<p><a href="grammar.html#borrowexpression"><em>BorrowExpression</em></a> :<a name="borrowexpression"></a><br />
+      <code>&amp;</code> <a href="grammar.html#expression"><em>Expression</em></a><br />
+   | <code>&amp;</code> <code>mut</code> <a href="grammar.html#expression"><em>Expression</em></a></p>
+<p><a href="grammar.html#dereferenceexpression"><em>DereferenceExpression</em></a> :<a name="dereferenceexpression"></a><br />
+   <code>*</code> <a href="grammar.html#expression"><em>Expression</em></a></p>
+<p><a href="grammar.html#errorpropagationexpression"><em>ErrorPropagationExpression</em></a> :<a name="errorpropagationexpression"></a><br />
+   <a href="grammar.html#expression"><em>Expression</em></a> <code>?</code></p>
+<p><a href="grammar.html#negationexpression"><em>NegationExpression</em></a> :<a name="negationexpression"></a><br />
+      <code>-</code> <a href="grammar.html#expression"><em>Expression</em></a><br />
+   | <code>!</code> <a href="grammar.html#expression"><em>Expression</em></a></p>
+<p><a href="grammar.html#arithmeticorlogicalexpression"><em>ArithmeticOrLogicalExpression</em></a> :<a name="arithmeticorlogicalexpression"></a><br />
+      <a href="grammar.html#expression"><em>Expression</em></a> <code>+</code> <a href="grammar.html#expression"><em>Expression</em></a><br />
+   | <a href="grammar.html#expression"><em>Expression</em></a> <code>-</code> <a href="grammar.html#expression"><em>Expression</em></a><br />
+   | <a href="grammar.html#expression"><em>Expression</em></a> <code>*</code> <a href="grammar.html#expression"><em>Expression</em></a><br />
+   | <a href="grammar.html#expression"><em>Expression</em></a> <code>/</code> <a href="grammar.html#expression"><em>Expression</em></a><br />
+   | <a href="grammar.html#expression"><em>Expression</em></a> <code>%</code> <a href="grammar.html#expression"><em>Expression</em></a><br />
+   | <a href="grammar.html#expression"><em>Expression</em></a> <code>&amp;</code> <a href="grammar.html#expression"><em>Expression</em></a><br />
+   | <a href="grammar.html#expression"><em>Expression</em></a> <code>|</code> <a href="grammar.html#expression"><em>Expression</em></a><br />
+   | <a href="grammar.html#expression"><em>Expression</em></a> <code>^</code> <a href="grammar.html#expression"><em>Expression</em></a><br />
+   | <a href="grammar.html#expression"><em>Expression</em></a> <code>&lt;&lt;</code> <a href="grammar.html#expression"><em>Expression</em></a><br />
+   | <a href="grammar.html#expression"><em>Expression</em></a> <code>&gt;&gt;</code> <a href="grammar.html#expression"><em>Expression</em></a></p>
+<p><a href="grammar.html#comparisonexpression"><em>ComparisonExpression</em></a> :<a name="comparisonexpression"></a><br />
+      <a href="grammar.html#expression"><em>Expression</em></a> <code>==</code> <a href="grammar.html#expression"><em>Expression</em></a><br />
+   | <a href="grammar.html#expression"><em>Expression</em></a> <code>!=</code> <a href="grammar.html#expression"><em>Expression</em></a><br />
+   | <a href="grammar.html#expression"><em>Expression</em></a> <code>&gt;</code> <a href="grammar.html#expression"><em>Expression</em></a><br />
+   | <a href="grammar.html#expression"><em>Expression</em></a> <code>&lt;</code> <a href="grammar.html#expression"><em>Expression</em></a><br />
+   | <a href="grammar.html#expression"><em>Expression</em></a> <code>&gt;=</code> <a href="grammar.html#expression"><em>Expression</em></a><br />
+   | <a href="grammar.html#expression"><em>Expression</em></a> <code>&lt;=</code> <a href="grammar.html#expression"><em>Expression</em></a></p>
+<p><a href="grammar.html#lazybooleanexpression"><em>LazyBooleanExpression</em></a> :<a name="lazybooleanexpression"></a><br />
+      <a href="grammar.html#expression"><em>Expression</em></a> <code>||</code> <a href="grammar.html#expression"><em>Expression</em></a><br />
+   | <a href="grammar.html#expression"><em>Expression</em></a> <code>&amp;&amp;</code> <a href="grammar.html#expression"><em>Expression</em></a></p>
+<p><a href="grammar.html#typecastexpression"><em>TypeCastExpression</em></a> :<a name="typecastexpression"></a><br />
+   <a href="grammar.html#expression"><em>Expression</em></a> <code>as</code> <a href="grammar.html#identifier">IDENTIFIER</a></p>
+<p><a href="grammar.html#assignmentexpression"><em>AssignmentExpression</em></a> :<a name="assignmentexpression"></a><br />
+   | <a href="grammar.html#expression"><em>Expression</em></a> <code>=</code> <a href="grammar.html#expression"><em>Expression</em></a></p>
+<p><a href="grammar.html#compoundassignmentexpression"><em>CompoundAssignmentExpression</em></a> :<a name="compoundassignmentexpression"></a><br />
+      <a href="grammar.html#expression"><em>Expression</em></a> <code>+=</code> <a href="grammar.html#expression"><em>Expression</em></a><br />
+   | <a href="grammar.html#expression"><em>Expression</em></a> <code>-=</code> <a href="grammar.html#expression"><em>Expression</em></a><br />
+   | <a href="grammar.html#expression"><em>Expression</em></a> <code>*=</code> <a href="grammar.html#expression"><em>Expression</em></a><br />
+   | <a href="grammar.html#expression"><em>Expression</em></a> <code>/=</code> <a href="grammar.html#expression"><em>Expression</em></a><br />
+   | <a href="grammar.html#expression"><em>Expression</em></a> <code>%=</code> <a href="grammar.html#expression"><em>Expression</em></a><br />
+   | <a href="grammar.html#expression"><em>Expression</em></a> <code>&amp;=</code> <a href="grammar.html#expression"><em>Expression</em></a><br />
+   | <a href="grammar.html#expression"><em>Expression</em></a> <code>|=</code> <a href="grammar.html#expression"><em>Expression</em></a><br />
+   | <a href="grammar.html#expression"><em>Expression</em></a> <code>^=</code> <a href="grammar.html#expression"><em>Expression</em></a><br />
+   | <a href="grammar.html#expression"><em>Expression</em></a> <code>&lt;&lt;=</code> <a href="grammar.html#expression"><em>Expression</em></a><br />
+   | <a href="grammar.html#expression"><em>Expression</em></a> <code>&gt;&gt;=</code> <a href="grammar.html#expression"><em>Expression</em></a></p>
+<p><a href="grammar.html#groupedexpression"><em>GroupedExpression</em></a> :<a name="groupedexpression"></a><br />
+   <code>(</code> <a href="grammar.html#expression"><em>Expression</em></a> <code>)</code></p>
+<p><a href="grammar.html#loopexpression"><em>LoopExpression</em></a> :<a name="loopexpression"></a><br />
       <em>LoopLabel</em><sup>?</sup> (
 <a href="grammar.html#infinite-loops"><em>InfiniteLoopExpression</em></a>
 | <a href="grammar.html#predicate-loops"><em>PredicateLoopExpression</em></a>
 | <a href="grammar.html#iterator-loops"><em>IteratorLoopExpression</em></a>
 )</p>
-<p><em>InfiniteLoopExpression</em> :<br />
-   <code>loop</code> [<em>BlockExpression</em>]</p>
-<p><em>PredicateLoopExpression</em> :<br />
-   <code>while</code> [<em>Expression</em>] [<em>BlockExpression</em>]</p>
-<p><em>IteratorLoopExpression</em> :<br />
-   <code>for</code> [IDENTIFIER] <code>in</code> [<em>Expression</em>] [<em>BlockExpression</em>]</p>
-<p><em>LoopLabel</em> :<br />
+<p><a href="grammar.html#infiniteloopexpression"><em>InfiniteLoopExpression</em></a> :<a name="infiniteloopexpression"></a><br />
+   <code>loop</code> <a href="grammar.html#blockexpression"><em>BlockExpression</em></a></p>
+<p><a href="grammar.html#predicateloopexpression"><em>PredicateLoopExpression</em></a> :<a name="predicateloopexpression"></a><br />
+   <code>while</code> <a href="grammar.html#expression"><em>Expression</em></a> <a href="grammar.html#blockexpression"><em>BlockExpression</em></a></p>
+<p><a href="grammar.html#iteratorloopexpression"><em>IteratorLoopExpression</em></a> :<a name="iteratorloopexpression"></a><br />
+   <code>for</code> <a href="grammar.html#identifier">IDENTIFIER</a> <code>in</code> <a href="grammar.html#expression"><em>Expression</em></a> <a href="grammar.html#blockexpression"><em>BlockExpression</em></a></p>
+<p><a href="grammar.html#looplabel"><em>LoopLabel</em></a> :<a name="looplabel"></a><br />
    LIFETIME_OR_LABEL <code>:</code></p>
-<p><em>BreakExpression</em> :<br />
-   <code>break</code> LIFETIME_OR_LABEL<sup>?</sup> [<em>Expression</em>]<sup>?</sup></p>
-<p><em>ContinueExpression</em> :<br />
+<p><a href="grammar.html#breakexpression"><em>BreakExpression</em></a> :<a name="breakexpression"></a><br />
+   <code>break</code> LIFETIME_OR_LABEL<sup>?</sup> <a href="grammar.html#expression"><em>Expression</em></a><sup>?</sup></p>
+<p><a href="grammar.html#continueexpression"><em>ContinueExpression</em></a> :<a name="continueexpression"></a><br />
    <code>continue</code> LIFETIME_OR_LABEL<sup>?</sup></p>
-<p>[<em>IfExpression</em>] :<br />
-   <code>if</code> [<em>Expression</em>] [<em>BlockExpression</em>]<br />
+<p><a href="grammar.html#ifexpression"><em>IfExpression</em></a> :<a name="ifexpression"></a><br />
+   <code>if</code> <a href="grammar.html#expression"><em>Expression</em></a> <a href="grammar.html#blockexpression"><em>BlockExpression</em></a><br />
    (<code>else</code> (
-[<em>BlockExpression</em>]
-| [<em>IfExpression</em>]
-| [<em>IfLetExpression</em>] ) )<sup>?</sup></p>
-<p>[<em>MatchExpression</em>] :<br />
-   <code>match</code> [<em>Expression</em>] <code>{</code><br />
-      [<em>InnerAttribute</em>]<sup>*</sup><br />
+<a href="grammar.html#blockexpression"><em>BlockExpression</em></a>
+| <a href="grammar.html#ifexpression"><em>IfExpression</em></a>
+| <a href="grammar.html#ifletexpression"><em>IfLetExpression</em></a> ) )<sup>?</sup></p>
+<p><a href="grammar.html#matchexpression"><em>MatchExpression</em></a> :<a name="matchexpression"></a><br />
+   <code>match</code> <a href="grammar.html#expression"><em>Expression</em></a> <code>{</code><br />
+      <a href="grammar.html#innerattribute"><em>InnerAttribute</em></a><sup>*</sup><br />
       ( <em>MatchArm</em> <code>=&gt;</code>
-( [<em>BlockExpression</em>] <code>,</code><sup>?</sup>
-| [<em>Expression</em>] <code>,</code> )
+( <a href="grammar.html#blockexpression"><em>BlockExpression</em></a> <code>,</code><sup>?</sup>
+| <a href="grammar.html#expression"><em>Expression</em></a> <code>,</code> )
 )<sup>*</sup><br />
       <em>MatchArm</em> <code>=&gt;</code>
-( [<em>BlockExpression</em>] | [<em>Expression</em>] ) <code>,</code><sup>?</sup><br />
+( <a href="grammar.html#blockexpression"><em>BlockExpression</em></a> | <a href="grammar.html#expression"><em>Expression</em></a> ) <code>,</code><sup>?</sup><br />
    <code>}</code></p>
-<p><em>MatchArm</em> :<br />
-   [<em>OuterAttribute</em>]<sup>*</sup> <em>MatchArmPatterns</em> <em>MatchArmGuard</em></p>
-<p><em>MatchArmPatterns</em> :<br />
-   [<em>Pattern</em>] ( <code>|</code> [<em>Pattern</em>] )<sup><em></sup></em></sup></p>
-<p><em>ModulePathItem</em> :<br />
+<p><a href="grammar.html#matcharm"><em>MatchArm</em></a> :<a name="matcharm"></a><br />
+   <a href="grammar.html#outerattribute"><em>OuterAttribute</em></a><sup>*</sup> <em>MatchArmPatterns</em> <em>MatchArmGuard</em></p>
+<p><a href="grammar.html#matcharmpatterns"><em>MatchArmPatterns</em></a> :<a name="matcharmpatterns"></a><br />
+   <a href="grammar.html#pattern"><em>Pattern</em></a> ( <code>|</code> <a href="grammar.html#pattern"><em>Pattern</em></a> )<sup><em></sup></em></sup></p>
+<p><a href="grammar.html#modulepathitem"><em>ModulePathItem</em></a> :<a name="modulepathitem"></a><br />
    IDENTIFIER | <code>super</code> | <code>self</code> | <code>Self</code></p>
-<p><em>TypePath</em> :<br />
+<p><a href="grammar.html#typepath"><em>TypePath</em></a> :<a name="typepath"></a><br />
    <em>TypePathItem</em> ( <code>::</code> <em>TypePathItem</em> )<sup>*</sup></p>
-<p><em>TypePathItem</em> :<br />
+<p><a href="grammar.html#typepathitem"><em>TypePathItem</em></a> :<a name="typepathitem"></a><br />
    IDENTIFIER | <code>super</code> | <code>self</code> | <code>Self</code></p>
 </blockquote>
 <a class="header" href="grammar.html#patterns" id="patterns"><h3>Patterns</h3></a>
 <blockquote>
-<p><em>Pattern</em> :<a name="pattern-syntax"></a><br />
-      [<em>LiteralPattern</em>]<br />
-   | [<em>WildcardPattern</em>]<br />
-   | [<em>RangePattern</em>]<br />
-   | [<em>ReferencePattern</em>]<br />
-   | [<em>IdentifierPattern</em>]<br />
-   | [<em>BoxPattern</em>]<br />
-   | [<em>StructPattern</em>]<br />
-   | [<em>TuplePattern</em>]<br />
-   | [<em>TupleStructPattern</em>]<br />
-   | [<em>SlicePattern</em>]<br />
-   | [<em>PathPattern</em>]</p>
-<p><em>LiteralPattern</em> :<a name="literal-pattern-syntax"></a><br />
+<p><a href="grammar.html#pattern"><em>Pattern</em></a> :<a name="pattern"></a><a name="pattern-syntax"></a><br />
+      <a href="grammar.html#literalpattern"><em>LiteralPattern</em></a><br />
+   | <a href="grammar.html#wildcardpattern"><em>WildcardPattern</em></a><br />
+   | <a href="grammar.html#rangepattern"><em>RangePattern</em></a><br />
+   | <a href="grammar.html#referencepattern"><em>ReferencePattern</em></a><br />
+   | <a href="grammar.html#identifierpattern"><em>IdentifierPattern</em></a><br />
+   | <a href="grammar.html#boxpattern"><em>BoxPattern</em></a><br />
+   | <a href="grammar.html#structpattern"><em>StructPattern</em></a><br />
+   | <a href="grammar.html#tuplepattern"><em>TuplePattern</em></a><br />
+   | <a href="grammar.html#tuplestructpattern"><em>TupleStructPattern</em></a><br />
+   | <a href="grammar.html#slicepattern"><em>SlicePattern</em></a><br />
+   | <a href="grammar.html#pathpattern"><em>PathPattern</em></a></p>
+<p><a href="grammar.html#literalpattern"><em>LiteralPattern</em></a> :<a name="literalpattern"></a><a name="literal-pattern-syntax"></a><br />
    <code>-</code><sup>?</sup> ( CHAR_LITERAL | INTEGER_LITERAL | FLOAT_LITERAL )</p>
-<p><em>WildcardPattern</em> :<a name="wildcard-pattern-syntax"></a><br />
+<p><a href="grammar.html#wildcardpattern"><em>WildcardPattern</em></a> :<a name="wildcardpattern"></a><a name="wildcard-pattern-syntax"></a><br />
    <code>_</code></p>
-<p><em>RangePattern</em> :<a name="reference-pattern-syntax"></a><br />
+<p><a href="grammar.html#rangepattern"><em>RangePattern</em></a> :<a name="rangepattern"></a><a name="reference-pattern-syntax"></a><br />
    <em>Expression</em> <code>...</code> <em>Expression</em></p>
-<p><em>ReferencePattern</em> :<a name="reference-pattern-syntax"></a><br />
+<p><a href="grammar.html#referencepattern"><em>ReferencePattern</em></a> :<a name="referencepattern"></a><a name="reference-pattern-syntax"></a><br />
    (<code>&amp;</code>|<code>&amp;&amp;</code>) <code>mut</code><sup>?</sup> <em>Pattern</em></p>
-<p><em>IdentifierPattern</em> :<a name="identifier-pattern-syntax"></a><br />
-      <code>mut</code><sup>?</sup> IDENTIFIER (<code>@</code> [<em>Pattern</em>] ) <sup>?</sup><br />
-   | <code>ref</code> <code>mut</code><sup>?</sup> IDENTIFIER (<code>@</code> [<em>Pattern</em>] ) <sup>?</sup></p>
-<p><em>BoxPattern</em> :<a name="box-pattern-syntax"></a><br />
-   <code>box</code> [<em>Pattern</em>]</p>
-<p><em>StructPattern</em> :<a name="struct-pattern-syntax"></a><br />
+<p><a href="grammar.html#identifierpattern"><em>IdentifierPattern</em></a> :<a name="identifierpattern"></a><a name="identifier-pattern-syntax"></a><br />
+      <code>mut</code><sup>?</sup> IDENTIFIER (<code>@</code> <a href="grammar.html#pattern"><em>Pattern</em></a> ) <sup>?</sup><br />
+   | <code>ref</code> <code>mut</code><sup>?</sup> IDENTIFIER (<code>@</code> <a href="grammar.html#pattern"><em>Pattern</em></a> ) <sup>?</sup></p>
+<p><a href="grammar.html#boxpattern"><em>BoxPattern</em></a> :<a name="boxpattern"></a><a name="box-pattern-syntax"></a><br />
+   <code>box</code> <a href="grammar.html#pattern"><em>Pattern</em></a></p>
+<p><a href="grammar.html#structpattern"><em>StructPattern</em></a> :<a name="structpattern"></a><a name="struct-pattern-syntax"></a><br />
    <em>Path</em> <code>{</code><br />
       <em>StructPatternElements</em> <sup>?</sup><br />
    <code>}</code></p>
-<p><em>StructPatternElements</em> :<br />
+<p><a href="grammar.html#structpatternelements"><em>StructPatternElements</em></a> :<a name="structpatternelements"></a><br />
       <em>StructPatternFields</em> (<code>,</code> | <code>,</code> <em>StructPatternEtCetera</em>)<sup>?</sup><br />
    | <em>StructPatternEtCetera</em></p>
-<p><em>StructPatternFields</em> :<br />
+<p><a href="grammar.html#structpatternfields"><em>StructPatternFields</em></a> :<a name="structpatternfields"></a><br />
    <em>StructPatternField</em> (<code>,</code> <em>StructPatternField</em>) <sup>*</sup></p>
-<p><em>StructPatternField</em> :<br />
+<p><a href="grammar.html#structpatternfield"><em>StructPatternField</em></a> :<a name="structpatternfield"></a><br />
    <em>OuterAttribute</em> <sup>*</sup><br />
    (<br />
-         INTEGER_LITERAL <code>:</code> [<em>Pattern</em>]<br />
-      | IDENTIFIER <code>:</code> [<em>Pattern</em>]<br />
+         INTEGER_LITERAL <code>:</code> <a href="grammar.html#pattern"><em>Pattern</em></a><br />
+      | IDENTIFIER <code>:</code> <a href="grammar.html#pattern"><em>Pattern</em></a><br />
       | <code>box</code><sup>?</sup> <code>ref</code><sup>?</sup> <code>mut</code><sup>?</sup>
 IDENTIFIER<br />
    )</p>
-<p><em>StructPatternEtCetera</em> :<br />
+<p><a href="grammar.html#structpatternetcetera"><em>StructPatternEtCetera</em></a> :<a name="structpatternetcetera"></a><br />
    <em>OuterAttribute</em> <sup>*</sup><br />
    <code>..</code></p>
-<p><em>TupleStructPattern</em> :<a name="tuplestruct-pattern-syntax"></a><br />
+<p><a href="grammar.html#tuplestructpattern"><em>TupleStructPattern</em></a> :<a name="tuplestructpattern"></a><a name="tuplestruct-pattern-syntax"></a><br />
    <em>Path</em> <code>(</code> <em>TupleStructItems</em> <code>)</code></p>
-<p><em>TupleStructItems</em> :<br />
-      [<em>Pattern</em>] ( <code>,</code> [<em>Pattern</em>] )<sup>*</sup> <code>,</code><sup>?</sup><br />
-   | ([<em>Pattern</em>] <code>,</code>)<sup>*</sup> <code>..</code> ( (<code>,</code> [<em>Pattern</em>])<sup>+</sup> <code>,</code><sup>?</sup> )<sup>?</sup></p>
-<p><em>TuplePattern</em> :<a name="tuple-pattern-syntax"></a><br />
+<p><a href="grammar.html#tuplestructitems"><em>TupleStructItems</em></a> :<a name="tuplestructitems"></a><br />
+      <a href="grammar.html#pattern"><em>Pattern</em></a> ( <code>,</code> <a href="grammar.html#pattern"><em>Pattern</em></a> )<sup>*</sup> <code>,</code><sup>?</sup><br />
+   | (<a href="grammar.html#pattern"><em>Pattern</em></a> <code>,</code>)<sup>*</sup> <code>..</code> ( (<code>,</code> <a href="grammar.html#pattern"><em>Pattern</em></a>)<sup>+</sup> <code>,</code><sup>?</sup> )<sup>?</sup></p>
+<p><a href="grammar.html#tuplepattern"><em>TuplePattern</em></a> :<a name="tuplepattern"></a><a name="tuple-pattern-syntax"></a><br />
    <code>(</code> <em>TupplePatternItems</em><sup>?</sup> <code>)</code></p>
-<p><em>TuplePatternItems</em> :<br />
-      [<em>Pattern</em>] <code>,</code><br />
-   | [<em>Pattern</em>] (<code>,</code> [<em>Pattern</em>])<sup>+</sup> <code>,</code><sup>?</sup><br />
-   | ([<em>Pattern</em>] <code>,</code>)<sup>*</sup> <code>..</code> ( (<code>,</code> [<em>Pattern</em>])<sup>+</sup> <code>,</code><sup>?</sup> )<sup>?</sup></p>
-<p><em>SlicePattern</em> :<a name="slice-pattern-syntax"></a><br />
+<p><a href="grammar.html#tuplepatternitems"><em>TuplePatternItems</em></a> :<a name="tuplepatternitems"></a><br />
+      <a href="grammar.html#pattern"><em>Pattern</em></a> <code>,</code><br />
+   | <a href="grammar.html#pattern"><em>Pattern</em></a> (<code>,</code> <a href="grammar.html#pattern"><em>Pattern</em></a>)<sup>+</sup> <code>,</code><sup>?</sup><br />
+   | (<a href="grammar.html#pattern"><em>Pattern</em></a> <code>,</code>)<sup>*</sup> <code>..</code> ( (<code>,</code> <a href="grammar.html#pattern"><em>Pattern</em></a>)<sup>+</sup> <code>,</code><sup>?</sup> )<sup>?</sup></p>
+<p><a href="grammar.html#slicepattern"><em>SlicePattern</em></a> :<a name="slicepattern"></a><a name="slice-pattern-syntax"></a><br />
    <code>[</code> <strong>FIXME</strong> <code>]</code></p>
-<p><em>PathPattern</em> :<a name="path-pattern-syntax"></a><br />
+<p><a href="grammar.html#pathpattern"><em>PathPattern</em></a> :<a name="pathpattern"></a><a name="path-pattern-syntax"></a><br />
    <strong>FIXME</strong></p>
 </blockquote>
 <a class="header" href="grammar.html#types" id="types"><h3>Types</h3></a>
 <blockquote>
-<p>[<em>Type</em>] : <a name="type"></a><br />
-      [<em>TypePath</em>]<br />
+<p><a href="grammar.html#type"><em>Type</em></a> :<a name="type"></a> <a name="type"></a><br />
+      <a href="grammar.html#typepath"><em>TypePath</em></a><br />
    | [<em>QualifiedPathType</em>]<br />
-   | [<em>TupleType</em>]<br />
-   | [<em>ArrayType</em>]<br />
-   | [<em>SliceType</em>]<br />
-   | [<em>ReferenceType</em>]<br />
-   | [<em>RawPointerType</em>]<br />
+   | <a href="grammar.html#tupletype"><em>TupleType</em></a><br />
+   | <a href="grammar.html#arraytype"><em>ArrayType</em></a><br />
+   | <a href="grammar.html#slicetype"><em>SliceType</em></a><br />
+   | <a href="grammar.html#referencetype"><em>ReferenceType</em></a><br />
+   | <a href="grammar.html#rawpointertype"><em>RawPointerType</em></a><br />
    | [<em>BareFunctionType</em>]<br />
-   | [<em>NeverType</em>]<br />
+   | <a href="grammar.html#nevertype"><em>NeverType</em></a><br />
    | [<em>TraitObjectType</em>]<br />
    | [<em>ImplTraitType</em>]<br />
-   | [<em>ParenthesizedType</em>]<br />
-   | [<em>InferredType</em>]</p>
-<p>[<em>TypePath</em>] :<br />
-   [<em>Path</em>]</p>
-<p>[<em>ParenthesizedType</em>] :<br />
-      <code>(</code> [<em>Type</em>] <code>)</code><br />
-   <code>(</code> [<em>Type</em>] <code>)</code> <code>+</code> [<em>TypeBounds</em>]</p>
-<p>[<em>TupleType</em>] : <a name="tuple-type"></a><br />
+   | <a href="grammar.html#parenthesizedtype"><em>ParenthesizedType</em></a><br />
+   | <a href="grammar.html#inferredtype"><em>InferredType</em></a></p>
+<p><a href="grammar.html#typepath"><em>TypePath</em></a> :<a name="typepath"></a><br />
+   <a href="grammar.html#path"><em>Path</em></a></p>
+<p><a href="grammar.html#parenthesizedtype"><em>ParenthesizedType</em></a> :<a name="parenthesizedtype"></a><br />
+      <code>(</code> <a href="grammar.html#type"><em>Type</em></a> <code>)</code><br />
+   <code>(</code> <a href="grammar.html#type"><em>Type</em></a> <code>)</code> <code>+</code> [<em>TypeBounds</em>]</p>
+<p><a href="grammar.html#tupletype"><em>TupleType</em></a> :<a name="tupletype"></a> <a name="tuple-type"></a><br />
       <code>(</code> <code>)</code><br />
-   | <code>(</code> [<em>Type</em>] <code>,</code> <code>)</code><br />
-   | <code>(</code> [<em>Type</em>] ( <code>,</code> [<em>Type</em>] ) <sup>+</sup> <code>,</code><sup>?</sup> <code>)</code></p>
-<p>[<em>ArrayType</em>] : <a name="array-type"></a><br />
-   <code>[</code> [<em>Type</em>] <code>;</code> [<em>Expression</em>] <code>]</code></p>
-<p>[<em>SliceType</em>] : <a name="slice-type"></a><br />
-   <code>&amp;</code> <code>[</code> [<em>Type</em>] <code>]</code></p>
-<p>[<em>NeverType</em>] : <code>!</code></p>
-<p>[<em>InferredType</em>] : <code>_</code></p>
-<p>[<em>ReferenceType</em>] :<br />
+   | <code>(</code> <a href="grammar.html#type"><em>Type</em></a> <code>,</code> <code>)</code><br />
+   | <code>(</code> <a href="grammar.html#type"><em>Type</em></a> ( <code>,</code> <a href="grammar.html#type"><em>Type</em></a> ) <sup>+</sup> <code>,</code><sup>?</sup> <code>)</code></p>
+<p><a href="grammar.html#arraytype"><em>ArrayType</em></a> :<a name="arraytype"></a> <a name="array-type"></a><br />
+   <code>[</code> <a href="grammar.html#type"><em>Type</em></a> <code>;</code> <a href="grammar.html#expression"><em>Expression</em></a> <code>]</code></p>
+<p><a href="grammar.html#slicetype"><em>SliceType</em></a> :<a name="slicetype"></a> <a name="slice-type"></a><br />
+   <code>&amp;</code> <code>[</code> <a href="grammar.html#type"><em>Type</em></a> <code>]</code></p>
+<p><a href="grammar.html#nevertype"><em>NeverType</em></a> :<a name="nevertype"></a> <code>!</code></p>
+<p><a href="grammar.html#inferredtype"><em>InferredType</em></a> :<a name="inferredtype"></a> <code>_</code></p>
+<p><a href="grammar.html#referencetype"><em>ReferenceType</em></a> :<a name="referencetype"></a><br />
    <code>&amp;</code> Lifetime? <code>mut</code>? [<em>TypeNoBounds</em>]</p>
-<p>[<em>RawPointerType</em>] :<br />
+<p><a href="grammar.html#rawpointertype"><em>RawPointerType</em></a> :<a name="rawpointertype"></a><br />
    <code>*</code> ( <code>mut</code> | <code>const</code> ) [<em>TypeNoBounds</em>]</p>
 </blockquote>
 
