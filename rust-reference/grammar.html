@@ -187,7 +187,10 @@ INTEGER_SUFFIX<sup>?</sup></p>
    <code>0o</code> (OCT_DIGIT|<code>_</code>)<sup>*</sup> OCT_DIGIT (OCT_DIGIT|<code>_</code>)<sup>*</sup></p>
 <p><a href="grammar.html#hex_literal">HEX_LITERAL</a> :<a name="hex_literal"></a><br />
    <code>0x</code> (HEX_DIGIT|<code>_</code>)<sup>*</sup> HEX_DIGIT (HEX_DIGIT|<code>_</code>)<sup>*</sup></p>
-<p><a href="grammar.html#bin_digit">BIN_DIGIT</a> :<a name="bin_digit"></a> <a href="grammar.html#oct_digit"><code>0</code>-<code>1</code> <code>_</code></a> :<a name="oct_digit"></a> <a href="grammar.html#dec_digit"><code>0</code>-<code>7</code> <code>_</code></a> :<a name="dec_digit"></a> <a href="grammar.html#hex_digit"><code>0</code>-<code>9</code> <code>_</code></a> :<a name="hex_digit"></a> [<code>0</code>-<code>9</code> <code>a</code>-<code>f</code> <code>A</code>-<code>F</code> <code>_</code>]</p>
+<p><a href="grammar.html#bin_digit">BIN_DIGIT</a> :<a name="bin_digit"></a> [<code>0</code>-<code>1</code> <code>_</code>]</p>
+<p><a href="grammar.html#oct_digit">OCT_DIGIT</a> :<a name="oct_digit"></a> [<code>0</code>-<code>7</code> <code>_</code>]</p>
+<p><a href="grammar.html#dec_digit">DEC_DIGIT</a> :<a name="dec_digit"></a> [<code>0</code>-<code>9</code> <code>_</code>]</p>
+<p><a href="grammar.html#hex_digit">HEX_DIGIT</a> :<a name="hex_digit"></a> [<code>0</code>-<code>9</code> <code>a</code>-<code>f</code> <code>A</code>-<code>F</code> <code>_</code>]</p>
 <p><a href="grammar.html#integer_suffix">INTEGER_SUFFIX</a> :<a name="integer_suffix"></a><br />
       <code>u8</code> | <code>u16</code> | <code>u32</code> | <code>u64</code> | <code>usize</code><br />
    | <code>i8</code> | <code>u16</code> | <code>i32</code> | <code>i64</code> | <code>usize</code></p>
@@ -328,7 +331,7 @@ FLOAT_EXPONENT<sup>?</sup> FLOAT_SUFFIX</p>
    ( <code>self</code> | <a href="grammar.html#identifier">IDENTIFIER</a> (<code>as</code> <a href="grammar.html#identifier">IDENTIFIER</a> )<sup>?</sup> )
 ( <code>,</code> <em>UseItems</em> )<sup>?<sup></p>
 <p><a href="grammar.html#function"><em>Function</em></a>:<br />
-   <code>const</code><sup>?</sup> <code>unsafe</code><sup>?</sup> (<code>extern</code> Abi<sup>?</sup>)<sup>?</sup> <code>fn</code>
+   <code>unsafe</code><sup>?</sup> (<code>extern</code> Abi<sup>?</sup>)<sup>?</sup> <code>fn</code>
 <a href="grammar.html#identifier">IDENTIFIER</a> <a href="grammar.html#generics"><em>Generics</em></a><sup>?</sup><br />
       <code>(</code> <em>FunctionParameters</em><sup>?</sup> <code>)</code>
 <em>FunctionReturnType</em><sup>?</sup> <a href="grammar.html#whereclause"><em>WhereClause</em></a><sup>?</sup><br />
@@ -336,7 +339,9 @@ FLOAT_EXPONENT<sup>?</sup> FLOAT_SUFFIX</p>
 <p><em>Abi</em>:<br />
    STRING_LITERAL</p>
 <p><em>FunctionParameters</em>:<br />
-   <code>(</code> <code>)</code></p>
+   <em>FunctionParam</em> (<code>,</code> <em>FunctionParam</em>)<sup>*</sup> <code>,</code><sup>?</sup></p>
+<p><a href="grammar.html#functionparam"><em>FunctionParam</em></a> :<a name="functionparam"></a><br />
+   <em>Pattern</em> <code>:</code> <em>Type</em></p>
 <p><em>FunctionReturnType</em>:<br />
    <code>-&gt;</code> <a href="grammar.html#type"><em>Type</em></a></p>
 <p><a href="grammar.html#blockwithinnerattributes"><em>BlockWithInnerAttributes</em></a> :<a name="blockwithinnerattributes"></a><br />
@@ -344,7 +349,9 @@ FLOAT_EXPONENT<sup>?</sup> FLOAT_SUFFIX</p>
       <a href="grammar.html#innerattribute"><em>InnerAttribute</em></a><sup>*</sup><br />
       <a href="grammar.html#statement"><em>Statement</em></a><sup>*</sup><br />
    <code>}</code></p>
-<p><a href="grammar.html#typealias"><em>TypeAlias</em></a> :<a name="typealias"></a> FIXME</p>
+<p><a href="grammar.html#typealias"><em>TypeAlias</em></a> :<a name="typealias"></a><br />
+   <code>type</code> <a href="grammar.html#identifier">IDENTIFIER</a> <a href="grammar.html#generics"><em>Generics</em></a><sup>?</sup>
+<a href="grammar.html#whereclause"><em>WhereClause</em></a><sup>?</sup> <code>=</code> <a href="grammar.html#type"><em>Type</em></a> <code>;</code></p>
 <p><a href="grammar.html#struct"><em>Struct</em></a> :<a name="struct"></a><br />
       <em>StructStruct</em><br />
    | <em>TupleStruct</em></p>
@@ -384,12 +391,12 @@ FLOAT_EXPONENT<sup>?</sup> FLOAT_SUFFIX</p>
 <p><a href="grammar.html#enumitem"><em>EnumItem</em></a> :<a name="enumitem"></a><br />
    <em>OuterAttribute</em><sup>*</sup><br />
    <a href="grammar.html#identifier">IDENTIFIER</a> ( <em>EnumItemTuple</em> | <em>EnumItemStruct</em>
-| <em>EnumItemWithDiscriminant</em> )<sup>?</sup></p>
+| <em>EnumItemDiscriminant</em> )<sup>?</sup></p>
 <p><a href="grammar.html#enumitemtuple"><em>EnumItemTuple</em></a> :<a name="enumitemtuple"></a><br />
    <code>(</code> <a href="grammar.html#tuplefields"><em>TupleFields</em></a><sup>?</sup> <code>)</code></p>
 <p><a href="grammar.html#enumitemstruct"><em>EnumItemStruct</em></a> :<a name="enumitemstruct"></a><br />
-   <code>(</code> <a href="grammar.html#structfields"><em>StructFields</em></a><sup>?</sup> <code>)</code></p>
-<p><a href="grammar.html#enumitemwithdiscriminant"><em>EnumItemWithDiscriminant</em></a> :<a name="enumitemwithdiscriminant"></a><br />
+   <code>{</code> <a href="grammar.html#structfields"><em>StructFields</em></a><sup>?</sup> <code>}</code></p>
+<p><a href="grammar.html#enumitemdiscriminant"><em>EnumItemDiscriminant</em></a> :<a name="enumitemdiscriminant"></a><br />
    <code>=</code> <a href="grammar.html#expression"><em>Expression</em></a></p>
 <p><a href="grammar.html#union"><em>Union</em></a> :<a name="union"></a><br />
    <code>union</code> <a href="grammar.html#generics"><em>Generics</em></a><sup>?</sup> <a href="grammar.html#whereclause"><em>WhereClause</em></a><sup>?</sup>
@@ -415,7 +422,25 @@ FLOAT_EXPONENT<sup>?</sup> FLOAT_SUFFIX</p>
    <em>InnerAttributes?</em><br />
    <em>ImplementationItems?</em><br />
 <code>}</code></p>
-<p><a href="grammar.html#externblock"><em>ExternBlock</em></a> :<a name="externblock"></a> <code>extern</code> FIXME</p>
+<p><a href="grammar.html#externblock"><em>ExternBlock</em></a> :<a name="externblock"></a><br />
+   <code>extern</code> <em>Abi</em><sup>?</sup> <code>{</code><br />
+      <em>InnerAttribute</em><sup>*</sup><br />
+      <em>ExternalItem</em><sup>*</sup><br />
+   <code>}</code></p>
+<p><a href="grammar.html#externalitem"><em>ExternalItem</em></a> :<a name="externalitem"></a><br />
+   <em>OuterAttribute</em><sup>*</sup><br />
+   <em>VisibilityNoTuple</em><sup>?</sup><br />
+   (externalStaticItem | externalFunctionItem)</p>
+<p><a href="grammar.html#externalstaticitem"><em>ExternalStaticItem</em></a> :<a name="externalstaticitem"></a><br />
+   <code>static</code> <code>mut</code><sup>?</sup> IDENTIFIER <code>:</code> <em>Type</em> <code>;</code></p>
+<p><a href="grammar.html#externalfunctionitem"><em>ExternalFunctionItem</em></a> :<a name="externalfunctionitem"></a><br />
+   <code>fn</code> IDENTIFIER <em>Generics</em><sup>?</sup><br />
+   ( <em>FunctionParameters</em> | <em>FunctionParametersWithVariadics</em> )<br />
+   <em>FunctionReturnType</em><sup>?</sup> <em>WhereClause</em><sup>?</sup> <code>;</code></p>
+<p><a href="grammar.html#functionparameterswithvariadics"><em>FunctionParametersWithVariadics</em></a> :<a name="functionparameterswithvariadics"></a><br />
+   <code>(</code> ( <em>FunctionParam</em> <code>,</code> )<sup>*</sup> <em>VariadicFunctionParam</em> <code>)</code></p>
+<p><a href="grammar.html#variadicfunctionparam"><em>VariadicFunctionParam</em></a> :<a name="variadicfunctionparam"></a><br />
+   <em>FunctionParam</em> <code>,</code> <code>...</code></p>
 </blockquote>
 <a class="header" href="grammar.html#visibility-and-privacy" id="visibility-and-privacy"><h3>Visibility and Privacy</h3></a>
 <blockquote>

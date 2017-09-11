@@ -379,7 +379,7 @@ fn main() {}
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 <a href="items.html#functions"><em>Function</em></a>:<br />
-   <code>const</code><sup>?</sup> <code>unsafe</code><sup>?</sup> (<code>extern</code> Abi<sup>?</sup>)<sup>?</sup> <code>fn</code>
+   <code>unsafe</code><sup>?</sup> (<code>extern</code> Abi<sup>?</sup>)<sup>?</sup> <code>fn</code>
 <a href="identifiers.html">IDENTIFIER</a> <a href="items.html#generics"><em>Generics</em></a><sup>?</sup><br />
       <code>(</code> <em>FunctionParameters</em><sup>?</sup> <code>)</code>
 <em>FunctionReturnType</em><sup>?</sup> <a href="items.html#where-clause"><em>WhereClause</em></a><sup>?</sup><br />
@@ -387,7 +387,9 @@ fn main() {}
 <p><em>Abi</em>:<br />
    STRING_LITERAL</p>
 <p><em>FunctionParameters</em>:<br />
-   <code>(</code> <code>)</code></p>
+   <em>FunctionParam</em> (<code>,</code> <em>FunctionParam</em>)<sup>*</sup> <code>,</code><sup>?</sup></p>
+<p><em>FunctionParam</em> :<br />
+   <em>Pattern</em> <code>:</code> <em>Type</em></p>
 <p><em>FunctionReturnType</em>:<br />
    <code>-&gt;</code> <a href="types.html#type"><em>Type</em></a></p>
 <p><em>BlockWithInnerAttributes</em> :<br />
@@ -544,7 +546,9 @@ let fptr: extern &quot;C&quot; fn() -&gt; i32 = new_i32;
 <a class="header" href="items.html#type-aliases" id="type-aliases"><h2>Type aliases</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-<a href="items.html#type-aliases"><em>TypeAlias</em></a> : FIXME</p>
+<a href="items.html#type-aliases"><em>TypeAlias</em></a> :<br />
+   <code>type</code> <a href="identifiers.html">IDENTIFIER</a> <a href="items.html#generics"><em>Generics</em></a><sup>?</sup>
+<a href="items.html#where-clause"><em>WhereClause</em></a><sup>?</sup> <code>=</code> <a href="types.html#type"><em>Type</em></a> <code>;</code></p>
 </blockquote>
 <p>A <em>type alias</em> defines a new name for an existing <a href="types.html">type</a>. Type aliases are
 declared with the keyword <code>type</code>. Every value has a single, specific type, but
@@ -650,12 +654,12 @@ particular layout using the <a href="attributes.html#ffi-attributes"><code>repr<
 <p><em>EnumItem</em> :<br />
    <em>OuterAttribute</em><sup>*</sup><br />
    <a href="identifiers.html">IDENTIFIER</a> ( <em>EnumItemTuple</em> | <em>EnumItemStruct</em>
-| <em>EnumItemWithDiscriminant</em> )<sup>?</sup></p>
+| <em>EnumItemDiscriminant</em> )<sup>?</sup></p>
 <p><em>EnumItemTuple</em> :<br />
    <code>(</code> <a href="items.html#tuple-fields"><em>TupleFields</em></a><sup>?</sup> <code>)</code></p>
 <p><em>EnumItemStruct</em> :<br />
-   <code>(</code> <a href="items.html#struct-fields"><em>StructFields</em></a><sup>?</sup> <code>)</code></p>
-<p><em>EnumItemWithDiscriminant</em> :<br />
+   <code>{</code> <a href="items.html#struct-fields"><em>StructFields</em></a><sup>?</sup> <code>}</code></p>
+<p><em>EnumItemDiscriminant</em> :<br />
    <code>=</code> <a href="expressions.html"><em>Expression</em></a></p>
 </blockquote>
 <p>An <em>enumeration</em> is a simultaneous definition of a nominal <a href="types.html#enumerated-types">enumerated type</a> as
@@ -1366,7 +1370,25 @@ impl Seq&lt;bool&gt; for u32 {
 <a class="header" href="items.html#external-blocks" id="external-blocks"><h2>External blocks</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-<a href="items.html#external-blocks"><em>ExternBlock</em></a> : <code>extern</code> FIXME</p>
+<a href="items.html#external-blocks"><em>ExternBlock</em></a> :<br />
+   <code>extern</code> <em>Abi</em><sup>?</sup> <code>{</code><br />
+      <em>InnerAttribute</em><sup>*</sup><br />
+      <em>ExternalItem</em><sup>*</sup><br />
+   <code>}</code></p>
+<p><em>ExternalItem</em> :<br />
+   <em>OuterAttribute</em><sup>*</sup><br />
+   <em>VisibilityNoTuple</em><sup>?</sup><br />
+   (externalStaticItem | externalFunctionItem)</p>
+<p><em>ExternalStaticItem</em> :<br />
+   <code>static</code> <code>mut</code><sup>?</sup> IDENTIFIER <code>:</code> <em>Type</em> <code>;</code></p>
+<p><em>ExternalFunctionItem</em> :<br />
+   <code>fn</code> IDENTIFIER <em>Generics</em><sup>?</sup><br />
+   ( <em>FunctionParameters</em> | <em>FunctionParametersWithVariadics</em> )<br />
+   <em>FunctionReturnType</em><sup>?</sup> <em>WhereClause</em><sup>?</sup> <code>;</code></p>
+<p><em>FunctionParametersWithVariadics</em> :<br />
+   <code>(</code> ( <em>FunctionParam</em> <code>,</code> )<sup>*</sup> <em>VariadicFunctionParam</em> <code>)</code></p>
+<p><em>VariadicFunctionParam</em> :<br />
+   <em>FunctionParam</em> <code>,</code> <code>...</code></p>
 </blockquote>
 <p>External blocks form the basis for Rust's foreign function interface.
 Declarations in an external block describe symbols in external, non-Rust

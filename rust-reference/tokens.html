@@ -287,10 +287,10 @@ INTEGER_SUFFIX<sup>?</sup></p>
    <code>0o</code> (OCT_DIGIT|<code>_</code>)<sup>*</sup> OCT_DIGIT (OCT_DIGIT|<code>_</code>)<sup>*</sup></p>
 <p>HEX_LITERAL :<br />
    <code>0x</code> (HEX_DIGIT|<code>_</code>)<sup>*</sup> HEX_DIGIT (HEX_DIGIT|<code>_</code>)<sup>*</sup></p>
-<p>BIN_DIGIT : [<code>0</code>-<code>1</code> <code>_</code>]<br />
-OCT_DIGIT : [<code>0</code>-<code>7</code> <code>_</code>]<br />
-DEC_DIGIT : [<code>0</code>-<code>9</code> <code>_</code>]<br />
-HEX_DIGIT : [<code>0</code>-<code>9</code> <code>a</code>-<code>f</code> <code>A</code>-<code>F</code> <code>_</code>]</p>
+<p>BIN_DIGIT : [<code>0</code>-<code>1</code> <code>_</code>]</p>
+<p>OCT_DIGIT : [<code>0</code>-<code>7</code> <code>_</code>]</p>
+<p>DEC_DIGIT : [<code>0</code>-<code>9</code> <code>_</code>]</p>
+<p>HEX_DIGIT : [<code>0</code>-<code>9</code> <code>a</code>-<code>f</code> <code>A</code>-<code>F</code> <code>_</code>]</p>
 <p>INTEGER_SUFFIX :<br />
       <code>u8</code> | <code>u16</code> | <code>u32</code> | <code>u64</code> | <code>usize</code><br />
    | <code>i8</code> | <code>u16</code> | <code>i32</code> | <code>i64</code> | <code>usize</code></p>
@@ -374,10 +374,6 @@ let a: u64 = 123;                  // type u64
 0b_;
 0b____;
 </code></pre>
-<!-- FIXME some examples without the suffix -->
-<!-- FIXME some extreme examples -->
-<!-- FIXME examples of the same number in the 4 bases -->
-<!-- FIXME say that the `_` can be used to separate the suffic -->
 <p>Note that the Rust syntax considers <code>-1i8</code> as an application of the <a href="expressions.html#negation-operators">unary minus
 operator</a> to an integer literal <code>1i8</code>, rather than
 a single integer literal.</p>
