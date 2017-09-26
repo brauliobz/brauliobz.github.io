@@ -71,76 +71,36 @@
                     <a class="header" href="types.html#types" id="types"><h1>Types</h1></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-[<em>Type</em>] : <a name="type"></a><br />
-      [<em>TypePath</em>]<br />
-   | [<em>QualifiedPathType</em>]<br />
-   | [<em>TupleType</em>]<br />
-   | [<em>ArrayType</em>]<br />
-   | [<em>SliceType</em>]<br />
-   | [<em>ReferenceType</em>]<br />
-   | [<em>RawPointerType</em>]<br />
-   | [<em>BareFunctionType</em>]<br />
-   | [<em>NeverType</em>]<br />
-   | [<em>TraitObjectType</em>]<br />
-   | [<em>ImplTraitType</em>]<br />
-   | [<em>ParenthesizedType</em>]<br />
-   | [<em>InferredType</em>]</p>
-<p>[<em>TypePath</em>] :<br />
-   [<em>Path</em>]</p>
-<p>[<em>ParenthesizedType</em>] :<br />
-      <code>(</code> [<em>Type</em>] <code>)</code><br />
-   <code>(</code> [<em>Type</em>] <code>)</code> <code>+</code> [<em>TypeBounds</em>]</p>
+<em>Type</em> :<br />
+      <a href="types.html#parenthesized-type"><em>ParenthesizedType</em></a> (<code>+</code> [<em>TypeParamBounds</em>])<sup>?</sup><br />
+   | <a href="types.html#tuple-type"><em>TupleType</em></a><br />
+   | <a href="types.html#never-type"><em>NeverType</em></a><br />
+   | <a href="types.html#raw-pointer-type"><em>RawPointerType</em></a><br />
+   | <a href="types.html#reference-type"><em>ReferenceType</em></a><br />
+   | <a href="types.html#array-type"><em>ArrayType</em></a><br />
+   | <a href="types.html#slice-type"><em>SliceType</em></a><br />
+   | <a href="types.html#inferred-type"><em>InferredType</em></a><br />
+   | <a href="paths.html#type-paths"><em>QualifiedPathForType</em></a><br />
+   | <a href="paths.html#type-paths"><em>PathForTypeWithGenerics</em></a> (<code>+</code> [<em>TypeParamBounds</em>])<sup>?</sup><br />
+   | <a href="types.html#bare-function-type"><em>BareFunctionType</em></a><br />
+   | [<em>MacroInvocationType</em>]<br />
+   | [<em>TypeParamBounds</em>]</p>
+<p><em>TypeNoBounds</em> :<br />
+      <a href="types.html#parenthesized-type"><em>ParenthesizedType</em></a><br />
+   | <a href="types.html#tuple-type"><em>TupleType</em></a><br />
+   | <a href="types.html#never-type"><em>NeverType</em></a><br />
+   | <a href="types.html#raw-pointer-type"><em>RawPointerType</em></a><br />
+   | <a href="types.html#reference-type"><em>ReferenceType</em></a><br />
+   | <a href="types.html#array-type"><em>ArrayType</em></a><br />
+   | <a href="types.html#slice-type"><em>SliceType</em></a><br />
+   | <a href="types.html#inferred-type"><em>InferredType</em></a><br />
+   | <a href="paths.html#type-paths"><em>QualifiedPathForType</em></a><br />
+   | <a href="paths.html#type-paths"><em>PathForTypeWithGenerics</em></a><br />
+   | <a href="types.html#bare-function-type"><em>BareFunctionType</em></a><br />
+   | [<em>MacroInvocationType</em>]</p>
+<p><a href="types.html#parenthesized-type"><em>ParenthesizedType</em></a> :<br />
+      <code>(</code> <a href="types.html#type"><em>Type</em></a> <code>)</code></p>
 </blockquote>
-<!--
-<p>FIXME</p>
-<blockquote>
-<p>Type:
-ParenthesizedType: <code>(</code> Type <code>)</code> (<code>+</code> TypeBounds)?</p>
-</blockquote>
-<blockquote>
-<p>QualifiedPathType : QualifiedPath</p>
-</blockquote>
-<blockquote>
-<p>TypePath : <code>::</code>? TypePath (<code>+</code> TypeBounds)?         (parse_path_segments_without_colons)
-ExprPath : <code>::</code>?                                    (parse_path_segments_with_colons)
-ModPath :  <code>::</code>?                                    (parse_path_segments_without_types)</p>
-</blockquote>
-<blockquote>
-<p>FunctionPointerType : <code>unsafe</code>? (<code>extern</code> STRING_LITERAL?)? <code>fn</code> (FunctionArgs) (<code>-&gt;</code> TypeNoBounds)?</p>
-</blockquote>
-<blockquote>
-<p><code>for&lt;'lt&gt;</code></p>
-</blockquote>
-<blockquote>
-<p>ImplTrait</p>
-</blockquote>
-<blockquote>
-<p>TraitObjectType : Lifetime? <code>?</code> TypeBounds</p>
-</blockquote>
-<blockquote>
-<p>TypeNoBounds:<br />
-ParenthesizedTypeNoBounds : <code>(</code> Type <code>)</code><br />
-PathTypeNoBounds : TypePath</p>
-<p>TypeBounds: Bound (<code>+</code> Bound)* <code>+</code>?<br />
-Bound: TypeBound | LifetimeBound<br />
-LifetimeBound : Lifetime<br />
-TypeBound : TypeBoundNoParen | <code>(</code> TypeBoundNoParen <code>)</code><br />
-TypeBoundNoParen : <code>?</code>? <code>for</code><LifetimeParamDefs> SimplePath</p>
-</blockquote>
-<p>PathType - module::module::...::Type
-RawPointerType - *const T, *mut T
-ReferenceType - &amp;'a T, &amp;'a mut T
-BareFunctionType - fn(usize) -&gt; bool
-NeverType - !T
-TupleType - (T, U, V, ...), (T,)
-QualifiedPathType - &lt;Vec<T> as SomeTrait&gt;::SomeType
-TraitObjectType - Bound + Bound + ... + Bound
-ImplTraitType - impl Bound + Bound + ... + Bound
-ParenthesizedType - ( T ) // simply ignores the parenthesis
-InferredType -
-ImplicitSelf
-Macro</p>
-<p>--&gt;</p>
 <!-- FIXME create section for type bounds -->
 <p>Every variable, item and value in a Rust program has a type. The <em>type</em> of a
 <em>value</em> defines the interpretation of the memory holding it.</p>
@@ -206,16 +166,15 @@ unsigned bytes holding a sequence of UTF-8 code points. Since <code>str</code> i
 <a href="dynamically-sized-types.html">dynamically sized type</a>, it is not a <em>first-class</em> type, but can only be
 instantiated through a pointer type, such as <code>&amp;str</code>.</p>
 <a class="header" href="types.html#types-mentions" id="types-mentions"><h2>Types mentions</h2></a>
-<p>A type can be mentioned either directly or through a path. Complext types like
-structs and traits can only be mentioned after using paths, after being declared
-by an <a href="items.html">item declaration</a>.</p>
+<p>A type can be mentioned either directly or through a path. Complex types like
+structs can only be mentioned after being declared by a <a href="items.html">item declaration</a>.</p>
 <a class="header" href="types.html#tuple-types" id="tuple-types"><h2>Tuple types</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-[<em>TupleType</em>] : <a name="tuple-type"></a><br />
+<a href="types.html#tuple-type"><em>TupleType</em></a> : <a name="tuple-type"></a><br />
       <code>(</code> <code>)</code><br />
-   | <code>(</code> [<em>Type</em>] <code>,</code> <code>)</code><br />
-   | <code>(</code> [<em>Type</em>] ( <code>,</code> [<em>Type</em>] ) <sup>+</sup> <code>,</code><sup>?</sup> <code>)</code></p>
+   | <code>(</code> <a href="types.html#type"><em>Type</em></a> <code>,</code> <code>)</code><br />
+   | <code>(</code> <a href="types.html#type"><em>Type</em></a> ( <code>,</code> <a href="types.html#type"><em>Type</em></a> ) <sup>+</sup> <code>,</code><sup>?</sup> <code>)</code></p>
 </blockquote>
 <p>A tuple <em>type</em> is a heterogeneous product of other types, called the <em>elements</em>
 of the tuple. It has no nominal name and is instead structurally typed.</p>
@@ -242,19 +201,19 @@ is often called ‘unit’ or ‘the unit type’.</p>
 <a class="header" href="types.html#array-and-slice-types" id="array-and-slice-types"><h2>Array, and Slice types</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-[<em>ArrayType</em>] : <a name="array-type"></a><br />
-   <code>[</code> [<em>Type</em>] <code>;</code> [<em>Expression</em>] <code>]</code></p>
-<p>[<em>SliceType</em>] : <a name="slice-type"></a><br />
-   <code>&amp;</code> <code>[</code> [<em>Type</em>] <code>]</code></p>
+<a href="types.html#array-type"><em>ArrayType</em></a> : <a name="array-type"></a><br />
+   <code>[</code> _type <code>;</code> <a href="expressions.html"><em>Expression</em></a> <code>]</code> <strong>FIXME</strong></p>
+<p><a href="types.html#slice-type"><em>SliceType</em></a> : <a name="slice-type"></a><br />
+   <code>[</code> _type <code>]</code> <strong>FIXME</strong></p>
 </blockquote>
-<!-- FIXME: actually, the slice type is `[` [_Type_] `]`, without `&`. -->
-<p>Rust has two different types for a list of items:</p>
+<p>Rust has two different types for a list of items of the same type:</p>
 <ul>
 <li><code>[T; N]</code>, an 'array'</li>
 <li><code>[T]</code>, a 'slice'</li>
 </ul>
 <p>An array has a fixed size, and can be allocated on either the stack or the
-heap.</p>
+heap. This size is an expression that evaluates to an
+<a href="types.html#machine-dependent-integer-types"><code>usize</code></a>.</p>
 <p>A slice is a <a href="dynamically-sized-types.html">dynamically sized type</a> representing a 'view' into an array. To
 use a slice type it generally has to be used behind a pointer for example as</p>
 <ul>
@@ -283,13 +242,13 @@ type.</p>
 <a class="header" href="types.html#never-type" id="never-type"><h2>Never type</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-[<em>NeverType</em>] : <code>!</code></p>
+<a href="types.html#never-type"><em>NeverType</em></a> : <code>!</code></p>
 </blockquote>
 <!-- FIXME: description (or find whether it is already specified elsewhere -->
 <a class="header" href="types.html#inferred-type" id="inferred-type"><h2>Inferred type</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-[<em>InferredType</em>] : <code>_</code></p>
+<a href="types.html#inferred-type"><em>InferredType</em></a> : <code>_</code></p>
 </blockquote>
 <!-- FIXME: description (or find whether it is already specified elsewhere -->
 <a class="header" href="types.html#struct-types" id="struct-types"><h2>Struct types</h2></a>
@@ -373,8 +332,8 @@ copied, stored into data structs, and returned from functions.</p>
 <a class="header" href="types.html#shared-references-" id="shared-references-"><h3>Shared references (<code>&amp;</code>)</h3></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-[<em>ReferenceType</em>] :<br />
-   <code>&amp;</code> Lifetime? <code>mut</code>? [<em>TypeNoBounds</em>]</p>
+<a href="types.html#reference-type"><em>ReferenceType</em></a> :<br />
+   <code>&amp;</code> Lifetime? <code>mut</code>? _type <strong>FIXME</strong></p>
 </blockquote>
 </div>
 <p>These point to memory <em>owned by some other value</em>. When a shared reference to a
@@ -394,8 +353,8 @@ borrowed) is the only way to access the value it points to, so is not <code>Copy
 <a class="header" href="types.html#raw-pointers-const-and-mut" id="raw-pointers-const-and-mut"><h3>Raw pointers (<code>*const</code> and <code>*mut</code>)</h3></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-[<em>RawPointerType</em>] :<br />
-   <code>*</code> ( <code>mut</code> | <code>const</code> ) [<em>TypeNoBounds</em>]</p>
+<a href="types.html#raw-pointer-type"><em>RawPointerType</em></a> :<br />
+   <code>*</code> ( <code>mut</code> | <code>const</code> ) _type **FIXME</p>
 </blockquote>
 <p>Raw pointers are pointers without safety or liveness guarantees. Raw pointers
 are written as <code>*const T</code> or <code>*mut T</code>, for example <code>*const i32</code> means a raw

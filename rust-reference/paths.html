@@ -70,28 +70,6 @@
                 <div id="content" class="content">
                     <a class="header" href="paths.html#paths" id="paths"><h1>Paths</h1></a>
 <!-- FIXME: UFCS - universal function call syntax -->
-<blockquote>
-<p><strong><sup>Syntax</sup></strong><br />
-<a href="paths.html#paths"><em>Path</em></a> :<br />
-      <a href="paths.html#nonglobal-path"><em>NonGlobalPath</em></a><br />
-   | <a href="paths.html#global-path"><em>GlobalPath</em></a></p>
-<p><a href="paths.html#nonglobal-path"><em>NonGlobalPath</em></a> : <a name="nonglobal-path"></a><br />
-      <a href="paths.html#path-segment"><em>PathSegment</em></a> ( <code>::</code> <a href="paths.html#nonglobal-path"><em>NonGlobalPath</em></a> )<sup>?</sup></p>
-<p><a href="paths.html#global-path"><em>GlobalPath</em></a> : <a name="global-path"></a><br />
-   <code>::</code> <a href="paths.html#nonglobal-path"><em>NonGlobalPath</em></a></p>
-<p><a href="paths.html#path-segment"><em>PathSegment</em></a> : <a name="path-segment"></a><br />
-      <a href="identifiers.html">IDENTIFIER</a><br />
-   | <code>&lt;</code> <em>TypeArguments</em> <code>&gt;</code><br />
-   | <code>super</code><br />
-   | <code>self</code></p>
-<p><em>PathParameter</em> :</p>
-</blockquote>
-<blockquote>
-<p>path:<br />
-qualified = &lt;...&gt;<br />
-global<br />
-nonglobal</p>
-</blockquote>
 <p>A <em>path</em> is a sequence of one or more path components <em>logically</em> separated by
 a namespace qualifier (<code>::</code>). If a path consists of only one component, it may
 refer to either an <a href="items.html">item</a> or a <a href="variables.html">variable</a> in a local control
@@ -124,12 +102,41 @@ let x  = id::&lt;i32&gt;(10);       // Type arguments used in a call expression
 <a class="header" href="paths.html#module-paths" id="module-paths"><h3>Module paths</h3></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-<em>ModulePath</em> :<br />
-   <em>ModulePathItem</em> ( <code>::</code> <em>ModulePathItem</em> )<sup><em></sup></em></sup></p>
-<p><em>TypePathItem</em> :<br />
-   IDENTIFIER | <code>super</code> | <code>self</code> | <code>Self</code></p>
+<em>PathForModule</em> :<br />
+   <code>::</code><sup>?</sup> <em>PathSegmentIdentifier</em> (<code>::</code> <em>PathSegmentIdentifier</em>)<sup>*</sup></p>
+<p><em>QualifiedPathForModule</em> :<br />
+   <code>&lt;</code> type_ (<code>as</code> <em>PathForTypeWithGenerics</em>)? <code>&gt;</code> <code>::</code> <em>PathForModule</em> <strong>FIXME</strong></p>
+<p><em>PathSegmentIdentifier</em> :<br />
+   IDENTIFIER | <code>super</code> | <code>self</code> | <code>Self</code> <strong>FIXME</strong></p>
 </blockquote>
 <a class="header" href="paths.html#expression-paths" id="expression-paths"><h3>Expression paths</h3></a>
+<blockquote>
+<p><strong><sup>Syntax</sup></strong><br />
+<em>PathForExpression</em> :<br />
+   <code>::</code><sup>?</sup> <em>PathSegmentIdentifier</em> (<code>::</code> (<em>PathSegmentIdentifier</em> | <em>GenericsForType</em>) )<sup>*</sup></p>
+<p><em>QualifiedPathForExpression</em> :<br />
+   <code>&lt;</code> type_ (<code>as</code> <em>PathForTypeWithGenerics</em>)? <code>&gt;</code> <code>::</code> <em>PathForExpression</em> <strong>FIXME</strong></p>
+</blockquote>
+<a class="header" href="paths.html#type-paths" id="type-paths"><h3>Type paths</h3></a>
+<blockquote>
+<p><strong><sup>Syntax</sup></strong><br />
+<em>PathForTypeWithGenerics</em> :<br />
+   <code>::</code><sup>?</sup> <em>PathWithGenericsElement</em> (<code>::</code> <em>PathWithGenericsElement</em>)<sup>*</sup></p>
+<p><em>PathWithGenericsElement</em> :<br />
+   <em>PathSegmentIdentifier</em> (<em>GenericsForType</em> | <em>FunctionSignature</em>)<sup>?</sup></p>
+<p><em>QualifiedPathForType</em> :<br />
+   <code>&lt;</code> type_ (<code>as</code> <em>PathForTypeWithGenerics</em>)? <code>&gt;</code> <code>::</code> <em>PathForTypeWithGenerics</em> <strong>FIXME</strong></p>
+<p><em>GenericsForType</em> :<br />
+      <code>&lt;</code> (<em>LifetimeParams</em> (<code>,</code> <em>TypeParamsForTypes</em>)<sup>?</sup> (<code>,</code> <em>BindingParams</em>)<sup>?</sup> <code>,</code><sup>?</sup> )<sup>?</sup> <code>&gt;</code><br />
+   | <code>&lt;</code> <em>TypeParamsForTypes</em> (<code>,</code> <em>BindingParams</em>)<sup>?</sup> <code>,</code><sup>?</sup> <code>&gt;</code><br />
+   | <code>&lt;</code> <em>BindingParams</em> <code>,</code><sup>?</sup> <code>&gt;</code></p>
+<p><em>TypeParamsForTypes</em> :<br />
+   <em>Type</em> (<code>,</code> <em>Type</em>)<sup>*</sup></p>
+<p><em>BindingParams</em> :<br />
+   <em>TypeBindingParam</em> (<code>,</code> <em>TypeBindingParam</em>)<sup>*</sup></p>
+<p><em>TypeBindingParam</em> :<br />
+   IDENTIFIER <code>=</code> type_ <strong>FIXME</strong></p>
+</blockquote>
 <a class="header" href="paths.html#path-qualifiers" id="path-qualifiers"><h2>Path qualifiers</h2></a>
 <a class="header" href="paths.html#" id=""><h3><code>::</code></h3></a>
 <p>Paths can be denoted with various leading qualifiers to change the meaning of

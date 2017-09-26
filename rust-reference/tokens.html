@@ -141,12 +141,7 @@ CHAR_LITERAL :<br />
       <code>\x</code> OCT_DIGIT HEX_DIGIT<br />
    | <code>\n</code> | <code>\r</code> | <code>\t</code> | <code>\\</code> | <code>\0</code></p>
 <p>UNICODE_ESCAPE :<br />
-      <code>\u{</code> HEX_DIGIT <code>}</code><br />
-   | <code>\u{</code> HEX_DIGIT HEX_DIGIT <code>}</code><br />
-   | <code>\u{</code> HEX_DIGIT HEX_DIGIT HEX_DIGIT <code>}</code><br />
-   | <code>\u{</code> HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT <code>}</code><br />
-   | <code>\u{</code> HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT<code>}</code><br />
-   | <code>\u{</code> HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT<code>}</code></p>
+   <code>\u{</code> ( HEX_DIGIT <code>_</code><sup>*</sup> )<sup>1..6</sup> <code>}</code></p>
 </blockquote>
 <p>A <em>character literal</em> is a single Unicode character enclosed within two
 <code>U+0027</code> (single-quote) characters, with the exception of <code>U+0027</code> itself,

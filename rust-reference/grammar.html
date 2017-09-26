@@ -177,12 +177,7 @@
       <code>\x</code> OCT_DIGIT HEX_DIGIT<br />
    | <code>\n</code> | <code>\r</code> | <code>\t</code> | <code>\\</code> | <code>\0</code></p>
 <p><a href="grammar.html#unicode_escape">UNICODE_ESCAPE</a> :<a name="unicode_escape"></a><br />
-      <code>\u{</code> HEX_DIGIT <code>}</code><br />
-   | <code>\u{</code> HEX_DIGIT HEX_DIGIT <code>}</code><br />
-   | <code>\u{</code> HEX_DIGIT HEX_DIGIT HEX_DIGIT <code>}</code><br />
-   | <code>\u{</code> HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT <code>}</code><br />
-   | <code>\u{</code> HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT<code>}</code><br />
-   | <code>\u{</code> HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT<code>}</code></p>
+   <code>\u{</code> ( HEX_DIGIT <code>_</code><sup>*</sup> )<sup>1..6</sup> <code>}</code></p>
 <p><a href="grammar.html#string_literal">STRING_LITERAL</a> :<a name="string_literal"></a><br />
    <code>&quot;</code> (<br />
       ~[<code>&quot;</code> <code>\</code> <em>IsolatedCR</em>]<br />
@@ -335,8 +330,8 @@ FLOAT_EXPONENT<sup>?</sup> FLOAT_SUFFIX</p>
 <p><a href="grammar.html#typeparambounds"><em>TypeParamBounds</em></a> :<a name="typeparambounds"></a><br />
       <a href="grammar.html#lifetime_or_label">LIFETIME_OR_LABEL</a><br />
    | <code>(</code> <a href="grammar.html#lifetime_or_label">LIFETIME_OR_LABEL</a> <code>)</code><br />
-   | <code>?</code><sup>?</sup> <em>LateBoundLifetimeDefs</em><sup>?</sup> <a href="grammar.html#typepath"><em>TypePath</em></a><br />
-   | <code>(</code> <code>?</code><sup>?</sup> <em>LateBoundLifetimeDefs</em><sup>?</sup> <a href="grammar.html#typepath"><em>TypePath</em></a> <code>)</code></p>
+   | <code>?</code><sup>?</sup> <em>LateBoundLifetimeDefs</em><sup>?</sup> [<em>TypePath</em>]<br />
+   | <code>(</code> <code>?</code><sup>?</sup> <em>LateBoundLifetimeDefs</em><sup>?</sup> [<em>TypePath</em>] <code>)</code></p>
 <p><a href="grammar.html#lifetimebounds"><em>LifetimeBounds</em></a> :<a name="lifetimebounds"></a><br />
    <code>:</code> <a href="grammar.html#lifetime_or_label">LIFETIME_OR_LABEL</a> ( <code>+</code> <a href="grammar.html#lifetime_or_label">LIFETIME_OR_LABEL</a> )<sup>*</sup> <code>+</code><sup>?</sup></p>
 <p><a href="grammar.html#lateboundlifetimedefs"><em>LateBoundLifetimeDefs</em></a> :<a name="lateboundlifetimedefs"></a><br />
@@ -362,10 +357,10 @@ FLOAT_EXPONENT<sup>?</sup> FLOAT_SUFFIX</p>
 <p><a href="grammar.html#externcrate"><em>ExternCrate</em></a> :<a name="externcrate"></a><br />
    <code>extern</code> <code>crate</code> <a href="grammar.html#identifier">IDENTIFIER</a> (<code>as</code> <a href="grammar.html#identifier">IDENTIFIER</a>)<sup>?</sup> <code>;</code></p>
 <p><a href="grammar.html#usedeclaration"><em>UseDeclaration</em></a> :<a name="usedeclaration"></a><br />
-      <code>use</code> <code>::</code><sup>?</sup> <a href="grammar.html#nonglobalpath"><em>NonGlobalPath</em></a><br />
-   | <code>use</code> <code>::</code><sup>?</sup> <a href="grammar.html#nonglobalpath"><em>NonGlobalPath</em></a> <code>as</code> <a href="grammar.html#identifier">IDENTIFIER</a><br />
-   | <code>use</code> <code>::</code><sup>?</sup> <a href="grammar.html#nonglobalpath"><em>NonGlobalPath</em></a> <code>::</code> <code>*</code><br />
-   | <code>use</code> <code>::</code><sup>?</sup> <a href="grammar.html#nonglobalpath"><em>NonGlobalPath</em></a> <code>::</code> <code>{</code> <em>UseItems</em> <code>}</code><br />
+      <code>use</code> <code>::</code><sup>?</sup> [<em>NonGlobalPath</em>]<br />
+   | <code>use</code> <code>::</code><sup>?</sup> [<em>NonGlobalPath</em>] <code>as</code> <a href="grammar.html#identifier">IDENTIFIER</a><br />
+   | <code>use</code> <code>::</code><sup>?</sup> [<em>NonGlobalPath</em>] <code>::</code> <code>*</code><br />
+   | <code>use</code> <code>::</code><sup>?</sup> [<em>NonGlobalPath</em>] <code>::</code> <code>{</code> <em>UseItems</em> <code>}</code><br />
    | <code>use</code> <code>::</code><sup>?</sup> <code>{</code> <em>UseItems</em> <code>}</code></p>
 <p><a href="grammar.html#useitems"><em>UseItems</em></a> :<a name="useitems"></a><br />
    ( <code>self</code> | <a href="grammar.html#identifier">IDENTIFIER</a> (<code>as</code> <a href="grammar.html#identifier">IDENTIFIER</a> )<sup>?</sup> )
@@ -712,13 +707,49 @@ FIXME include shorthand?</p>
 <p><a href="grammar.html#matcharm"><em>MatchArm</em></a> :<a name="matcharm"></a><br />
    <a href="grammar.html#outerattribute"><em>OuterAttribute</em></a><sup>*</sup> <em>MatchArmPatterns</em> <em>MatchArmGuard</em></p>
 <p><a href="grammar.html#matcharmpatterns"><em>MatchArmPatterns</em></a> :<a name="matcharmpatterns"></a><br />
-   <a href="grammar.html#pattern"><em>Pattern</em></a> ( <code>|</code> <a href="grammar.html#pattern"><em>Pattern</em></a> )<sup><em></sup></em></sup></p>
-<p><a href="grammar.html#modulepathitem"><em>ModulePathItem</em></a> :<a name="modulepathitem"></a><br />
-   IDENTIFIER | <code>super</code> | <code>self</code> | <code>Self</code></p>
-<p><a href="grammar.html#typepath"><em>TypePath</em></a> :<a name="typepath"></a><br />
-   <em>TypePathItem</em> ( <code>::</code> <em>TypePathItem</em> )<sup>*</sup></p>
-<p><a href="grammar.html#typepathitem"><em>TypePathItem</em></a> :<a name="typepathitem"></a><br />
-   IDENTIFIER | <code>super</code> | <code>self</code> | <code>Self</code></p>
+   <a href="grammar.html#pattern"><em>Pattern</em></a> ( <code>|</code> <a href="grammar.html#pattern"><em>Pattern</em></a> )<sup>*</sup></p>
+<p><a href="grammar.html#matcharmguard"><em>MatchArmGuard</em></a> :<a name="matcharmguard"></a><br />
+   <code>if</code> <a href="grammar.html#expression"><em>Expression</em></a></p>
+<p><a href="grammar.html#ifletexpression"><em>IfLetExpression</em></a> :<a name="ifletexpression"></a><br />
+   <code>if</code> <code>let</code> <a href="grammar.html#pattern"><em>Pattern</em></a> <code>=</code> <a href="grammar.html#expression"><em>Expression</em></a> <a href="grammar.html#blockexpression"><em>BlockExpression</em></a><br />
+   (<code>else</code> (
+<a href="grammar.html#blockexpression"><em>BlockExpression</em></a>
+| <a href="grammar.html#ifexpression"><em>IfExpression</em></a>
+| <a href="grammar.html#ifletexpression"><em>IfLetExpression</em></a> ) )<sup>?</sup></p>
+<p><a href="grammar.html#whileletexpression"><em>WhileLetExpression</em></a> :<a name="whileletexpression"></a><br />
+   <code>while</code> <code>let</code> <a href="grammar.html#pattern"><em>Pattern</em></a> <code>=</code> <a href="grammar.html#expression"><em>Expression</em></a> <a href="grammar.html#blockexpression"><em>BlockExpression</em></a></p>
+<p><a href="grammar.html#returnexpression"><em>ReturnExpression</em></a> :<a name="returnexpression"></a><br />
+      <code>return</code><br />
+   | <code>return</code> <a href="grammar.html#expression"><em>Expression</em></a></p>
+</blockquote>
+<a class="header" href="grammar.html#paths" id="paths"><h3>Paths</h3></a>
+<blockquote>
+<p><a href="grammar.html#pathformodule"><em>PathForModule</em></a> :<a name="pathformodule"></a><br />
+   <code>::</code><sup>?</sup> <em>PathSegmentIdentifier</em> (<code>::</code> <em>PathSegmentIdentifier</em>)<sup>*</sup></p>
+<p><a href="grammar.html#qualifiedpathformodule"><em>QualifiedPathForModule</em></a> :<a name="qualifiedpathformodule"></a><br />
+   <code>&lt;</code> type_ (<code>as</code> <em>PathForTypeWithGenerics</em>)? <code>&gt;</code> <code>::</code> <em>PathForModule</em> <strong>FIXME</strong></p>
+<p><a href="grammar.html#pathsegmentidentifier"><em>PathSegmentIdentifier</em></a> :<a name="pathsegmentidentifier"></a><br />
+   IDENTIFIER | <code>super</code> | <code>self</code> | <code>Self</code> <strong>FIXME</strong></p>
+<p><a href="grammar.html#pathforexpression"><em>PathForExpression</em></a> :<a name="pathforexpression"></a><br />
+   <code>::</code><sup>?</sup> <em>PathSegmentIdentifier</em> (<code>::</code> (<em>PathSegmentIdentifier</em> | <em>GenericsForType</em>) )<sup>*</sup></p>
+<p><a href="grammar.html#qualifiedpathforexpression"><em>QualifiedPathForExpression</em></a> :<a name="qualifiedpathforexpression"></a><br />
+   <code>&lt;</code> type_ (<code>as</code> <em>PathForTypeWithGenerics</em>)? <code>&gt;</code> <code>::</code> <em>PathForExpression</em> <strong>FIXME</strong></p>
+<p><a href="grammar.html#pathfortypewithgenerics"><em>PathForTypeWithGenerics</em></a> :<a name="pathfortypewithgenerics"></a><br />
+   <code>::</code><sup>?</sup> <em>PathWithGenericsElement</em> (<code>::</code> <em>PathWithGenericsElement</em>)<sup>*</sup></p>
+<p><a href="grammar.html#pathwithgenericselement"><em>PathWithGenericsElement</em></a> :<a name="pathwithgenericselement"></a><br />
+   <em>PathSegmentIdentifier</em> (<em>GenericsForType</em> | <em>FunctionSignature</em>)<sup>?</sup></p>
+<p><a href="grammar.html#qualifiedpathfortype"><em>QualifiedPathForType</em></a> :<a name="qualifiedpathfortype"></a><br />
+   <code>&lt;</code> type_ (<code>as</code> <em>PathForTypeWithGenerics</em>)? <code>&gt;</code> <code>::</code> <em>PathForTypeWithGenerics</em> <strong>FIXME</strong></p>
+<p><a href="grammar.html#genericsfortype"><em>GenericsForType</em></a> :<a name="genericsfortype"></a><br />
+      <code>&lt;</code> (<em>LifetimeParams</em> (<code>,</code> <em>TypeParamsForTypes</em>)<sup>?</sup> (<code>,</code> <em>BindingParams</em>)<sup>?</sup> <code>,</code><sup>?</sup> )<sup>?</sup> <code>&gt;</code><br />
+   | <code>&lt;</code> <em>TypeParamsForTypes</em> (<code>,</code> <em>BindingParams</em>)<sup>?</sup> <code>,</code><sup>?</sup> <code>&gt;</code><br />
+   | <code>&lt;</code> <em>BindingParams</em> <code>,</code><sup>?</sup> <code>&gt;</code></p>
+<p><a href="grammar.html#typeparamsfortypes"><em>TypeParamsForTypes</em></a> :<a name="typeparamsfortypes"></a><br />
+   <em>Type</em> (<code>,</code> <em>Type</em>)<sup>*</sup></p>
+<p><a href="grammar.html#bindingparams"><em>BindingParams</em></a> :<a name="bindingparams"></a><br />
+   <em>TypeBindingParam</em> (<code>,</code> <em>TypeBindingParam</em>)<sup>*</sup></p>
+<p><a href="grammar.html#typebindingparam"><em>TypeBindingParam</em></a> :<a name="typebindingparam"></a><br />
+   IDENTIFIER <code>=</code> type_ <strong>FIXME</strong></p>
 </blockquote>
 <a class="header" href="grammar.html#patterns" id="patterns"><h3>Patterns</h3></a>
 <blockquote>
@@ -735,7 +766,15 @@ FIXME include shorthand?</p>
    | <a href="grammar.html#slicepattern"><em>SlicePattern</em></a><br />
    | <a href="grammar.html#pathpattern"><em>PathPattern</em></a></p>
 <p><a href="grammar.html#literalpattern"><em>LiteralPattern</em></a> :<a name="literalpattern"></a><a name="literal-pattern-syntax"></a><br />
-   <code>-</code><sup>?</sup> ( CHAR_LITERAL | INTEGER_LITERAL | FLOAT_LITERAL )</p>
+      BOOLEAN_LITERAL<br />
+   | CHAR_LITERAL<br />
+   | BYTE_LITERAL<br />
+   | STRING_LITERAL<br />
+   | RAW_STRING_LITERAL<br />
+   | BYTE_STRING_LITERAL<br />
+   | RAW_BYTE_STRING_LITERAL<br />
+   | <code>-</code><sup>?</sup> INTEGER_LITERAL<br />
+   | <code>-</code><sup>?</sup> FLOAT_LITERAL</p>
 <p><a href="grammar.html#wildcardpattern"><em>WildcardPattern</em></a> :<a name="wildcardpattern"></a><a name="wildcard-pattern-syntax"></a><br />
    <code>_</code></p>
 <p><a href="grammar.html#rangepattern"><em>RangePattern</em></a> :<a name="rangepattern"></a><a name="reference-pattern-syntax"></a><br />
@@ -781,43 +820,54 @@ IDENTIFIER<br />
 <p><a href="grammar.html#slicepattern"><em>SlicePattern</em></a> :<a name="slicepattern"></a><a name="slice-pattern-syntax"></a><br />
    <code>[</code> <strong>FIXME</strong> <code>]</code></p>
 <p><a href="grammar.html#pathpattern"><em>PathPattern</em></a> :<a name="pathpattern"></a><a name="path-pattern-syntax"></a><br />
-   <strong>FIXME</strong></p>
+      <em>PathForExpression</em><br />
+   | <em>QualifiedPathForExpression</em></p>
 </blockquote>
 <a class="header" href="grammar.html#types" id="types"><h3>Types</h3></a>
 <blockquote>
-<p><a href="grammar.html#type"><em>Type</em></a> :<a name="type"></a> <a name="type"></a><br />
-      <a href="grammar.html#typepath"><em>TypePath</em></a><br />
-   | [<em>QualifiedPathType</em>]<br />
+<p><a href="grammar.html#type"><em>Type</em></a> :<a name="type"></a><br />
+      <a href="grammar.html#parenthesizedtype"><em>ParenthesizedType</em></a> (<code>+</code> <a href="grammar.html#typeparambounds"><em>TypeParamBounds</em></a>)<sup>?</sup><br />
    | <a href="grammar.html#tupletype"><em>TupleType</em></a><br />
+   | <a href="grammar.html#nevertype"><em>NeverType</em></a><br />
+   | <a href="grammar.html#rawpointertype"><em>RawPointerType</em></a><br />
+   | <a href="grammar.html#referencetype"><em>ReferenceType</em></a><br />
    | <a href="grammar.html#arraytype"><em>ArrayType</em></a><br />
    | <a href="grammar.html#slicetype"><em>SliceType</em></a><br />
-   | <a href="grammar.html#referencetype"><em>ReferenceType</em></a><br />
-   | <a href="grammar.html#rawpointertype"><em>RawPointerType</em></a><br />
+   | <a href="grammar.html#inferredtype"><em>InferredType</em></a><br />
+   | <a href="grammar.html#qualifiedpathfortype"><em>QualifiedPathForType</em></a><br />
+   | <a href="grammar.html#pathfortypewithgenerics"><em>PathForTypeWithGenerics</em></a> (<code>+</code> <a href="grammar.html#typeparambounds"><em>TypeParamBounds</em></a>)<sup>?</sup><br />
    | [<em>BareFunctionType</em>]<br />
+   | [<em>MacroInvocationType</em>]<br />
+   | <a href="grammar.html#typeparambounds"><em>TypeParamBounds</em></a></p>
+<p><a href="grammar.html#typenobounds"><em>TypeNoBounds</em></a> :<a name="typenobounds"></a><br />
+      <a href="grammar.html#parenthesizedtype"><em>ParenthesizedType</em></a><br />
+   | <a href="grammar.html#tupletype"><em>TupleType</em></a><br />
    | <a href="grammar.html#nevertype"><em>NeverType</em></a><br />
-   | [<em>TraitObjectType</em>]<br />
-   | [<em>ImplTraitType</em>]<br />
-   | <a href="grammar.html#parenthesizedtype"><em>ParenthesizedType</em></a><br />
-   | <a href="grammar.html#inferredtype"><em>InferredType</em></a></p>
-<p><a href="grammar.html#typepath"><em>TypePath</em></a> :<a name="typepath"></a><br />
-   <a href="grammar.html#path"><em>Path</em></a></p>
+   | <a href="grammar.html#rawpointertype"><em>RawPointerType</em></a><br />
+   | <a href="grammar.html#referencetype"><em>ReferenceType</em></a><br />
+   | <a href="grammar.html#arraytype"><em>ArrayType</em></a><br />
+   | <a href="grammar.html#slicetype"><em>SliceType</em></a><br />
+   | <a href="grammar.html#inferredtype"><em>InferredType</em></a><br />
+   | <a href="grammar.html#qualifiedpathfortype"><em>QualifiedPathForType</em></a><br />
+   | <a href="grammar.html#pathfortypewithgenerics"><em>PathForTypeWithGenerics</em></a><br />
+   | [<em>BareFunctionType</em>]<br />
+   | [<em>MacroInvocationType</em>]</p>
 <p><a href="grammar.html#parenthesizedtype"><em>ParenthesizedType</em></a> :<a name="parenthesizedtype"></a><br />
-      <code>(</code> <a href="grammar.html#type"><em>Type</em></a> <code>)</code><br />
-   <code>(</code> <a href="grammar.html#type"><em>Type</em></a> <code>)</code> <code>+</code> [<em>TypeBounds</em>]</p>
+      <code>(</code> <a href="grammar.html#type"><em>Type</em></a> <code>)</code></p>
 <p><a href="grammar.html#tupletype"><em>TupleType</em></a> :<a name="tupletype"></a> <a name="tuple-type"></a><br />
       <code>(</code> <code>)</code><br />
    | <code>(</code> <a href="grammar.html#type"><em>Type</em></a> <code>,</code> <code>)</code><br />
    | <code>(</code> <a href="grammar.html#type"><em>Type</em></a> ( <code>,</code> <a href="grammar.html#type"><em>Type</em></a> ) <sup>+</sup> <code>,</code><sup>?</sup> <code>)</code></p>
 <p><a href="grammar.html#arraytype"><em>ArrayType</em></a> :<a name="arraytype"></a> <a name="array-type"></a><br />
-   <code>[</code> <a href="grammar.html#type"><em>Type</em></a> <code>;</code> <a href="grammar.html#expression"><em>Expression</em></a> <code>]</code></p>
+   <code>[</code> _type <code>;</code> <a href="grammar.html#expression"><em>Expression</em></a> <code>]</code> <strong>FIXME</strong></p>
 <p><a href="grammar.html#slicetype"><em>SliceType</em></a> :<a name="slicetype"></a> <a name="slice-type"></a><br />
-   <code>&amp;</code> <code>[</code> <a href="grammar.html#type"><em>Type</em></a> <code>]</code></p>
+   <code>[</code> _type <code>]</code> <strong>FIXME</strong></p>
 <p><a href="grammar.html#nevertype"><em>NeverType</em></a> :<a name="nevertype"></a> <code>!</code></p>
 <p><a href="grammar.html#inferredtype"><em>InferredType</em></a> :<a name="inferredtype"></a> <code>_</code></p>
 <p><a href="grammar.html#referencetype"><em>ReferenceType</em></a> :<a name="referencetype"></a><br />
-   <code>&amp;</code> Lifetime? <code>mut</code>? [<em>TypeNoBounds</em>]</p>
+   <code>&amp;</code> Lifetime? <code>mut</code>? _type <strong>FIXME</strong></p>
 <p><a href="grammar.html#rawpointertype"><em>RawPointerType</em></a> :<a name="rawpointertype"></a><br />
-   <code>*</code> ( <code>mut</code> | <code>const</code> ) [<em>TypeNoBounds</em>]</p>
+   <code>*</code> ( <code>mut</code> | <code>const</code> ) _type **FIXME</p>
 </blockquote>
 
                 </div>

@@ -105,19 +105,22 @@ points. The grammar has a <a href="../grammar.html#special-unicode-productions">
 section that lists these productions.</p>
 <a class="header" href="print.html#grammar" id="grammar"><h2>Grammar</h2></a>
 <p>The following notations are used by the <em>Lexer</em> and <em>Syntax</em> grammar snippets:</p>
-<table><thead><tr><th> Notation      </th><th> Examples                      </th><th> Meaning                              </th></tr></thead><tbody>
-<tr><td> CAPITAL       </td><td> KW_IF, INTEGER_LITERAL        </td><td> A token produced by the lexer        </td></tr>
-<tr><td> <em>CamelCase</em>   </td><td> <em>LetExpression</em>, <em>Item</em>       </td><td> A syntactical production             </td></tr>
-<tr><td> <code>string</code>      </td><td> <code>x</code>, <code>while</code>, <code>*</code>             </td><td> The exact character(s)               </td></tr>
-<tr><td> <sup>?</sup>  </td><td> <code>pub</code><sup>?</sup>             </td><td> An optional item                     </td></tr>
-<tr><td> <sup>*</sup> </td><td> <em>OuterAttribute</em><sup>*</sup> </td><td> 0 or more or it                      </td></tr>
-<tr><td> <sup>+</sup>  </td><td> XID_Continue<sup>+</sup>      </td><td> 1 or more of it                      </td></tr>
-<tr><td> |            </td><td> <code>u8</code> | <code>u16</code>                 </td><td> Either one or another                </td></tr>
-<tr><td> [ ]           </td><td> [<code>b</code> <code>B</code>]                     </td><td> Any of the characters listed         </td></tr>
-<tr><td> [ - ]         </td><td> [<code>a</code>-<code>z</code>]                     </td><td> Any of the characters in the range   </td></tr>
-<tr><td> ~[ ]          </td><td> ~[<code>a</code>-<code>z</code>]                    </td><td> Any characters, except those listed  </td></tr>
-<tr><td> ~<code>string</code>     </td><td> ~<code>\n</code>, ~<code>*/</code>                  </td><td> Any characters, except this sequence </td></tr>
-<tr><td> ( )           </td><td> (<code>,</code> <em>Parameter</em>)<sup>?</sup> </td><td> Groups items                         </td></tr>
+<table><thead><tr><th> Notation          </th><th> Examples                      </th><th> Meaning                                   </th></tr></thead><tbody>
+<tr><td> CAPITAL           </td><td> KW_IF, INTEGER_LITERAL        </td><td> A token produced by the lexer             </td></tr>
+<tr><td> CamelCase         </td><td> HexDigit, BlockCommentOrDoc   </td><td> An auxiliar production that does not generate a token </td></tr>
+<tr><td> <em>ItalicCamelCase</em> </td><td> <em>LetExpression</em>, <em>Item</em>       </td><td> A syntactical production                  </td></tr>
+<tr><td> <code>string</code>          </td><td> <code>x</code>, <code>while</code>, <code>*</code>             </td><td> The exact character(s)                    </td></tr>
+<tr><td> \x               </td><td> \n, \r, \t, \0            </td><td> The character represented by this escape  </td></tr>
+<tr><td> x <sup>?</sup>    </td><td> <code>pub</code><sup>?</sup>             </td><td> An optional item                          </td></tr>
+<tr><td> x <sup>*</sup>   </td><td> <em>OuterAttribute</em> <sup>*</sup></td><td> 0 or more of x                            </td></tr>
+<tr><td> x <sup>+</sup>    </td><td> XID_Continue <sup>+</sup>     </td><td> 1 or more of x                            </td></tr>
+<tr><td> x <sup>a..b</sup> </td><td> HEX_DIGIT <sup>1..6</sup>     </td><td> a to b repetitions of x                   </td></tr>
+<tr><td> |                </td><td> <code>u8</code> | <code>u16</code>, Block | Item  </td><td> Either one or another                     </td></tr>
+<tr><td> [ ]               </td><td> [<code>b</code> <code>B</code>]                     </td><td> Any of the characters listed              </td></tr>
+<tr><td> [ - ]             </td><td> [<code>a</code>-<code>z</code>]                     </td><td> Any of the characters in the range        </td></tr>
+<tr><td> ~[ ]              </td><td> ~[<code>a</code>-<code>z</code>]                    </td><td> Any characters, except those listed       </td></tr>
+<tr><td> ~<code>string</code>         </td><td> ~<code>\n</code>, ~<code>*/</code>                  </td><td> Any characters, except this sequence      </td></tr>
+<tr><td> ( )               </td><td> (<code>,</code> <em>Parameter</em>)<sup>?</sup> </td><td> Groups items                              </td></tr>
 </tbody></table>
 <a class="header" href="print.html#simple-tokens-in-syntactical-rules" id="simple-tokens-in-syntactical-rules"><h3>Simple tokens in syntactical rules</h3></a>
 <p>For ease of reading, syntactical rules in the grammar show the printable
@@ -466,12 +469,7 @@ CHAR_LITERAL :<br />
       <code>\x</code> OCT_DIGIT HEX_DIGIT<br />
    | <code>\n</code> | <code>\r</code> | <code>\t</code> | <code>\\</code> | <code>\0</code></p>
 <p>UNICODE_ESCAPE :<br />
-      <code>\u{</code> HEX_DIGIT <code>}</code><br />
-   | <code>\u{</code> HEX_DIGIT HEX_DIGIT <code>}</code><br />
-   | <code>\u{</code> HEX_DIGIT HEX_DIGIT HEX_DIGIT <code>}</code><br />
-   | <code>\u{</code> HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT <code>}</code><br />
-   | <code>\u{</code> HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT<code>}</code><br />
-   | <code>\u{</code> HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT<code>}</code></p>
+   <code>\u{</code> ( HEX_DIGIT <code>_</code><sup>*</sup> )<sup>1..6</sup> <code>}</code></p>
 </blockquote>
 <p>A <em>character literal</em> is a single Unicode character enclosed within two
 <code>U+0027</code> (single-quote) characters, with the exception of <code>U+0027</code> itself,
@@ -4942,28 +4940,6 @@ fn max(a: i32, b: i32) -&gt; i32 {
 #}</code></pre></pre>
 <a class="header" href="print.html#paths" id="paths"><h1>Paths</h1></a>
 <!-- FIXME: UFCS - universal function call syntax -->
-<blockquote>
-<p><strong><sup>Syntax</sup></strong><br />
-<a href="print.html#paths"><em>Path</em></a> :<br />
-      <a href="print.html#nonglobal-path"><em>NonGlobalPath</em></a><br />
-   | <a href="print.html#global-path"><em>GlobalPath</em></a></p>
-<p><a href="print.html#nonglobal-path"><em>NonGlobalPath</em></a> : <a name="nonglobal-path"></a><br />
-      <a href="print.html#path-segment"><em>PathSegment</em></a> ( <code>::</code> <a href="print.html#nonglobal-path"><em>NonGlobalPath</em></a> )<sup>?</sup></p>
-<p><a href="print.html#global-path"><em>GlobalPath</em></a> : <a name="global-path"></a><br />
-   <code>::</code> <a href="print.html#nonglobal-path"><em>NonGlobalPath</em></a></p>
-<p><a href="print.html#path-segment"><em>PathSegment</em></a> : <a name="path-segment"></a><br />
-      <a href="identifiers.html">IDENTIFIER</a><br />
-   | <code>&lt;</code> <em>TypeArguments</em> <code>&gt;</code><br />
-   | <code>super</code><br />
-   | <code>self</code></p>
-<p><em>PathParameter</em> :</p>
-</blockquote>
-<blockquote>
-<p>path:<br />
-qualified = &lt;...&gt;<br />
-global<br />
-nonglobal</p>
-</blockquote>
 <p>A <em>path</em> is a sequence of one or more path components <em>logically</em> separated by
 a namespace qualifier (<code>::</code>). If a path consists of only one component, it may
 refer to either an <a href="items.html">item</a> or a <a href="variables.html">variable</a> in a local control
@@ -4996,12 +4972,41 @@ let x  = id::&lt;i32&gt;(10);       // Type arguments used in a call expression
 <a class="header" href="print.html#module-paths" id="module-paths"><h3>Module paths</h3></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-<em>ModulePath</em> :<br />
-   <em>ModulePathItem</em> ( <code>::</code> <em>ModulePathItem</em> )<sup><em></sup></em></sup></p>
-<p><em>TypePathItem</em> :<br />
-   IDENTIFIER | <code>super</code> | <code>self</code> | <code>Self</code></p>
+<em>PathForModule</em> :<br />
+   <code>::</code><sup>?</sup> <em>PathSegmentIdentifier</em> (<code>::</code> <em>PathSegmentIdentifier</em>)<sup>*</sup></p>
+<p><em>QualifiedPathForModule</em> :<br />
+   <code>&lt;</code> type_ (<code>as</code> <em>PathForTypeWithGenerics</em>)? <code>&gt;</code> <code>::</code> <em>PathForModule</em> <strong>FIXME</strong></p>
+<p><em>PathSegmentIdentifier</em> :<br />
+   IDENTIFIER | <code>super</code> | <code>self</code> | <code>Self</code> <strong>FIXME</strong></p>
 </blockquote>
 <a class="header" href="print.html#expression-paths" id="expression-paths"><h3>Expression paths</h3></a>
+<blockquote>
+<p><strong><sup>Syntax</sup></strong><br />
+<em>PathForExpression</em> :<br />
+   <code>::</code><sup>?</sup> <em>PathSegmentIdentifier</em> (<code>::</code> (<em>PathSegmentIdentifier</em> | <em>GenericsForType</em>) )<sup>*</sup></p>
+<p><em>QualifiedPathForExpression</em> :<br />
+   <code>&lt;</code> type_ (<code>as</code> <em>PathForTypeWithGenerics</em>)? <code>&gt;</code> <code>::</code> <em>PathForExpression</em> <strong>FIXME</strong></p>
+</blockquote>
+<a class="header" href="print.html#type-paths" id="type-paths"><h3>Type paths</h3></a>
+<blockquote>
+<p><strong><sup>Syntax</sup></strong><br />
+<em>PathForTypeWithGenerics</em> :<br />
+   <code>::</code><sup>?</sup> <em>PathWithGenericsElement</em> (<code>::</code> <em>PathWithGenericsElement</em>)<sup>*</sup></p>
+<p><em>PathWithGenericsElement</em> :<br />
+   <em>PathSegmentIdentifier</em> (<em>GenericsForType</em> | <em>FunctionSignature</em>)<sup>?</sup></p>
+<p><em>QualifiedPathForType</em> :<br />
+   <code>&lt;</code> type_ (<code>as</code> <em>PathForTypeWithGenerics</em>)? <code>&gt;</code> <code>::</code> <em>PathForTypeWithGenerics</em> <strong>FIXME</strong></p>
+<p><em>GenericsForType</em> :<br />
+      <code>&lt;</code> (<em>LifetimeParams</em> (<code>,</code> <em>TypeParamsForTypes</em>)<sup>?</sup> (<code>,</code> <em>BindingParams</em>)<sup>?</sup> <code>,</code><sup>?</sup> )<sup>?</sup> <code>&gt;</code><br />
+   | <code>&lt;</code> <em>TypeParamsForTypes</em> (<code>,</code> <em>BindingParams</em>)<sup>?</sup> <code>,</code><sup>?</sup> <code>&gt;</code><br />
+   | <code>&lt;</code> <em>BindingParams</em> <code>,</code><sup>?</sup> <code>&gt;</code></p>
+<p><em>TypeParamsForTypes</em> :<br />
+   <em>Type</em> (<code>,</code> <em>Type</em>)<sup>*</sup></p>
+<p><em>BindingParams</em> :<br />
+   <em>TypeBindingParam</em> (<code>,</code> <em>TypeBindingParam</em>)<sup>*</sup></p>
+<p><em>TypeBindingParam</em> :<br />
+   IDENTIFIER <code>=</code> type_ <strong>FIXME</strong></p>
+</blockquote>
 <a class="header" href="print.html#path-qualifiers" id="path-qualifiers"><h2>Path qualifiers</h2></a>
 <a class="header" href="print.html#" id=""><h3><code>::</code></h3></a>
 <p>Paths can be denoted with various leading qualifiers to change the meaning of
@@ -5078,7 +5083,7 @@ fn bar() {
 <p>Patterns in Rust are used to match values against structures and to,
 optionally, bind variables to values inside these structures. They are also
 used in variable declarations and function/closure parameters, though most of
-the time simply as an identifier that binds to any value.</p>
+the time simply as an identifier that binds to a value.</p>
 <p>For example, the pattern used in:</p>
 <pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
 #fn main() {
@@ -5129,12 +5134,12 @@ parameters</li>
 </ul>
 <a class="header" href="print.html#destructuring" id="destructuring"><h2>Destructuring</h2></a>
 <p>Patterns can be used to <em>destructure</em> structs, enums, and tuples. Destructuring
-breaks a value up into its component pieces. The syntax used is the same as
+breaks a value up into its component pieces. The syntax used is almost the same as
 when creating such values. When destructing a data structure with named (but
 not numbered) fields, it is allowed to write <code>fieldname</code> as a shorthand for
 <code>fieldname: fieldname</code>. In a pattern whose head expression has a <code>struct</code>,
 <code>enum</code> or <code>tupl</code> type, a placeholder (<code>_</code>) stands for a <em>single</em> data field,
-whereas a wildcard <code>..</code> stands for <em>all</em> the fields of a particular variant.</p>
+whereas a wildcard <code>..</code> stands for <em>all</em> the remaining fields of a particular variant.</p>
 <pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
 #fn main() {
 # enum Message {
@@ -5156,22 +5161,43 @@ match message {
 
 #}</code></pre></pre>
 <a class="header" href="print.html#refutability" id="refutability"><h2>Refutability</h2></a>
-<!-- FIXME: irrefutable patterns -->
-<!-- FIXME: which things don't accept irrefutable patterns? -->
-<!-- FIXME: which things don't accept refutable patterns? -->
+<p>A pattern is said to be <em>Refutable</em> when it <strong>has the possibily of not being matched</strong>
+by the value it is being matched against. <em>Irrefutable</em> patterns, on the other hand,
+always match the value they are being matched againt. Examples:</p>
+<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+#fn main() {
+let (x, y) = (1, 2);               // &quot;(x, y)&quot; is an irrefutable pattern
+
+if let (a, 3) = (1, 2) {           // &quot;(a, 3)&quot; is refutable, and will not match
+    panic!(&quot;Shouldn't reach here&quot;);
+} else if let (a, 4) = (3, 4) {    // &quot;(a, 4)&quot; is refutable, and will match
+    println!(&quot;Matched ({}, 4)&quot;, a);
+}
+
+#}</code></pre></pre>
 <a class="header" href="print.html#literal-patterns" id="literal-patterns"><h2>Literal patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 <em>LiteralPattern</em> :<a name="literal-pattern-syntax"></a><br />
-   <code>-</code><sup>?</sup> ( CHAR_LITERAL | INTEGER_LITERAL | FLOAT_LITERAL )</p>
+      BOOLEAN_LITERAL<br />
+   | CHAR_LITERAL<br />
+   | BYTE_LITERAL<br />
+   | STRING_LITERAL<br />
+   | RAW_STRING_LITERAL<br />
+   | BYTE_STRING_LITERAL<br />
+   | RAW_BYTE_STRING_LITERAL<br />
+   | <code>-</code><sup>?</sup> INTEGER_LITERAL<br />
+   | <code>-</code><sup>?</sup> FLOAT_LITERAL</p>
 </blockquote>
 <p><em>Literal patterns</em> match exactly the value they represent. Since negative numbers are
 not literals in Rust, literal patterns also accept an optional minus sign before the
 literal.</p>
 <p>Floating-point literals are currently accepted, but due to the complexity of comparing
-them, they are going to be forbidden in a future version of Rust (see
+them, they are going to be forbidden on literal patterns in a future version of Rust (see
 <a href="https://github.com/rust-lang/rust/issues/41620">issue #41620</a>).</p>
-<p>Example:</p>
+<p>Literal patterns are always refutable.</p>
+<p>Examples:</p>
+<!-- FIXME more examples -->
 <pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
 #fn main() {
 for i in -2..5 {
@@ -5200,10 +5226,15 @@ It's either a two or a four
    <code>_</code></p>
 </blockquote>
 <!-- FIXME explain the wildcard pattern -->
-<p>The <em>wildcard pattern</em> means any value or the value does not matter.</p>
+<p>The <em>wildcard pattern</em> matches any value. Thus, it is always irrefutable.</p>
 <p>For example:</p>
-<pre><code>    
-</code></pre>
+<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+#fn main() {
+# let x = 20;
+let (a, _) = (10, x);   // the x is always matched by _
+# assert_eq!(a, 10);
+
+#}</code></pre></pre>
 <!-- FIXME but it can be bound to a variable -->
 <!-- FIXME where can it be used? -->
 <!-- FIXME examples -->
@@ -5225,6 +5256,7 @@ a sub-range of another range pattern inside the same <code>match</code>.</p>
 <!-- FIXME examples -->
 <!-- which types can be used here? -->
 <!-- FIXME floating point literals use here is being deprecated -->
+<!-- when is this pattern type refutable? -->
 <a class="header" href="print.html#reference-patterns" id="reference-patterns"><h2>Reference patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
@@ -5245,6 +5277,7 @@ let z = match x { &amp;0 =&gt; &quot;zero&quot;, _ =&gt; &quot;some&quot; };
 assert_eq!(y, z);
 
 #}</code></pre></pre>
+<!-- when is this pattern type refutable? -->
 <a class="header" href="print.html#identifier-patterns" id="identifier-patterns"><h2>Identifier patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
@@ -5315,8 +5348,12 @@ struct Person {
 if let Person(name: ref person_name) = value {
 }
 </code></pre>
+<p>Thus, <code>ref</code> is not something that is being matched against. Its objective is
+exclusively to make the matched binding a reference, instead of potentially
+copying or moving the value of what was matched.</p>
 <!-- FIXME cannot bind by-move and by-ref in the same pattern -->
 <!-- FIXME explain the difference between `& var` and `ref var` in patterns -->
+<!-- when is this pattern type refutable? -->
 <a class="header" href="print.html#box-pattern" id="box-pattern"><h2>Box pattern</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
@@ -5325,6 +5362,7 @@ if let Person(name: ref person_name) = value {
 </blockquote>
 <!-- FIXME: explain box patterns -->
 <!-- FIXME: they're not stable -->
+<!-- when is this pattern type refutable? -->
 <a class="header" href="print.html#struct-patterns" id="struct-patterns"><h2>Struct patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
@@ -5352,6 +5390,7 @@ IDENTIFIER<br />
 <!-- FIXME: explain struct patterns -->
 <!-- FIXME: destructuring patterns -->
 <p>Struct patterns match ...</p>
+<!-- when is this pattern type refutable? -->
 <a class="header" href="print.html#tuplestruct-patterns" id="tuplestruct-patterns"><h2>TupleStruct patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
@@ -5363,6 +5402,7 @@ IDENTIFIER<br />
 </blockquote>
 <!-- FIXME: explain tuple struct patterns -->
 <!-- FIXME: includes enum variants? Yes! -->
+<!-- when is this pattern type refutable? -->
 <a class="header" href="print.html#tuple-patterns" id="tuple-patterns"><h2>Tuple patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
@@ -5374,95 +5414,61 @@ IDENTIFIER<br />
    | (<a href="print.html#pattern-syntax"><em>Pattern</em></a> <code>,</code>)<sup>*</sup> <code>..</code> ( (<code>,</code> <a href="print.html#pattern-syntax"><em>Pattern</em></a>)<sup>+</sup> <code>,</code><sup>?</sup> )<sup>?</sup></p>
 </blockquote>
 <!-- FIXME: explain tuple patterns -->
+<!-- when is this pattern type refutable? -->
+<!-- NOT STABLE:
 <a class="header" href="print.html#slice-patterns" id="slice-patterns"><h2>Slice patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 <em>SlicePattern</em> :<a name="slice-pattern-syntax"></a><br />
    <code>[</code> <strong>FIXME</strong> <code>]</code></p>
 </blockquote>
+<p>--&gt;</p>
 <!-- FIXME: explain slice patterns -->
 <!-- FIXME: this is not stable -->
+<!-- when is this pattern type refutable? -->
 <a class="header" href="print.html#path-patterns" id="path-patterns"><h2>Path patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 <em>PathPattern</em> :<a name="path-pattern-syntax"></a><br />
-   <strong>FIXME</strong></p>
+      <em>PathForExpression</em><br />
+   | <em>QualifiedPathForExpression</em></p>
 </blockquote>
 <!-- FIXME: explain paths in patterns -->
+<!-- when is this pattern type refutable? -->
 <a class="header" href="print.html#type-system" id="type-system"><h1>Type system</h1></a>
 <a class="header" href="print.html#types" id="types"><h1>Types</h1></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-[<em>Type</em>] : <a name="type"></a><br />
-      [<em>TypePath</em>]<br />
-   | [<em>QualifiedPathType</em>]<br />
-   | [<em>TupleType</em>]<br />
-   | [<em>ArrayType</em>]<br />
-   | [<em>SliceType</em>]<br />
-   | [<em>ReferenceType</em>]<br />
-   | [<em>RawPointerType</em>]<br />
-   | [<em>BareFunctionType</em>]<br />
-   | [<em>NeverType</em>]<br />
-   | [<em>TraitObjectType</em>]<br />
-   | [<em>ImplTraitType</em>]<br />
-   | [<em>ParenthesizedType</em>]<br />
-   | [<em>InferredType</em>]</p>
-<p>[<em>TypePath</em>] :<br />
-   [<em>Path</em>]</p>
-<p>[<em>ParenthesizedType</em>] :<br />
-      <code>(</code> [<em>Type</em>] <code>)</code><br />
-   <code>(</code> [<em>Type</em>] <code>)</code> <code>+</code> [<em>TypeBounds</em>]</p>
+<em>Type</em> :<br />
+      <a href="print.html#parenthesized-type"><em>ParenthesizedType</em></a> (<code>+</code> [<em>TypeParamBounds</em>])<sup>?</sup><br />
+   | <a href="print.html#tuple-type"><em>TupleType</em></a><br />
+   | <a href="print.html#never-type"><em>NeverType</em></a><br />
+   | <a href="print.html#raw-pointer-type"><em>RawPointerType</em></a><br />
+   | <a href="print.html#reference-type"><em>ReferenceType</em></a><br />
+   | <a href="print.html#array-type"><em>ArrayType</em></a><br />
+   | <a href="print.html#slice-type"><em>SliceType</em></a><br />
+   | <a href="print.html#inferred-type"><em>InferredType</em></a><br />
+   | <a href="paths.html#type-paths"><em>QualifiedPathForType</em></a><br />
+   | <a href="paths.html#type-paths"><em>PathForTypeWithGenerics</em></a> (<code>+</code> [<em>TypeParamBounds</em>])<sup>?</sup><br />
+   | <a href="print.html#bare-function-type"><em>BareFunctionType</em></a><br />
+   | [<em>MacroInvocationType</em>]<br />
+   | [<em>TypeParamBounds</em>]</p>
+<p><em>TypeNoBounds</em> :<br />
+      <a href="print.html#parenthesized-type"><em>ParenthesizedType</em></a><br />
+   | <a href="print.html#tuple-type"><em>TupleType</em></a><br />
+   | <a href="print.html#never-type"><em>NeverType</em></a><br />
+   | <a href="print.html#raw-pointer-type"><em>RawPointerType</em></a><br />
+   | <a href="print.html#reference-type"><em>ReferenceType</em></a><br />
+   | <a href="print.html#array-type"><em>ArrayType</em></a><br />
+   | <a href="print.html#slice-type"><em>SliceType</em></a><br />
+   | <a href="print.html#inferred-type"><em>InferredType</em></a><br />
+   | <a href="paths.html#type-paths"><em>QualifiedPathForType</em></a><br />
+   | <a href="paths.html#type-paths"><em>PathForTypeWithGenerics</em></a><br />
+   | <a href="print.html#bare-function-type"><em>BareFunctionType</em></a><br />
+   | [<em>MacroInvocationType</em>]</p>
+<p><a href="print.html#parenthesized-type"><em>ParenthesizedType</em></a> :<br />
+      <code>(</code> <a href="print.html#type"><em>Type</em></a> <code>)</code></p>
 </blockquote>
-<!--
-<p>FIXME</p>
-<blockquote>
-<p>Type:
-ParenthesizedType: <code>(</code> Type <code>)</code> (<code>+</code> TypeBounds)?</p>
-</blockquote>
-<blockquote>
-<p>QualifiedPathType : QualifiedPath</p>
-</blockquote>
-<blockquote>
-<p>TypePath : <code>::</code>? TypePath (<code>+</code> TypeBounds)?         (parse_path_segments_without_colons)
-ExprPath : <code>::</code>?                                    (parse_path_segments_with_colons)
-ModPath :  <code>::</code>?                                    (parse_path_segments_without_types)</p>
-</blockquote>
-<blockquote>
-<p>FunctionPointerType : <code>unsafe</code>? (<code>extern</code> STRING_LITERAL?)? <code>fn</code> (FunctionArgs) (<code>-&gt;</code> TypeNoBounds)?</p>
-</blockquote>
-<blockquote>
-<p><code>for&lt;'lt&gt;</code></p>
-</blockquote>
-<blockquote>
-<p>ImplTrait</p>
-</blockquote>
-<blockquote>
-<p>TraitObjectType : Lifetime? <code>?</code> TypeBounds</p>
-</blockquote>
-<blockquote>
-<p>TypeNoBounds:<br />
-ParenthesizedTypeNoBounds : <code>(</code> Type <code>)</code><br />
-PathTypeNoBounds : TypePath</p>
-<p>TypeBounds: Bound (<code>+</code> Bound)* <code>+</code>?<br />
-Bound: TypeBound | LifetimeBound<br />
-LifetimeBound : Lifetime<br />
-TypeBound : TypeBoundNoParen | <code>(</code> TypeBoundNoParen <code>)</code><br />
-TypeBoundNoParen : <code>?</code>? <code>for</code><LifetimeParamDefs> SimplePath</p>
-</blockquote>
-<p>PathType - module::module::...::Type
-RawPointerType - *const T, *mut T
-ReferenceType - &amp;'a T, &amp;'a mut T
-BareFunctionType - fn(usize) -&gt; bool
-NeverType - !T
-TupleType - (T, U, V, ...), (T,)
-QualifiedPathType - &lt;Vec<T> as SomeTrait&gt;::SomeType
-TraitObjectType - Bound + Bound + ... + Bound
-ImplTraitType - impl Bound + Bound + ... + Bound
-ParenthesizedType - ( T ) // simply ignores the parenthesis
-InferredType -
-ImplicitSelf
-Macro</p>
-<p>--&gt;</p>
 <!-- FIXME create section for type bounds -->
 <p>Every variable, item and value in a Rust program has a type. The <em>type</em> of a
 <em>value</em> defines the interpretation of the memory holding it.</p>
@@ -5528,16 +5534,15 @@ unsigned bytes holding a sequence of UTF-8 code points. Since <code>str</code> i
 <a href="dynamically-sized-types.html">dynamically sized type</a>, it is not a <em>first-class</em> type, but can only be
 instantiated through a pointer type, such as <code>&amp;str</code>.</p>
 <a class="header" href="print.html#types-mentions" id="types-mentions"><h2>Types mentions</h2></a>
-<p>A type can be mentioned either directly or through a path. Complext types like
-structs and traits can only be mentioned after using paths, after being declared
-by an <a href="items.html">item declaration</a>.</p>
+<p>A type can be mentioned either directly or through a path. Complex types like
+structs can only be mentioned after being declared by a <a href="items.html">item declaration</a>.</p>
 <a class="header" href="print.html#tuple-types" id="tuple-types"><h2>Tuple types</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-[<em>TupleType</em>] : <a name="tuple-type"></a><br />
+<a href="print.html#tuple-type"><em>TupleType</em></a> : <a name="tuple-type"></a><br />
       <code>(</code> <code>)</code><br />
-   | <code>(</code> [<em>Type</em>] <code>,</code> <code>)</code><br />
-   | <code>(</code> [<em>Type</em>] ( <code>,</code> [<em>Type</em>] ) <sup>+</sup> <code>,</code><sup>?</sup> <code>)</code></p>
+   | <code>(</code> <a href="print.html#type"><em>Type</em></a> <code>,</code> <code>)</code><br />
+   | <code>(</code> <a href="print.html#type"><em>Type</em></a> ( <code>,</code> <a href="print.html#type"><em>Type</em></a> ) <sup>+</sup> <code>,</code><sup>?</sup> <code>)</code></p>
 </blockquote>
 <p>A tuple <em>type</em> is a heterogeneous product of other types, called the <em>elements</em>
 of the tuple. It has no nominal name and is instead structurally typed.</p>
@@ -5564,19 +5569,19 @@ is often called ‘unit’ or ‘the unit type’.</p>
 <a class="header" href="print.html#array-and-slice-types" id="array-and-slice-types"><h2>Array, and Slice types</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-[<em>ArrayType</em>] : <a name="array-type"></a><br />
-   <code>[</code> [<em>Type</em>] <code>;</code> [<em>Expression</em>] <code>]</code></p>
-<p>[<em>SliceType</em>] : <a name="slice-type"></a><br />
-   <code>&amp;</code> <code>[</code> [<em>Type</em>] <code>]</code></p>
+<a href="print.html#array-type"><em>ArrayType</em></a> : <a name="array-type"></a><br />
+   <code>[</code> _type <code>;</code> <a href="expressions.html"><em>Expression</em></a> <code>]</code> <strong>FIXME</strong></p>
+<p><a href="print.html#slice-type"><em>SliceType</em></a> : <a name="slice-type"></a><br />
+   <code>[</code> _type <code>]</code> <strong>FIXME</strong></p>
 </blockquote>
-<!-- FIXME: actually, the slice type is `[` [_Type_] `]`, without `&`. -->
-<p>Rust has two different types for a list of items:</p>
+<p>Rust has two different types for a list of items of the same type:</p>
 <ul>
 <li><code>[T; N]</code>, an 'array'</li>
 <li><code>[T]</code>, a 'slice'</li>
 </ul>
 <p>An array has a fixed size, and can be allocated on either the stack or the
-heap.</p>
+heap. This size is an expression that evaluates to an
+<a href="print.html#machine-dependent-integer-types"><code>usize</code></a>.</p>
 <p>A slice is a <a href="dynamically-sized-types.html">dynamically sized type</a> representing a 'view' into an array. To
 use a slice type it generally has to be used behind a pointer for example as</p>
 <ul>
@@ -5605,13 +5610,13 @@ type.</p>
 <a class="header" href="print.html#never-type" id="never-type"><h2>Never type</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-[<em>NeverType</em>] : <code>!</code></p>
+<a href="print.html#never-type"><em>NeverType</em></a> : <code>!</code></p>
 </blockquote>
 <!-- FIXME: description (or find whether it is already specified elsewhere -->
 <a class="header" href="print.html#inferred-type" id="inferred-type"><h2>Inferred type</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-[<em>InferredType</em>] : <code>_</code></p>
+<a href="print.html#inferred-type"><em>InferredType</em></a> : <code>_</code></p>
 </blockquote>
 <!-- FIXME: description (or find whether it is already specified elsewhere -->
 <a class="header" href="print.html#struct-types" id="struct-types"><h2>Struct types</h2></a>
@@ -5695,8 +5700,8 @@ copied, stored into data structs, and returned from functions.</p>
 <a class="header" href="print.html#shared-references-" id="shared-references-"><h3>Shared references (<code>&amp;</code>)</h3></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-[<em>ReferenceType</em>] :<br />
-   <code>&amp;</code> Lifetime? <code>mut</code>? [<em>TypeNoBounds</em>]</p>
+<a href="print.html#reference-type"><em>ReferenceType</em></a> :<br />
+   <code>&amp;</code> Lifetime? <code>mut</code>? _type <strong>FIXME</strong></p>
 </blockquote>
 </div>
 <p>These point to memory <em>owned by some other value</em>. When a shared reference to a
@@ -5716,8 +5721,8 @@ borrowed) is the only way to access the value it points to, so is not <code>Copy
 <a class="header" href="print.html#raw-pointers-const-and-mut" id="raw-pointers-const-and-mut"><h3>Raw pointers (<code>*const</code> and <code>*mut</code>)</h3></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-[<em>RawPointerType</em>] :<br />
-   <code>*</code> ( <code>mut</code> | <code>const</code> ) [<em>TypeNoBounds</em>]</p>
+<a href="print.html#raw-pointer-type"><em>RawPointerType</em></a> :<br />
+   <code>*</code> ( <code>mut</code> | <code>const</code> ) _type **FIXME</p>
 </blockquote>
 <p>Raw pointers are pointers without safety or liveness guarantees. Raw pointers
 are written as <code>*const T</code> or <code>*mut T</code>, for example <code>*const i32</code> means a raw
@@ -6785,12 +6790,7 @@ It allow a type to make certain promises about its behavior.</p>
       <code>\x</code> OCT_DIGIT HEX_DIGIT<br />
    | <code>\n</code> | <code>\r</code> | <code>\t</code> | <code>\\</code> | <code>\0</code></p>
 <p><a href="print.html#unicode_escape">UNICODE_ESCAPE</a> :<a name="unicode_escape"></a><br />
-      <code>\u{</code> HEX_DIGIT <code>}</code><br />
-   | <code>\u{</code> HEX_DIGIT HEX_DIGIT <code>}</code><br />
-   | <code>\u{</code> HEX_DIGIT HEX_DIGIT HEX_DIGIT <code>}</code><br />
-   | <code>\u{</code> HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT <code>}</code><br />
-   | <code>\u{</code> HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT<code>}</code><br />
-   | <code>\u{</code> HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT<code>}</code></p>
+   <code>\u{</code> ( HEX_DIGIT <code>_</code><sup>*</sup> )<sup>1..6</sup> <code>}</code></p>
 <p><a href="print.html#string_literal">STRING_LITERAL</a> :<a name="string_literal"></a><br />
    <code>&quot;</code> (<br />
       ~[<code>&quot;</code> <code>\</code> <em>IsolatedCR</em>]<br />
@@ -6943,8 +6943,8 @@ FLOAT_EXPONENT<sup>?</sup> FLOAT_SUFFIX</p>
 <p><a href="print.html#typeparambounds"><em>TypeParamBounds</em></a> :<a name="typeparambounds"></a><br />
       <a href="print.html#lifetime_or_label">LIFETIME_OR_LABEL</a><br />
    | <code>(</code> <a href="print.html#lifetime_or_label">LIFETIME_OR_LABEL</a> <code>)</code><br />
-   | <code>?</code><sup>?</sup> <em>LateBoundLifetimeDefs</em><sup>?</sup> <a href="print.html#typepath"><em>TypePath</em></a><br />
-   | <code>(</code> <code>?</code><sup>?</sup> <em>LateBoundLifetimeDefs</em><sup>?</sup> <a href="print.html#typepath"><em>TypePath</em></a> <code>)</code></p>
+   | <code>?</code><sup>?</sup> <em>LateBoundLifetimeDefs</em><sup>?</sup> [<em>TypePath</em>]<br />
+   | <code>(</code> <code>?</code><sup>?</sup> <em>LateBoundLifetimeDefs</em><sup>?</sup> [<em>TypePath</em>] <code>)</code></p>
 <p><a href="print.html#lifetimebounds"><em>LifetimeBounds</em></a> :<a name="lifetimebounds"></a><br />
    <code>:</code> <a href="print.html#lifetime_or_label">LIFETIME_OR_LABEL</a> ( <code>+</code> <a href="print.html#lifetime_or_label">LIFETIME_OR_LABEL</a> )<sup>*</sup> <code>+</code><sup>?</sup></p>
 <p><a href="print.html#lateboundlifetimedefs"><em>LateBoundLifetimeDefs</em></a> :<a name="lateboundlifetimedefs"></a><br />
@@ -6970,10 +6970,10 @@ FLOAT_EXPONENT<sup>?</sup> FLOAT_SUFFIX</p>
 <p><a href="print.html#externcrate"><em>ExternCrate</em></a> :<a name="externcrate"></a><br />
    <code>extern</code> <code>crate</code> <a href="print.html#identifier">IDENTIFIER</a> (<code>as</code> <a href="print.html#identifier">IDENTIFIER</a>)<sup>?</sup> <code>;</code></p>
 <p><a href="print.html#usedeclaration"><em>UseDeclaration</em></a> :<a name="usedeclaration"></a><br />
-      <code>use</code> <code>::</code><sup>?</sup> <a href="print.html#nonglobalpath"><em>NonGlobalPath</em></a><br />
-   | <code>use</code> <code>::</code><sup>?</sup> <a href="print.html#nonglobalpath"><em>NonGlobalPath</em></a> <code>as</code> <a href="print.html#identifier">IDENTIFIER</a><br />
-   | <code>use</code> <code>::</code><sup>?</sup> <a href="print.html#nonglobalpath"><em>NonGlobalPath</em></a> <code>::</code> <code>*</code><br />
-   | <code>use</code> <code>::</code><sup>?</sup> <a href="print.html#nonglobalpath"><em>NonGlobalPath</em></a> <code>::</code> <code>{</code> <em>UseItems</em> <code>}</code><br />
+      <code>use</code> <code>::</code><sup>?</sup> [<em>NonGlobalPath</em>]<br />
+   | <code>use</code> <code>::</code><sup>?</sup> [<em>NonGlobalPath</em>] <code>as</code> <a href="print.html#identifier">IDENTIFIER</a><br />
+   | <code>use</code> <code>::</code><sup>?</sup> [<em>NonGlobalPath</em>] <code>::</code> <code>*</code><br />
+   | <code>use</code> <code>::</code><sup>?</sup> [<em>NonGlobalPath</em>] <code>::</code> <code>{</code> <em>UseItems</em> <code>}</code><br />
    | <code>use</code> <code>::</code><sup>?</sup> <code>{</code> <em>UseItems</em> <code>}</code></p>
 <p><a href="print.html#useitems"><em>UseItems</em></a> :<a name="useitems"></a><br />
    ( <code>self</code> | <a href="print.html#identifier">IDENTIFIER</a> (<code>as</code> <a href="print.html#identifier">IDENTIFIER</a> )<sup>?</sup> )
@@ -7320,13 +7320,49 @@ FIXME include shorthand?</p>
 <p><a href="print.html#matcharm"><em>MatchArm</em></a> :<a name="matcharm"></a><br />
    <a href="print.html#outerattribute"><em>OuterAttribute</em></a><sup>*</sup> <em>MatchArmPatterns</em> <em>MatchArmGuard</em></p>
 <p><a href="print.html#matcharmpatterns"><em>MatchArmPatterns</em></a> :<a name="matcharmpatterns"></a><br />
-   <a href="print.html#pattern"><em>Pattern</em></a> ( <code>|</code> <a href="print.html#pattern"><em>Pattern</em></a> )<sup><em></sup></em></sup></p>
-<p><a href="print.html#modulepathitem"><em>ModulePathItem</em></a> :<a name="modulepathitem"></a><br />
-   IDENTIFIER | <code>super</code> | <code>self</code> | <code>Self</code></p>
-<p><a href="print.html#typepath"><em>TypePath</em></a> :<a name="typepath"></a><br />
-   <em>TypePathItem</em> ( <code>::</code> <em>TypePathItem</em> )<sup>*</sup></p>
-<p><a href="print.html#typepathitem"><em>TypePathItem</em></a> :<a name="typepathitem"></a><br />
-   IDENTIFIER | <code>super</code> | <code>self</code> | <code>Self</code></p>
+   <a href="print.html#pattern"><em>Pattern</em></a> ( <code>|</code> <a href="print.html#pattern"><em>Pattern</em></a> )<sup>*</sup></p>
+<p><a href="print.html#matcharmguard"><em>MatchArmGuard</em></a> :<a name="matcharmguard"></a><br />
+   <code>if</code> <a href="print.html#expression"><em>Expression</em></a></p>
+<p><a href="print.html#ifletexpression"><em>IfLetExpression</em></a> :<a name="ifletexpression"></a><br />
+   <code>if</code> <code>let</code> <a href="print.html#pattern"><em>Pattern</em></a> <code>=</code> <a href="print.html#expression"><em>Expression</em></a> <a href="print.html#blockexpression"><em>BlockExpression</em></a><br />
+   (<code>else</code> (
+<a href="print.html#blockexpression"><em>BlockExpression</em></a>
+| <a href="print.html#ifexpression"><em>IfExpression</em></a>
+| <a href="print.html#ifletexpression"><em>IfLetExpression</em></a> ) )<sup>?</sup></p>
+<p><a href="print.html#whileletexpression"><em>WhileLetExpression</em></a> :<a name="whileletexpression"></a><br />
+   <code>while</code> <code>let</code> <a href="print.html#pattern"><em>Pattern</em></a> <code>=</code> <a href="print.html#expression"><em>Expression</em></a> <a href="print.html#blockexpression"><em>BlockExpression</em></a></p>
+<p><a href="print.html#returnexpression"><em>ReturnExpression</em></a> :<a name="returnexpression"></a><br />
+      <code>return</code><br />
+   | <code>return</code> <a href="print.html#expression"><em>Expression</em></a></p>
+</blockquote>
+<a class="header" href="print.html#paths-1" id="paths-1"><h3>Paths</h3></a>
+<blockquote>
+<p><a href="print.html#pathformodule"><em>PathForModule</em></a> :<a name="pathformodule"></a><br />
+   <code>::</code><sup>?</sup> <em>PathSegmentIdentifier</em> (<code>::</code> <em>PathSegmentIdentifier</em>)<sup>*</sup></p>
+<p><a href="print.html#qualifiedpathformodule"><em>QualifiedPathForModule</em></a> :<a name="qualifiedpathformodule"></a><br />
+   <code>&lt;</code> type_ (<code>as</code> <em>PathForTypeWithGenerics</em>)? <code>&gt;</code> <code>::</code> <em>PathForModule</em> <strong>FIXME</strong></p>
+<p><a href="print.html#pathsegmentidentifier"><em>PathSegmentIdentifier</em></a> :<a name="pathsegmentidentifier"></a><br />
+   IDENTIFIER | <code>super</code> | <code>self</code> | <code>Self</code> <strong>FIXME</strong></p>
+<p><a href="print.html#pathforexpression"><em>PathForExpression</em></a> :<a name="pathforexpression"></a><br />
+   <code>::</code><sup>?</sup> <em>PathSegmentIdentifier</em> (<code>::</code> (<em>PathSegmentIdentifier</em> | <em>GenericsForType</em>) )<sup>*</sup></p>
+<p><a href="print.html#qualifiedpathforexpression"><em>QualifiedPathForExpression</em></a> :<a name="qualifiedpathforexpression"></a><br />
+   <code>&lt;</code> type_ (<code>as</code> <em>PathForTypeWithGenerics</em>)? <code>&gt;</code> <code>::</code> <em>PathForExpression</em> <strong>FIXME</strong></p>
+<p><a href="print.html#pathfortypewithgenerics"><em>PathForTypeWithGenerics</em></a> :<a name="pathfortypewithgenerics"></a><br />
+   <code>::</code><sup>?</sup> <em>PathWithGenericsElement</em> (<code>::</code> <em>PathWithGenericsElement</em>)<sup>*</sup></p>
+<p><a href="print.html#pathwithgenericselement"><em>PathWithGenericsElement</em></a> :<a name="pathwithgenericselement"></a><br />
+   <em>PathSegmentIdentifier</em> (<em>GenericsForType</em> | <em>FunctionSignature</em>)<sup>?</sup></p>
+<p><a href="print.html#qualifiedpathfortype"><em>QualifiedPathForType</em></a> :<a name="qualifiedpathfortype"></a><br />
+   <code>&lt;</code> type_ (<code>as</code> <em>PathForTypeWithGenerics</em>)? <code>&gt;</code> <code>::</code> <em>PathForTypeWithGenerics</em> <strong>FIXME</strong></p>
+<p><a href="print.html#genericsfortype"><em>GenericsForType</em></a> :<a name="genericsfortype"></a><br />
+      <code>&lt;</code> (<em>LifetimeParams</em> (<code>,</code> <em>TypeParamsForTypes</em>)<sup>?</sup> (<code>,</code> <em>BindingParams</em>)<sup>?</sup> <code>,</code><sup>?</sup> )<sup>?</sup> <code>&gt;</code><br />
+   | <code>&lt;</code> <em>TypeParamsForTypes</em> (<code>,</code> <em>BindingParams</em>)<sup>?</sup> <code>,</code><sup>?</sup> <code>&gt;</code><br />
+   | <code>&lt;</code> <em>BindingParams</em> <code>,</code><sup>?</sup> <code>&gt;</code></p>
+<p><a href="print.html#typeparamsfortypes"><em>TypeParamsForTypes</em></a> :<a name="typeparamsfortypes"></a><br />
+   <em>Type</em> (<code>,</code> <em>Type</em>)<sup>*</sup></p>
+<p><a href="print.html#bindingparams"><em>BindingParams</em></a> :<a name="bindingparams"></a><br />
+   <em>TypeBindingParam</em> (<code>,</code> <em>TypeBindingParam</em>)<sup>*</sup></p>
+<p><a href="print.html#typebindingparam"><em>TypeBindingParam</em></a> :<a name="typebindingparam"></a><br />
+   IDENTIFIER <code>=</code> type_ <strong>FIXME</strong></p>
 </blockquote>
 <a class="header" href="print.html#patterns-1" id="patterns-1"><h3>Patterns</h3></a>
 <blockquote>
@@ -7343,7 +7379,15 @@ FIXME include shorthand?</p>
    | <a href="print.html#slicepattern"><em>SlicePattern</em></a><br />
    | <a href="print.html#pathpattern"><em>PathPattern</em></a></p>
 <p><a href="print.html#literalpattern"><em>LiteralPattern</em></a> :<a name="literalpattern"></a><a name="literal-pattern-syntax"></a><br />
-   <code>-</code><sup>?</sup> ( CHAR_LITERAL | INTEGER_LITERAL | FLOAT_LITERAL )</p>
+      BOOLEAN_LITERAL<br />
+   | CHAR_LITERAL<br />
+   | BYTE_LITERAL<br />
+   | STRING_LITERAL<br />
+   | RAW_STRING_LITERAL<br />
+   | BYTE_STRING_LITERAL<br />
+   | RAW_BYTE_STRING_LITERAL<br />
+   | <code>-</code><sup>?</sup> INTEGER_LITERAL<br />
+   | <code>-</code><sup>?</sup> FLOAT_LITERAL</p>
 <p><a href="print.html#wildcardpattern"><em>WildcardPattern</em></a> :<a name="wildcardpattern"></a><a name="wildcard-pattern-syntax"></a><br />
    <code>_</code></p>
 <p><a href="print.html#rangepattern"><em>RangePattern</em></a> :<a name="rangepattern"></a><a name="reference-pattern-syntax"></a><br />
@@ -7389,43 +7433,54 @@ IDENTIFIER<br />
 <p><a href="print.html#slicepattern"><em>SlicePattern</em></a> :<a name="slicepattern"></a><a name="slice-pattern-syntax"></a><br />
    <code>[</code> <strong>FIXME</strong> <code>]</code></p>
 <p><a href="print.html#pathpattern"><em>PathPattern</em></a> :<a name="pathpattern"></a><a name="path-pattern-syntax"></a><br />
-   <strong>FIXME</strong></p>
+      <em>PathForExpression</em><br />
+   | <em>QualifiedPathForExpression</em></p>
 </blockquote>
 <a class="header" href="print.html#types-1" id="types-1"><h3>Types</h3></a>
 <blockquote>
-<p><a href="print.html#type"><em>Type</em></a> :<a name="type"></a> <a name="type"></a><br />
-      <a href="print.html#typepath"><em>TypePath</em></a><br />
-   | [<em>QualifiedPathType</em>]<br />
+<p><a href="print.html#type"><em>Type</em></a> :<a name="type"></a><br />
+      <a href="print.html#parenthesizedtype"><em>ParenthesizedType</em></a> (<code>+</code> <a href="print.html#typeparambounds"><em>TypeParamBounds</em></a>)<sup>?</sup><br />
    | <a href="print.html#tupletype"><em>TupleType</em></a><br />
+   | <a href="print.html#nevertype"><em>NeverType</em></a><br />
+   | <a href="print.html#rawpointertype"><em>RawPointerType</em></a><br />
+   | <a href="print.html#referencetype"><em>ReferenceType</em></a><br />
    | <a href="print.html#arraytype"><em>ArrayType</em></a><br />
    | <a href="print.html#slicetype"><em>SliceType</em></a><br />
-   | <a href="print.html#referencetype"><em>ReferenceType</em></a><br />
-   | <a href="print.html#rawpointertype"><em>RawPointerType</em></a><br />
+   | <a href="print.html#inferredtype"><em>InferredType</em></a><br />
+   | <a href="print.html#qualifiedpathfortype"><em>QualifiedPathForType</em></a><br />
+   | <a href="print.html#pathfortypewithgenerics"><em>PathForTypeWithGenerics</em></a> (<code>+</code> <a href="print.html#typeparambounds"><em>TypeParamBounds</em></a>)<sup>?</sup><br />
    | [<em>BareFunctionType</em>]<br />
+   | [<em>MacroInvocationType</em>]<br />
+   | <a href="print.html#typeparambounds"><em>TypeParamBounds</em></a></p>
+<p><a href="print.html#typenobounds"><em>TypeNoBounds</em></a> :<a name="typenobounds"></a><br />
+      <a href="print.html#parenthesizedtype"><em>ParenthesizedType</em></a><br />
+   | <a href="print.html#tupletype"><em>TupleType</em></a><br />
    | <a href="print.html#nevertype"><em>NeverType</em></a><br />
-   | [<em>TraitObjectType</em>]<br />
-   | [<em>ImplTraitType</em>]<br />
-   | <a href="print.html#parenthesizedtype"><em>ParenthesizedType</em></a><br />
-   | <a href="print.html#inferredtype"><em>InferredType</em></a></p>
-<p><a href="print.html#typepath"><em>TypePath</em></a> :<a name="typepath"></a><br />
-   <a href="print.html#path"><em>Path</em></a></p>
+   | <a href="print.html#rawpointertype"><em>RawPointerType</em></a><br />
+   | <a href="print.html#referencetype"><em>ReferenceType</em></a><br />
+   | <a href="print.html#arraytype"><em>ArrayType</em></a><br />
+   | <a href="print.html#slicetype"><em>SliceType</em></a><br />
+   | <a href="print.html#inferredtype"><em>InferredType</em></a><br />
+   | <a href="print.html#qualifiedpathfortype"><em>QualifiedPathForType</em></a><br />
+   | <a href="print.html#pathfortypewithgenerics"><em>PathForTypeWithGenerics</em></a><br />
+   | [<em>BareFunctionType</em>]<br />
+   | [<em>MacroInvocationType</em>]</p>
 <p><a href="print.html#parenthesizedtype"><em>ParenthesizedType</em></a> :<a name="parenthesizedtype"></a><br />
-      <code>(</code> <a href="print.html#type"><em>Type</em></a> <code>)</code><br />
-   <code>(</code> <a href="print.html#type"><em>Type</em></a> <code>)</code> <code>+</code> [<em>TypeBounds</em>]</p>
+      <code>(</code> <a href="print.html#type"><em>Type</em></a> <code>)</code></p>
 <p><a href="print.html#tupletype"><em>TupleType</em></a> :<a name="tupletype"></a> <a name="tuple-type"></a><br />
       <code>(</code> <code>)</code><br />
    | <code>(</code> <a href="print.html#type"><em>Type</em></a> <code>,</code> <code>)</code><br />
    | <code>(</code> <a href="print.html#type"><em>Type</em></a> ( <code>,</code> <a href="print.html#type"><em>Type</em></a> ) <sup>+</sup> <code>,</code><sup>?</sup> <code>)</code></p>
 <p><a href="print.html#arraytype"><em>ArrayType</em></a> :<a name="arraytype"></a> <a name="array-type"></a><br />
-   <code>[</code> <a href="print.html#type"><em>Type</em></a> <code>;</code> <a href="print.html#expression"><em>Expression</em></a> <code>]</code></p>
+   <code>[</code> _type <code>;</code> <a href="print.html#expression"><em>Expression</em></a> <code>]</code> <strong>FIXME</strong></p>
 <p><a href="print.html#slicetype"><em>SliceType</em></a> :<a name="slicetype"></a> <a name="slice-type"></a><br />
-   <code>&amp;</code> <code>[</code> <a href="print.html#type"><em>Type</em></a> <code>]</code></p>
+   <code>[</code> _type <code>]</code> <strong>FIXME</strong></p>
 <p><a href="print.html#nevertype"><em>NeverType</em></a> :<a name="nevertype"></a> <code>!</code></p>
 <p><a href="print.html#inferredtype"><em>InferredType</em></a> :<a name="inferredtype"></a> <code>_</code></p>
 <p><a href="print.html#referencetype"><em>ReferenceType</em></a> :<a name="referencetype"></a><br />
-   <code>&amp;</code> Lifetime? <code>mut</code>? [<em>TypeNoBounds</em>]</p>
+   <code>&amp;</code> Lifetime? <code>mut</code>? _type <strong>FIXME</strong></p>
 <p><a href="print.html#rawpointertype"><em>RawPointerType</em></a> :<a name="rawpointertype"></a><br />
-   <code>*</code> ( <code>mut</code> | <code>const</code> ) [<em>TypeNoBounds</em>]</p>
+   <code>*</code> ( <code>mut</code> | <code>const</code> ) _type **FIXME</p>
 </blockquote>
 
                 </div>

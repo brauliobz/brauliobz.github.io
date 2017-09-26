@@ -77,19 +77,22 @@ points. The grammar has a <a href="../grammar.html#special-unicode-productions">
 section that lists these productions.</p>
 <a class="header" href="notation.html#grammar" id="grammar"><h2>Grammar</h2></a>
 <p>The following notations are used by the <em>Lexer</em> and <em>Syntax</em> grammar snippets:</p>
-<table><thead><tr><th> Notation      </th><th> Examples                      </th><th> Meaning                              </th></tr></thead><tbody>
-<tr><td> CAPITAL       </td><td> KW_IF, INTEGER_LITERAL        </td><td> A token produced by the lexer        </td></tr>
-<tr><td> <em>CamelCase</em>   </td><td> <em>LetExpression</em>, <em>Item</em>       </td><td> A syntactical production             </td></tr>
-<tr><td> <code>string</code>      </td><td> <code>x</code>, <code>while</code>, <code>*</code>             </td><td> The exact character(s)               </td></tr>
-<tr><td> <sup>?</sup>  </td><td> <code>pub</code><sup>?</sup>             </td><td> An optional item                     </td></tr>
-<tr><td> <sup>*</sup> </td><td> <em>OuterAttribute</em><sup>*</sup> </td><td> 0 or more or it                      </td></tr>
-<tr><td> <sup>+</sup>  </td><td> XID_Continue<sup>+</sup>      </td><td> 1 or more of it                      </td></tr>
-<tr><td> |            </td><td> <code>u8</code> | <code>u16</code>                 </td><td> Either one or another                </td></tr>
-<tr><td> [ ]           </td><td> [<code>b</code> <code>B</code>]                     </td><td> Any of the characters listed         </td></tr>
-<tr><td> [ - ]         </td><td> [<code>a</code>-<code>z</code>]                     </td><td> Any of the characters in the range   </td></tr>
-<tr><td> ~[ ]          </td><td> ~[<code>a</code>-<code>z</code>]                    </td><td> Any characters, except those listed  </td></tr>
-<tr><td> ~<code>string</code>     </td><td> ~<code>\n</code>, ~<code>*/</code>                  </td><td> Any characters, except this sequence </td></tr>
-<tr><td> ( )           </td><td> (<code>,</code> <em>Parameter</em>)<sup>?</sup> </td><td> Groups items                         </td></tr>
+<table><thead><tr><th> Notation          </th><th> Examples                      </th><th> Meaning                                   </th></tr></thead><tbody>
+<tr><td> CAPITAL           </td><td> KW_IF, INTEGER_LITERAL        </td><td> A token produced by the lexer             </td></tr>
+<tr><td> CamelCase         </td><td> HexDigit, BlockCommentOrDoc   </td><td> An auxiliar production that does not generate a token </td></tr>
+<tr><td> <em>ItalicCamelCase</em> </td><td> <em>LetExpression</em>, <em>Item</em>       </td><td> A syntactical production                  </td></tr>
+<tr><td> <code>string</code>          </td><td> <code>x</code>, <code>while</code>, <code>*</code>             </td><td> The exact character(s)                    </td></tr>
+<tr><td> \x               </td><td> \n, \r, \t, \0            </td><td> The character represented by this escape  </td></tr>
+<tr><td> x <sup>?</sup>    </td><td> <code>pub</code><sup>?</sup>             </td><td> An optional item                          </td></tr>
+<tr><td> x <sup>*</sup>   </td><td> <em>OuterAttribute</em> <sup>*</sup></td><td> 0 or more of x                            </td></tr>
+<tr><td> x <sup>+</sup>    </td><td> XID_Continue <sup>+</sup>     </td><td> 1 or more of x                            </td></tr>
+<tr><td> x <sup>a..b</sup> </td><td> HEX_DIGIT <sup>1..6</sup>     </td><td> a to b repetitions of x                   </td></tr>
+<tr><td> |                </td><td> <code>u8</code> | <code>u16</code>, Block | Item  </td><td> Either one or another                     </td></tr>
+<tr><td> [ ]               </td><td> [<code>b</code> <code>B</code>]                     </td><td> Any of the characters listed              </td></tr>
+<tr><td> [ - ]             </td><td> [<code>a</code>-<code>z</code>]                     </td><td> Any of the characters in the range        </td></tr>
+<tr><td> ~[ ]              </td><td> ~[<code>a</code>-<code>z</code>]                    </td><td> Any characters, except those listed       </td></tr>
+<tr><td> ~<code>string</code>         </td><td> ~<code>\n</code>, ~<code>*/</code>                  </td><td> Any characters, except this sequence      </td></tr>
+<tr><td> ( )               </td><td> (<code>,</code> <em>Parameter</em>)<sup>?</sup> </td><td> Groups items                              </td></tr>
 </tbody></table>
 <a class="header" href="notation.html#simple-tokens-in-syntactical-rules" id="simple-tokens-in-syntactical-rules"><h3>Simple tokens in syntactical rules</h3></a>
 <p>For ease of reading, syntactical rules in the grammar show the printable

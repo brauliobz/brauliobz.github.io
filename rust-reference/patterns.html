@@ -87,7 +87,7 @@
 <p>Patterns in Rust are used to match values against structures and to,
 optionally, bind variables to values inside these structures. They are also
 used in variable declarations and function/closure parameters, though most of
-the time simply as an identifier that binds to any value.</p>
+the time simply as an identifier that binds to a value.</p>
 <p>For example, the pattern used in:</p>
 <pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
 #fn main() {
@@ -138,12 +138,12 @@ parameters</li>
 </ul>
 <a class="header" href="patterns.html#destructuring" id="destructuring"><h2>Destructuring</h2></a>
 <p>Patterns can be used to <em>destructure</em> structs, enums, and tuples. Destructuring
-breaks a value up into its component pieces. The syntax used is the same as
+breaks a value up into its component pieces. The syntax used is almost the same as
 when creating such values. When destructing a data structure with named (but
 not numbered) fields, it is allowed to write <code>fieldname</code> as a shorthand for
 <code>fieldname: fieldname</code>. In a pattern whose head expression has a <code>struct</code>,
 <code>enum</code> or <code>tupl</code> type, a placeholder (<code>_</code>) stands for a <em>single</em> data field,
-whereas a wildcard <code>..</code> stands for <em>all</em> the fields of a particular variant.</p>
+whereas a wildcard <code>..</code> stands for <em>all</em> the remaining fields of a particular variant.</p>
 <pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
 #fn main() {
 # enum Message {
@@ -165,22 +165,43 @@ match message {
 
 #}</code></pre></pre>
 <a class="header" href="patterns.html#refutability" id="refutability"><h2>Refutability</h2></a>
-<!-- FIXME: irrefutable patterns -->
-<!-- FIXME: which things don't accept irrefutable patterns? -->
-<!-- FIXME: which things don't accept refutable patterns? -->
+<p>A pattern is said to be <em>Refutable</em> when it <strong>has the possibily of not being matched</strong>
+by the value it is being matched against. <em>Irrefutable</em> patterns, on the other hand,
+always match the value they are being matched againt. Examples:</p>
+<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+#fn main() {
+let (x, y) = (1, 2);               // &quot;(x, y)&quot; is an irrefutable pattern
+
+if let (a, 3) = (1, 2) {           // &quot;(a, 3)&quot; is refutable, and will not match
+    panic!(&quot;Shouldn't reach here&quot;);
+} else if let (a, 4) = (3, 4) {    // &quot;(a, 4)&quot; is refutable, and will match
+    println!(&quot;Matched ({}, 4)&quot;, a);
+}
+
+#}</code></pre></pre>
 <a class="header" href="patterns.html#literal-patterns" id="literal-patterns"><h2>Literal patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 <em>LiteralPattern</em> :<a name="literal-pattern-syntax"></a><br />
-   <code>-</code><sup>?</sup> ( CHAR_LITERAL | INTEGER_LITERAL | FLOAT_LITERAL )</p>
+      BOOLEAN_LITERAL<br />
+   | CHAR_LITERAL<br />
+   | BYTE_LITERAL<br />
+   | STRING_LITERAL<br />
+   | RAW_STRING_LITERAL<br />
+   | BYTE_STRING_LITERAL<br />
+   | RAW_BYTE_STRING_LITERAL<br />
+   | <code>-</code><sup>?</sup> INTEGER_LITERAL<br />
+   | <code>-</code><sup>?</sup> FLOAT_LITERAL</p>
 </blockquote>
 <p><em>Literal patterns</em> match exactly the value they represent. Since negative numbers are
 not literals in Rust, literal patterns also accept an optional minus sign before the
 literal.</p>
 <p>Floating-point literals are currently accepted, but due to the complexity of comparing
-them, they are going to be forbidden in a future version of Rust (see
+them, they are going to be forbidden on literal patterns in a future version of Rust (see
 <a href="https://github.com/rust-lang/rust/issues/41620">issue #41620</a>).</p>
-<p>Example:</p>
+<p>Literal patterns are always refutable.</p>
+<p>Examples:</p>
+<!-- FIXME more examples -->
 <pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
 #fn main() {
 for i in -2..5 {
@@ -209,10 +230,15 @@ It's either a two or a four
    <code>_</code></p>
 </blockquote>
 <!-- FIXME explain the wildcard pattern -->
-<p>The <em>wildcard pattern</em> means any value or the value does not matter.</p>
+<p>The <em>wildcard pattern</em> matches any value. Thus, it is always irrefutable.</p>
 <p>For example:</p>
-<pre><code>    
-</code></pre>
+<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+#fn main() {
+# let x = 20;
+let (a, _) = (10, x);   // the x is always matched by _
+# assert_eq!(a, 10);
+
+#}</code></pre></pre>
 <!-- FIXME but it can be bound to a variable -->
 <!-- FIXME where can it be used? -->
 <!-- FIXME examples -->
@@ -234,6 +260,7 @@ a sub-range of another range pattern inside the same <code>match</code>.</p>
 <!-- FIXME examples -->
 <!-- which types can be used here? -->
 <!-- FIXME floating point literals use here is being deprecated -->
+<!-- when is this pattern type refutable? -->
 <a class="header" href="patterns.html#reference-patterns" id="reference-patterns"><h2>Reference patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
@@ -254,6 +281,7 @@ let z = match x { &amp;0 =&gt; &quot;zero&quot;, _ =&gt; &quot;some&quot; };
 assert_eq!(y, z);
 
 #}</code></pre></pre>
+<!-- when is this pattern type refutable? -->
 <a class="header" href="patterns.html#identifier-patterns" id="identifier-patterns"><h2>Identifier patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
@@ -324,8 +352,12 @@ struct Person {
 if let Person(name: ref person_name) = value {
 }
 </code></pre>
+<p>Thus, <code>ref</code> is not something that is being matched against. Its objective is
+exclusively to make the matched binding a reference, instead of potentially
+copying or moving the value of what was matched.</p>
 <!-- FIXME cannot bind by-move and by-ref in the same pattern -->
 <!-- FIXME explain the difference between `& var` and `ref var` in patterns -->
+<!-- when is this pattern type refutable? -->
 <a class="header" href="patterns.html#box-pattern" id="box-pattern"><h2>Box pattern</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
@@ -334,6 +366,7 @@ if let Person(name: ref person_name) = value {
 </blockquote>
 <!-- FIXME: explain box patterns -->
 <!-- FIXME: they're not stable -->
+<!-- when is this pattern type refutable? -->
 <a class="header" href="patterns.html#struct-patterns" id="struct-patterns"><h2>Struct patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
@@ -361,6 +394,7 @@ IDENTIFIER<br />
 <!-- FIXME: explain struct patterns -->
 <!-- FIXME: destructuring patterns -->
 <p>Struct patterns match ...</p>
+<!-- when is this pattern type refutable? -->
 <a class="header" href="patterns.html#tuplestruct-patterns" id="tuplestruct-patterns"><h2>TupleStruct patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
@@ -372,6 +406,7 @@ IDENTIFIER<br />
 </blockquote>
 <!-- FIXME: explain tuple struct patterns -->
 <!-- FIXME: includes enum variants? Yes! -->
+<!-- when is this pattern type refutable? -->
 <a class="header" href="patterns.html#tuple-patterns" id="tuple-patterns"><h2>Tuple patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
@@ -383,21 +418,27 @@ IDENTIFIER<br />
    | (<a href="patterns.html#pattern-syntax"><em>Pattern</em></a> <code>,</code>)<sup>*</sup> <code>..</code> ( (<code>,</code> <a href="patterns.html#pattern-syntax"><em>Pattern</em></a>)<sup>+</sup> <code>,</code><sup>?</sup> )<sup>?</sup></p>
 </blockquote>
 <!-- FIXME: explain tuple patterns -->
+<!-- when is this pattern type refutable? -->
+<!-- NOT STABLE:
 <a class="header" href="patterns.html#slice-patterns" id="slice-patterns"><h2>Slice patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 <em>SlicePattern</em> :<a name="slice-pattern-syntax"></a><br />
    <code>[</code> <strong>FIXME</strong> <code>]</code></p>
 </blockquote>
+<p>--&gt;</p>
 <!-- FIXME: explain slice patterns -->
 <!-- FIXME: this is not stable -->
+<!-- when is this pattern type refutable? -->
 <a class="header" href="patterns.html#path-patterns" id="path-patterns"><h2>Path patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 <em>PathPattern</em> :<a name="path-pattern-syntax"></a><br />
-   <strong>FIXME</strong></p>
+      <em>PathForExpression</em><br />
+   | <em>QualifiedPathForExpression</em></p>
 </blockquote>
 <!-- FIXME: explain paths in patterns -->
+<!-- when is this pattern type refutable? -->
 
                 </div>
 
