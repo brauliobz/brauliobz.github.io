@@ -230,7 +230,7 @@ It's either a two or a four
    <code>_</code></p>
 </blockquote>
 <!-- FIXME explain the wildcard pattern -->
-<p>The <em>wildcard pattern</em> matches any value. Thus, it is always irrefutable.</p>
+<p>The <em>wildcard pattern</em> matches any value.</p>
 <p>For example:</p>
 <pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
 #fn main() {
@@ -239,8 +239,7 @@ let (a, _) = (10, x);   // the x is always matched by _
 # assert_eq!(a, 10);
 
 #}</code></pre></pre>
-<!-- FIXME but it can be bound to a variable -->
-<!-- FIXME where can it be used? -->
+<p>The wildcard pattern is always irrefutable.</p>
 <!-- FIXME examples -->
 <!-- FIXME example: ignore function parameter -->
 <!-- FIXME example: ignore a field from a tuple -->
@@ -249,18 +248,103 @@ let (a, _) = (10, x);   // the x is always matched by _
 <a class="header" href="patterns.html#range-patterns" id="range-patterns"><h2>Range patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-<em>RangePattern</em> :<a name="reference-pattern-syntax"></a><br />
-   <em>Expression</em> <code>...</code> <em>Expression</em></p>
+<em>RangePattern</em> :<a name="range-pattern-syntax"></a><br />
+    <em>RangePatternBound</em> <code>...</code> <em>RangePatternBound</em></p>
+<p><em>RangePatternBound</em> :<br />
+      <em>Literal</em><br />
+   | <em>PathForExpression</em><br />
+   | <em>QualifiedPathForExpression</em></p>
 </blockquote>
-<!-- FIXME: explain range patterns -->
-<p>Range patterns match ...</p>
-<p>Range patterns only work on scalar types (like integers and characters; not
-like arrays and structs, which have sub-components). A range pattern may not be
-a sub-range of another range pattern inside the same <code>match</code>.</p>
-<!-- FIXME examples -->
-<!-- which types can be used here? -->
-<!-- FIXME floating point literals use here is being deprecated -->
-<!-- when is this pattern type refutable? -->
+<p>Range patterns match values that are within the closed range defined by its lower and
+upper bounds. For example, a pattern <code>'m'...'p'</code> will match only the values <code>'m'</code>, <code>'n'</code>,
+<code>'o'</code>, and <code>'p'</code>. The bounds can be literals or paths that point to constant values.</p>
+<p>A pattern a <code>...</code> b must always have a ≤ b. Thus, it is not possible to have a range
+pattern <code>10...0</code>.</p>
+<p>Range patterns only work on scalar types. The accepted types are:</p>
+<ul>
+<li>Integer types (u8, i8, u16, i16, usize, isize, etc.).</li>
+<li>Character types (char).</li>
+<li>Floating point types (f32 and f64). This is being deprecated and will not be available
+in a future version of Rust (see
+<a href="https://github.com/rust-lang/rust/issues/41620">issue #41620</a>).</li>
+</ul>
+<p>Examples:</p>
+<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+#fn main() {
+# let c = 'f';
+let valid_variable = match c {
+    'a'...'z' =&gt; true,
+    'A'...'Z' =&gt; true,
+    'α'...'ω' =&gt; true,
+    _ =&gt; false,
+};
+
+# let ph = 10;
+println!(&quot;{}&quot;, match ph {
+    0...6 =&gt; &quot;acid&quot;,
+    7 =&gt; &quot;neutral&quot;,
+    8...14 =&gt; &quot;base&quot;,
+    _ =&gt; unreachable!(),
+});
+
+// using paths to constants:
+# const TROPOSPHERE_MIN : u8 = 6;
+# const TROPOSPHERE_MAX : u8 = 20;
+# 
+# const STRATOSPHERE_MIN : u8 = TROPOSPHERE_MAX + 1;
+# const STRATOSPHERE_MAX : u8 = 50;
+# 
+# const MESOSPHERE_MIN : u8 = STRATOSPHERE_MAX + 1;
+# const MESOSPHERE_MAX : u8 = 85;
+# 
+# let altitude = 70;
+# 
+println!(&quot;{}&quot;, match altitude {
+    TROPOSPHERE_MIN...TROPOSPHERE_MAX =&gt; &quot;troposphere&quot;,
+    STRATOSPHERE_MIN...STRATOSPHERE_MAX =&gt; &quot;stratosphere&quot;,
+    MESOSPHERE_MIN...MESOSPHERE_MAX =&gt; &quot;mesosphere&quot;,
+    _ =&gt; &quot;outer space, maybe&quot;,
+});
+
+# pub mod binary {
+#     pub const MEGA : u64 = 1024*1024;
+#     pub const GIGA : u64 = 1024*1024*1024;
+# }
+# let n_items = 20_832_425;
+# let bytes_per_item = 12;
+if let size @ binary::MEGA...binary::GIGA = n_items * bytes_per_item {
+    println!(&quot;It fits and occupies {} bytes&quot;, size);
+}
+
+# trait MaxValue {
+#     const MAX: u64;
+# }
+# impl MaxValue for u8 {
+#     const MAX: u64 = (1 &lt;&lt; 8) - 1;
+# }
+# impl MaxValue for u16 {
+#     const MAX: u64 = (1 &lt;&lt; 16) - 1;
+# }
+# impl MaxValue for u32 {
+#     const MAX: u64 = (1 &lt;&lt; 32) - 1;
+# }
+// using qualified paths:
+println!(&quot;{}&quot;, match 0xfacade {
+    0 ... &lt;u8 as MaxValue&gt;::MAX =&gt; &quot;fits in a u8&quot;,
+    0 ... &lt;u16 as MaxValue&gt;::MAX =&gt; &quot;fits in a u16&quot;,
+    0 ... &lt;u32 as MaxValue&gt;::MAX =&gt; &quot;fits in a u32&quot;,
+    _ =&gt; &quot;too big&quot;,
+});
+
+
+#}</code></pre></pre>
+<p>Range patterns are always refutable, even when they cover the complete set of possible
+values of a type. For example, <code>0u8...255u8</code> is refutable even though it covers all
+possible values of <code>u8</code>.</p>
+<!-- FIXME change _PathForExpression_ to _PathInExpression_ ? -->
+<!-- FIXME put this on the match section
+A range pattern may not be a sub-range of another range pattern inside the same `match`.
+-->
 <a class="header" href="patterns.html#reference-patterns" id="reference-patterns"><h2>Reference patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />

@@ -777,8 +777,12 @@ FIXME include shorthand?</p>
    | <code>-</code><sup>?</sup> FLOAT_LITERAL</p>
 <p><a href="grammar.html#wildcardpattern"><em>WildcardPattern</em></a> :<a name="wildcardpattern"></a><a name="wildcard-pattern-syntax"></a><br />
    <code>_</code></p>
-<p><a href="grammar.html#rangepattern"><em>RangePattern</em></a> :<a name="rangepattern"></a><a name="reference-pattern-syntax"></a><br />
-   <em>Expression</em> <code>...</code> <em>Expression</em></p>
+<p><a href="grammar.html#rangepattern"><em>RangePattern</em></a> :<a name="rangepattern"></a><a name="range-pattern-syntax"></a><br />
+    <em>RangePatternBound</em> <code>...</code> <em>RangePatternBound</em></p>
+<p><a href="grammar.html#rangepatternbound"><em>RangePatternBound</em></a> :<a name="rangepatternbound"></a><br />
+      <em>Literal</em><br />
+   | <em>PathForExpression</em><br />
+   | <em>QualifiedPathForExpression</em></p>
 <p><a href="grammar.html#referencepattern"><em>ReferencePattern</em></a> :<a name="referencepattern"></a><a name="reference-pattern-syntax"></a><br />
    (<code>&amp;</code>|<code>&amp;&amp;</code>) <code>mut</code><sup>?</sup> <em>Pattern</em></p>
 <p><a href="grammar.html#identifierpattern"><em>IdentifierPattern</em></a> :<a name="identifierpattern"></a><a name="identifier-pattern-syntax"></a><br />
