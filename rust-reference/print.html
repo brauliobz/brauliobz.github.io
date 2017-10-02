@@ -3546,10 +3546,9 @@ exist in <code>core::ops</code> and <code>core::cmp</code> with the same names.<
 </blockquote>
 <p>A <em>literal expression</em> consists of one of the <a href="tokens.html#literals">literal</a>
 forms described earlier. It directly describes a number, character, string,
-boolean value, or the unit value.</p>
+or boolean value.</p>
 <pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
 #fn main() {
-();        // unit type
 &quot;hello&quot;;   // string type
 '5';       // character type
 5;         // integer type
@@ -3595,6 +3594,7 @@ values.</p>
 #fn main() {
 (0.0, 4.5);
 (&quot;a&quot;, 4usize, true);
+();
 
 #}</code></pre></pre>
 <p>You can disambiguate a single-element tuple from a value in parentheses with a
