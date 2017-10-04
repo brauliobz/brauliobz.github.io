@@ -151,7 +151,7 @@
 </blockquote>
 <p>A <em>field expression</em> consists of an expression followed by a single dot and an
 <a href="identifiers.html">identifier</a>, when not immediately followed by a
-parenthesized expression-list (the latter is always a <a href="expressions/field-expr.html#method-call-expressions">method call
+parenthesized expression-list (the latter is always a <a href="expressions/method-call-expr.html">method call
 expression</a>). A field expression denotes a field of a
 <a href="types.html#struct-types">struct</a> or <a href="items/unions.html">union</a>. To call a
 function stored in a struct parentheses are needed around the field expression</p>
@@ -167,15 +167,16 @@ to the location of that field. When the subexpression is
 <p>Also, if the type of the expression to the left of the dot is a pointer, it is
 automatically dereferenced as many times as necessary to make the field access
 possible. In cases of ambiguity, we prefer fewer autoderefs to more.</p>
-<p>Finally the fields of a struct, a reference to a struct are treated as separate
-entities when borrowing. If the struct does not implement
-<a href="the-drop-trait.html"><code>Drop</code></a> this also applies to moving out of each of its fields
-where possible. This also does not apply if automatic dereferencing is done
-though user defined types.</p>
+<p>Finally, the fields of a struct or a reference to a struct are treated as
+separate entities when borrowing. If the struct does not implement
+<a href="the-drop-trait.html"><code>Drop</code></a> and is stored in a local variable, this also
+applies to moving out of each of its fields. This also does not apply if
+automatic dereferencing is done though user defined types.</p>
 <pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
 #fn main() {
-# struct A { f1: String, f2: String, f3: String }
-# let mut x = A {
+struct A { f1: String, f2: String, f3: String }
+let mut x: A;
+# x = A {
 #     f1: &quot;f1&quot;.to_string(),
 #     f2: &quot;f2&quot;.to_string(),
 #     f3: &quot;f3&quot;.to_string()

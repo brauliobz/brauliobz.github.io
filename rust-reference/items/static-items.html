@@ -163,7 +163,10 @@ statics:</p>
 <li>Statics may not contain any destructors.</li>
 <li>The types of static values must ascribe to <code>Sync</code> to allow thread-safe
 access.</li>
-<li>Statics may not refer to other statics by value, only by reference.</li>
+<li>Statics allow using paths to statics in the
+<a href="items/static-items.html#expresions.html#constant-expressions">constant-expression</a> used to
+initialize them, but statics may not refer to other statics by value, only by
+reference.</li>
 <li>Constants cannot refer to statics.</li>
 </ul>
 <p>Constants should in general be preferred over statics, unless large amounts of

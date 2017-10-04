@@ -1980,7 +1980,10 @@ statics:</p>
 <li>Statics may not contain any destructors.</li>
 <li>The types of static values must ascribe to <code>Sync</code> to allow thread-safe
 access.</li>
-<li>Statics may not refer to other statics by value, only by reference.</li>
+<li>Statics allow using paths to statics in the
+<a href="print.html#expresions.html#constant-expressions">constant-expression</a> used to
+initialize them, but statics may not refer to other statics by value, only by
+reference.</li>
 <li>Constants cannot refer to statics.</li>
 </ul>
 <p>Constants should in general be preferred over statics, unless large amounts of
@@ -3328,28 +3331,53 @@ expression</li>
 <p>In this way, the structure of expressions dictates the structure of execution.
 Blocks are just another kind of expression, so blocks, statements, expressions,
 and blocks again can recursively nest inside each other to an arbitrary depth.</p>
+<a class="header" href="print.html#expression-precedence" id="expression-precedence"><h2>Expression precedence</h2></a>
+<p>The precedence of Rust operators and expressions is ordered as follows, going
+from strong to weak. Binary Operators at the same precedence level are
+evaluated in the order given by their associativity.</p>
+<table><thead><tr><th> Operator/Expression         </th><th> Associativity       </th></tr></thead><tbody>
+<tr><td> Paths                       </td><td>                     </td></tr>
+<tr><td> Method calls                </td><td>                     </td></tr>
+<tr><td> Field expressions           </td><td> left to right       </td></tr>
+<tr><td> Function calls, array indexing </td><td>                  </td></tr>
+<tr><td> <code>?</code>                         </td><td>                     </td></tr>
+<tr><td> Unary <code>-</code> <code>*</code> <code>!</code> <code>&amp;</code> <code>&amp;mut</code> </td><td>                    </td></tr>
+<tr><td> <code>as</code> <code>:</code>                    </td><td> left to right       </td></tr>
+<tr><td> <code>*</code> <code>/</code> <code>%</code>                 </td><td> left to right       </td></tr>
+<tr><td> <code>+</code> <code>-</code>                     </td><td> left to right       </td></tr>
+<tr><td> <code>&lt;&lt;</code> <code>&gt;&gt;</code>                   </td><td> left to right       </td></tr>
+<tr><td> <code>&amp;</code>                         </td><td> left to right       </td></tr>
+<tr><td> <code>^</code>                         </td><td> left to right       </td></tr>
+<tr><td> <code>|</code>         </td><td> left to right       </td></tr>
+<tr><td> <code>==</code> <code>!=</code> <code>&lt;</code> <code>&gt;</code> <code>&lt;=</code> <code>&gt;=</code> </td><td> Require parentheses </td></tr>
+<tr><td> <code>&amp;&amp;</code>                        </td><td> left to right       </td></tr>
+<tr><td> <code>||</code>   </td><td> left to right       </td></tr>
+<tr><td> <code>..</code> <code>...</code>                  </td><td> Require parentheses </td></tr>
+<tr><td> <code>&lt;-</code>                        </td><td> right to left       </td></tr>
+<tr><td> <code>=</code> <code>+=</code> <code>-=</code> <code>*=</code> <code>/=</code> <code>%=</code> <br> <code>&amp;=</code> <code>|=</code> <code>^=</code> <code>&lt;&lt;=</code> <code>&gt;&gt;=</code> </td><td> right to left </td></tr>
+<tr><td> <code>return</code> <code>break</code> closures   </td><td>                     </td></tr>
+</tbody></table>
 <a class="header" href="print.html#lvalues-and-rvalues" id="lvalues-and-rvalues"><h2>Lvalues and rvalues</h2></a>
 <p>Expressions are divided into two main categories: <em>lvalues</em> and <em>rvalues</em>.
 Likewise within each expression, sub-expressions may occur in <em>lvalue context</em>
 or <em>rvalue context</em>. The evaluation of an expression depends both on its own
 category and the context it occurs within.</p>
 <p>An lvalue is an expression that represents a memory location. These expressions
-are paths which refer to local variables, function and method arguments, or
-static variables, <a href="expressions/operator-expr.html#the-dereference-operator">dereferences</a> (<code>*expr</code>), <a href="expressions/array-expr.html#array-and-slice-indexing-expressions">array indexing</a> expressions
-(<code>expr[expr]</code>), <a href="expressions/field-expr.html">field</a> references (<code>expr.f</code>) and parenthesized lvalue
-expressions. All other expressions are rvalues.</p>
+are <a href="print.html#path-expressions">paths</a> which refer to local variables, static
+variables, function parameters, <a href="expressions/operator-expr.html#the-dereference-operator">dereferences</a> (<code>*expr</code>), <a href="expressions/array-expr.html#array-and-slice-indexing-expressions">array indexing</a>
+expressions (<code>expr[expr]</code>), <a href="expressions/field-expr.html">field</a> references (<code>expr.f</code>) and parenthesized
+lvalue expressions. All other expressions are rvalues.</p>
 <p>The left operand of an <a href="expressions/operator-expr.html#assignment-expressions">assign</a>ment or <a href="expressions/operator-expr.html#compound-assignment-expressions">compound assignment</a> expression is an
 lvalue context, as is the single operand of a unary <a href="expressions/operator-expr.html#borrow-operators">borrow</a>, and the operand
 of any <a href="print.html#implicit-borrows">implicit borrow</a>. The discriminant or subject of a
-<a href="expressions/match-expr.html">match</a> expression and right side of a <code>let</code> binding may be an lvalue context,
-if ref bindings are made, but is otherwise an rvalue context. All other
-expression contexts are rvalue contexts.</p>
+<a href="expressions/match-expr.html">match</a> expression and right side of a <code>let</code> is also an lvalue context. All
+other expression contexts are rvalue contexts.</p>
 <a class="header" href="print.html#moved-and-copied-types" id="moved-and-copied-types"><h3>Moved and copied types</h3></a>
-<p>When an lvalue is evaluated in an <em>rvalue context</em>, it denotes the value held
-<em>in</em> that memory location. If value is of a type that implements <code>Copy</code>, then
-the value will be copied. In the remaining situations if the type of the value
-is <a href="the-sized-trait.html"><code>Sized</code></a> it may be possible to move the value. Only
-the following lvalues may be moved out of:</p>
+<p>When an lvalue is evaluated in an <em>rvalue context</em> or is bound by value in a
+pattern, it denotes the value held <em>in</em> that memory location. If value is of a
+type that implements <code>Copy</code>, then the value will be copied. In the remaining
+situations if the type of the value is <a href="the-sized-trait.html"><code>Sized</code></a> it may
+be possible to move the value. Only the following lvalues may be moved out of:</p>
 <ul>
 <li><a href="variables.html">Variables</a> which are not currently borrowed.</li>
 <li><a href="print.html#temporary-lifetimes">Temporary values</a>.</li>
@@ -3486,14 +3514,11 @@ also constant expressions:</p>
 <li><a href="expressions/literal-expr.html">Literals</a>.</li>
 <li><a href="expressions/path-expr.html">Paths</a> to <a href="items/functions.html">functions</a> and constants.
 Recursively defining constants is not allowed.</li>
-<li>Paths to statics, so long as only their address, not their value, is used.
-This includes using their value indirectly through a complicated expression.
-*</li>
 <li><a href="expressions/tuple-expr.html">Tuple expressions</a>.</li>
 <li><a href="expressions/array-expr.html">Array expressions</a>.</li>
 <li><a href="expressions/struct-expr.html">Struct</a> expressions, where the type does not implement <a href="the-drop-trait.html"><code>Drop</code></a>.</li>
 <li><a href="expressions/enum-variant-expr.html">Enum variant</a> expressions, where the enumeration type does not implement <code>Drop</code>.</li>
-<li><a href="expressions/block-expr.html">Block expressions</a> (and <code>unsafe</code> blocks) which contain  only items and
+<li><a href="expressions/block-expr.html">Block expressions</a> (and <code>unsafe</code> blocks) which only contain items and
 possibly a (constant) tail expression.</li>
 <li><a href="expressions/field-expr.html">Field</a> expressions.</li>
 <li>Index expressions, <a href="expressions/array-expr.html#array-and-slice-indexing-expressions">array indexing</a> or <a href="types.html#array-and-slice-types">slice</a> with a <code>usize</code>.</li>
@@ -3501,13 +3526,13 @@ possibly a (constant) tail expression.</li>
 <li><a href="expressions/closure-expr.html">Closure expressions</a> which don't capture variables from the environment.</li>
 <li>Built in <a href="expressions/operator-expr.html#negation-operators">negation</a>, <a href="expressions/operator-expr.html#arithmetic-and-logical-binary-operators">arithmetic, logical</a>, <a href="expressions/operator-expr.html#comparison-operators">comparison</a> or <a href="expressions/operator-expr.html#lazy-boolean-operators">lazy boolean</a>
 operators used on integer and floating point types, <code>bool</code> and <code>char</code>.</li>
-<li>Shared <a href="expressions/operator-expr.html#borrow-operators">borrow</a>.</li>
-<li>The <a href="expressions/operator-expr.html#the-dereference-operator">dereference operator</a>, but not to circumvent the rule on statics.</li>
+<li>Shared <a href="expressions/operator-expr.html#borrow-operators">borrow</a>, except if applied to a type with <a href="interior-mutability.html">interior
+mutability</a>.</li>
+<li>The <a href="expressions/operator-expr.html#the-dereference-operator">dereference operator</a>.</li>
 <li><a href="expressions/operator-expr.html#grouped-expressions">Grouped</a> expressions.</li>
 <li><a href="expressions/operator-expr.html#type-cast-expressions">Cast</a> expressions, except pointer to address and
 function pointer to address casts.</li>
 </ul>
-<p>* Only in static items.</p>
 <a class="header" href="print.html#overloading-traits" id="overloading-traits"><h2>Overloading Traits</h2></a>
 <p>Many of the following operators and expressions can also be overloaded for
 other types using traits in <code>std::ops</code> or <code>std::cmp</code>, these traits here also
@@ -3544,7 +3569,7 @@ FIXME</p>
 <p>A <a href="paths.html">path</a> used as an expression context denotes either a local
 variable or an item. Path expressions that resolve to local or static variables
 are <a href="expressions.html#lvalues-and-rvalues">lvalues</a>, other paths
-are rvalues. Using a <code>static mut</code> variable requires an <a href="print.html#unsafe-blocks"><code>unsafe</code>
+are rvalues. Using a <code>static mut</code> variable requires an <a href="expressions/block-expr.html#unsafe-blocks"><code>unsafe</code>
 block</a>.</p>
 <pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
 #fn main() {
@@ -3638,7 +3663,7 @@ the number of bits in the type of the left-hand argument, or is negative.</li>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 <em>GroupedExpression</em> :<br />
-   <code>(</code> <a href="expressions.html"><em>Expression</em></a> <code>)</code></p>
+   <code>(</code> [<em>Expression</em>] <code>)</code></p>
 </blockquote>
 <p>An expression enclosed in parentheses evaluates to the result of the enclosed
 expression. Parentheses can be used to explicitly specify evaluation order
@@ -3656,8 +3681,8 @@ assert_eq!(y, 20);
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 <em>BorrowExpression</em> :<br />
-      <code>&amp;</code> <a href="expressions.html"><em>Expression</em></a><br />
-   | <code>&amp;</code> <code>mut</code> <a href="expressions.html"><em>Expression</em></a></p>
+      <code>&amp;</code> [<em>Expression</em>]<br />
+   | <code>&amp;</code> <code>mut</code> [<em>Expression</em>]</p>
 </blockquote>
 <p>The <code>&amp;</code> (shared borrow) and <code>&amp;mut</code> (mutable borrow) operators are unary prefix
 operators. When applied to an lvalue produce a reference (pointer) to the
@@ -3687,7 +3712,7 @@ let mut array = [-2, 3, 9];
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 <em>DereferenceExpression</em> :<br />
-   <code>*</code> <a href="expressions.html"><em>Expression</em></a></p>
+   <code>*</code> [<em>Expression</em>]</p>
 </blockquote>
 <p>The <code>*</code> (dereference) operator is also a unary prefix operator. When applied to
 a <a href="types.html#pointer-types">pointer</a> it denotes the pointed-to location. If
@@ -3711,7 +3736,7 @@ assert_eq!(*y, 11);
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 <em>ErrorPropagationExpression</em> :<br />
-   <a href="expressions.html"><em>Expression</em></a> <code>?</code></p>
+   [<em>Expression</em>] <code>?</code></p>
 </blockquote>
 <p>The <code>?</code> (&quot;question mark&quot;) operator can be applied to values of the <code>Result&lt;T, E&gt;</code> type to propagate errors. If applied to <code>Err(e)</code> it will return
 <code>Err(From::from(e))</code> from the enclosing function or closure. If applied to
@@ -3735,8 +3760,8 @@ println!(&quot;{:?}&quot;, res);
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 <em>NegationExpression</em> :<br />
-      <code>-</code> <a href="expressions.html"><em>Expression</em></a><br />
-   | <code>!</code> <a href="expressions.html"><em>Expression</em></a></p>
+      <code>-</code> [<em>Expression</em>]<br />
+   | <code>!</code> [<em>Expression</em>]</p>
 </blockquote>
 <p>These are the last two unary operators. This table summarizes the behavior of
 them on primitive types and which traits are used to overload these operators
@@ -3761,16 +3786,16 @@ assert_eq!(true, !false);
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 <em>ArithmeticOrLogicalExpression</em> :<br />
-      <a href="expressions.html"><em>Expression</em></a> <code>+</code> <a href="expressions.html"><em>Expression</em></a><br />
-   | <a href="expressions.html"><em>Expression</em></a> <code>-</code> <a href="expressions.html"><em>Expression</em></a><br />
-   | <a href="expressions.html"><em>Expression</em></a> <code>*</code> <a href="expressions.html"><em>Expression</em></a><br />
-   | <a href="expressions.html"><em>Expression</em></a> <code>/</code> <a href="expressions.html"><em>Expression</em></a><br />
-   | <a href="expressions.html"><em>Expression</em></a> <code>%</code> <a href="expressions.html"><em>Expression</em></a><br />
-   | <a href="expressions.html"><em>Expression</em></a> <code>&amp;</code> <a href="expressions.html"><em>Expression</em></a><br />
-   | <a href="expressions.html"><em>Expression</em></a> <code>|</code> <a href="expressions.html"><em>Expression</em></a><br />
-   | <a href="expressions.html"><em>Expression</em></a> <code>^</code> <a href="expressions.html"><em>Expression</em></a><br />
-   | <a href="expressions.html"><em>Expression</em></a> <code>&lt;&lt;</code> <a href="expressions.html"><em>Expression</em></a><br />
-   | <a href="expressions.html"><em>Expression</em></a> <code>&gt;&gt;</code> <a href="expressions.html"><em>Expression</em></a></p>
+      [<em>Expression</em>] <code>+</code> [<em>Expression</em>]<br />
+   | [<em>Expression</em>] <code>-</code> [<em>Expression</em>]<br />
+   | [<em>Expression</em>] <code>*</code> [<em>Expression</em>]<br />
+   | [<em>Expression</em>] <code>/</code> [<em>Expression</em>]<br />
+   | [<em>Expression</em>] <code>%</code> [<em>Expression</em>]<br />
+   | [<em>Expression</em>] <code>&amp;</code> [<em>Expression</em>]<br />
+   | [<em>Expression</em>] <code>|</code> [<em>Expression</em>]<br />
+   | [<em>Expression</em>] <code>^</code> [<em>Expression</em>]<br />
+   | [<em>Expression</em>] <code>&lt;&lt;</code> [<em>Expression</em>]<br />
+   | [<em>Expression</em>] <code>&gt;&gt;</code> [<em>Expression</em>]</p>
 </blockquote>
 <p>Binary operators expressions are all written with infix notation. This table
 summarizes the behavior of arithmetic and logical binary operators on
@@ -3811,12 +3836,12 @@ assert_eq!(-10 &gt;&gt; 2, -3);
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 <em>ComparisonExpression</em> :<br />
-      <a href="expressions.html"><em>Expression</em></a> <code>==</code> <a href="expressions.html"><em>Expression</em></a><br />
-   | <a href="expressions.html"><em>Expression</em></a> <code>!=</code> <a href="expressions.html"><em>Expression</em></a><br />
-   | <a href="expressions.html"><em>Expression</em></a> <code>&gt;</code> <a href="expressions.html"><em>Expression</em></a><br />
-   | <a href="expressions.html"><em>Expression</em></a> <code>&lt;</code> <a href="expressions.html"><em>Expression</em></a><br />
-   | <a href="expressions.html"><em>Expression</em></a> <code>&gt;=</code> <a href="expressions.html"><em>Expression</em></a><br />
-   | <a href="expressions.html"><em>Expression</em></a> <code>&lt;=</code> <a href="expressions.html"><em>Expression</em></a></p>
+      [<em>Expression</em>] <code>==</code> [<em>Expression</em>]<br />
+   | [<em>Expression</em>] <code>!=</code> [<em>Expression</em>]<br />
+   | [<em>Expression</em>] <code>&gt;</code> [<em>Expression</em>]<br />
+   | [<em>Expression</em>] <code>&lt;</code> [<em>Expression</em>]<br />
+   | [<em>Expression</em>] <code>&gt;=</code> [<em>Expression</em>]<br />
+   | [<em>Expression</em>] <code>&lt;=</code> [<em>Expression</em>]</p>
 </blockquote>
 <p>Comparison operators are also defined both for primitive types and many type in
 the standard library. Parentheses are required when chaining comparison
@@ -3858,8 +3883,8 @@ assert!(&quot;World&quot; &gt;= &quot;Hello&quot;);
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 <em>LazyBooleanExpression</em> :<br />
-      <a href="expressions.html"><em>Expression</em></a> <code>||</code> <a href="expressions.html"><em>Expression</em></a><br />
-   | <a href="expressions.html"><em>Expression</em></a> <code>&amp;&amp;</code> <a href="expressions.html"><em>Expression</em></a></p>
+      [<em>Expression</em>] <code>||</code> [<em>Expression</em>]<br />
+   | [<em>Expression</em>] <code>&amp;&amp;</code> [<em>Expression</em>]</p>
 </blockquote>
 <p>The operators <code>||</code> and <code>&amp;&amp;</code> may be applied to operands of boolean type. The
 <code>||</code> operator denotes logical 'or', and the <code>&amp;&amp;</code> operator denotes logical
@@ -3878,7 +3903,7 @@ let y = false &amp;&amp; panic!(); // false, doesn't evaluate `panic!()`
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 <em>TypeCastExpression</em> :<br />
-   <a href="expressions.html"><em>Expression</em></a> <code>as</code> <a href="paths.html"><em>PathForExpression</em></a></p>
+   [<em>Expression</em>] <code>as</code> [<em>PathForExpression</em>]</p>
 </blockquote>
 <p>A type cast expression is denoted with the binary operator <code>as</code>.</p>
 <p>Executing an <code>as</code> expression casts the value on the left-hand side to the type
@@ -3968,7 +3993,7 @@ be fixed.</li>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 <em>AssignmentExpression</em> :<br />
-   | <a href="expressions.html"><em>Expression</em></a> <code>=</code> <a href="expressions.html"><em>Expression</em></a></p>
+   | [<em>Expression</em>] <code>=</code> [<em>Expression</em>]</p>
 </blockquote>
 <p>An <em>assignment expression</em> consists of an
 <a href="expressions.html#lvalues-and-rvalues">lvalue</a> expression followed
@@ -3989,16 +4014,16 @@ x = y;
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 <em>CompoundAssignmentExpression</em> :<br />
-      <a href="expressions.html"><em>Expression</em></a> <code>+=</code> <a href="expressions.html"><em>Expression</em></a><br />
-   | <a href="expressions.html"><em>Expression</em></a> <code>-=</code> <a href="expressions.html"><em>Expression</em></a><br />
-   | <a href="expressions.html"><em>Expression</em></a> <code>*=</code> <a href="expressions.html"><em>Expression</em></a><br />
-   | <a href="expressions.html"><em>Expression</em></a> <code>/=</code> <a href="expressions.html"><em>Expression</em></a><br />
-   | <a href="expressions.html"><em>Expression</em></a> <code>%=</code> <a href="expressions.html"><em>Expression</em></a><br />
-   | <a href="expressions.html"><em>Expression</em></a> <code>&amp;=</code> <a href="expressions.html"><em>Expression</em></a><br />
-   | <a href="expressions.html"><em>Expression</em></a> <code>|=</code> <a href="expressions.html"><em>Expression</em></a><br />
-   | <a href="expressions.html"><em>Expression</em></a> <code>^=</code> <a href="expressions.html"><em>Expression</em></a><br />
-   | <a href="expressions.html"><em>Expression</em></a> <code>&lt;&lt;=</code> <a href="expressions.html"><em>Expression</em></a><br />
-   | <a href="expressions.html"><em>Expression</em></a> <code>&gt;&gt;=</code> <a href="expressions.html"><em>Expression</em></a></p>
+      [<em>Expression</em>] <code>+=</code> [<em>Expression</em>]<br />
+   | [<em>Expression</em>] <code>-=</code> [<em>Expression</em>]<br />
+   | [<em>Expression</em>] <code>*=</code> [<em>Expression</em>]<br />
+   | [<em>Expression</em>] <code>/=</code> [<em>Expression</em>]<br />
+   | [<em>Expression</em>] <code>%=</code> [<em>Expression</em>]<br />
+   | [<em>Expression</em>] <code>&amp;=</code> [<em>Expression</em>]<br />
+   | [<em>Expression</em>] <code>|=</code> [<em>Expression</em>]<br />
+   | [<em>Expression</em>] <code>^=</code> [<em>Expression</em>]<br />
+   | [<em>Expression</em>] <code>&lt;&lt;=</code> [<em>Expression</em>]<br />
+   | [<em>Expression</em>] <code>&gt;&gt;=</code> [<em>Expression</em>]</p>
 </blockquote>
 <p>The <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code>, <code>&amp;</code>, <code>|</code>, <code>^</code>, <code>&lt;&lt;</code>, and <code>&gt;&gt;</code> operators may be
 composed with the <code>=</code> operator. The expression <code>lval OP= val</code> is equivalent to
@@ -4014,27 +4039,6 @@ x += 4;
 assert_eq!(x, 14);
 
 #}</code></pre></pre>
-<a class="header" href="print.html#operator-precedence" id="operator-precedence"><h2>Operator precedence</h2></a>
-<p>The precedence of Rust operators is ordered as follows, going from strong to
-weak. Binary Operators at the same precedence level are evaluated in the order
-given by their associativity.</p>
-<table><thead><tr><th> Operator                    </th><th> Associativity       </th></tr></thead><tbody>
-<tr><td> <code>?</code>                         </td><td>                     </td></tr>
-<tr><td> Unary <code>-</code> <code>*</code> <code>!</code> <code>&amp;</code> <code>&amp;mut</code> </td><td>                    </td></tr>
-<tr><td> <code>as</code> <code>:</code>                    </td><td> left to right       </td></tr>
-<tr><td> <code>*</code> <code>/</code> <code>%</code>                 </td><td> left to right       </td></tr>
-<tr><td> <code>+</code> <code>-</code>                     </td><td> left to right       </td></tr>
-<tr><td> <code>&lt;&lt;</code> <code>&gt;&gt;</code>                   </td><td> left to right       </td></tr>
-<tr><td> <code>&amp;</code>                         </td><td> left to right       </td></tr>
-<tr><td> <code>^</code>                         </td><td> left to right       </td></tr>
-<tr><td> <code>|</code>         </td><td> left to right       </td></tr>
-<tr><td> <code>==</code> <code>!=</code> <code>&lt;</code> <code>&gt;</code> <code>&lt;=</code> <code>&gt;=</code> </td><td> Require parentheses </td></tr>
-<tr><td> <code>&amp;&amp;</code>                        </td><td> left to right       </td></tr>
-<tr><td> <code>||</code>   </td><td> left to right       </td></tr>
-<tr><td> <code>..</code> <code>...</code>                  </td><td> Require parentheses </td></tr>
-<tr><td> <code>&lt;-</code>                        </td><td> right to left       </td></tr>
-<tr><td> <code>=</code> <code>+=</code> <code>-=</code> <code>*=</code> <code>/=</code> <code>%=</code> <br> <code>&amp;=</code> <code>|=</code> <code>^=</code> <code>&lt;&lt;=</code> <code>&gt;&gt;=</code> </td><td> right to left </td></tr>
-</tbody></table>
 <a class="header" href="print.html#array-and-array-index-expressions" id="array-and-array-index-expressions"><h1>Array and array index expressions</h1></a>
 <a class="header" href="print.html#array-expressions" id="array-expressions"><h2>Array expressions</h2></a>
 <blockquote>
@@ -4346,7 +4350,8 @@ let log_pi = pi.unwrap_or(1.0).log(2.72);
 
 #}</code></pre></pre>
 <p>When resolving method calls on an expression of type <code>A</code>, Rust will use the
-following order:</p>
+following order, only looking at methods that are
+<a href="print.html#visibility-and-privacy.html">visible</a> and traits that are in scope:</p>
 <ol>
 <li>Inherent methods, with receiver of type <code>A</code>, <code>&amp;A</code>, <code>&amp;mut A</code>.</li>
 <li>Trait methods with receiver of type <code>A</code>.</li>
@@ -4384,7 +4389,7 @@ and function invocation.</p>
 </blockquote>
 <p>A <em>field expression</em> consists of an expression followed by a single dot and an
 <a href="identifiers.html">identifier</a>, when not immediately followed by a
-parenthesized expression-list (the latter is always a <a href="print.html#method-call-expressions">method call
+parenthesized expression-list (the latter is always a <a href="expressions/method-call-expr.html">method call
 expression</a>). A field expression denotes a field of a
 <a href="types.html#struct-types">struct</a> or <a href="items/unions.html">union</a>. To call a
 function stored in a struct parentheses are needed around the field expression</p>
@@ -4400,15 +4405,16 @@ to the location of that field. When the subexpression is
 <p>Also, if the type of the expression to the left of the dot is a pointer, it is
 automatically dereferenced as many times as necessary to make the field access
 possible. In cases of ambiguity, we prefer fewer autoderefs to more.</p>
-<p>Finally the fields of a struct, a reference to a struct are treated as separate
-entities when borrowing. If the struct does not implement
-<a href="the-drop-trait.html"><code>Drop</code></a> this also applies to moving out of each of its fields
-where possible. This also does not apply if automatic dereferencing is done
-though user defined types.</p>
+<p>Finally, the fields of a struct or a reference to a struct are treated as
+separate entities when borrowing. If the struct does not implement
+<a href="the-drop-trait.html"><code>Drop</code></a> and is stored in a local variable, this also
+applies to moving out of each of its fields. This also does not apply if
+automatic dereferencing is done though user defined types.</p>
 <pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
 #fn main() {
-# struct A { f1: String, f2: String, f3: String }
-# let mut x = A {
+struct A { f1: String, f2: String, f3: String }
+let mut x: A;
+# x = A {
 #     f1: &quot;f1&quot;.to_string(),
 #     f2: &quot;f2&quot;.to_string(),
 #     f3: &quot;f3&quot;.to_string()
@@ -5634,7 +5640,7 @@ language:</p>
 <li><a href="print.html#array-and-slice-types">Slices</a></li>
 <li><a href="print.html#function-pointer-types">Function pointers</a></li>
 <li><a href="print.html#pointer-types">References</a></li>
-<li><a href="print.html#raw-pointers">Pointers</a></li>
+<li><a href="print.html#raw-pointers-const-and-mut">Pointers</a></li>
 </ul>
 <a class="header" href="print.html#numeric-types" id="numeric-types"><h2>Numeric types</h2></a>
 <a class="header" href="print.html#machine-types" id="machine-types"><h3>Machine types</h3></a>
@@ -6172,7 +6178,7 @@ last field, this makes the struct itself a
 <a class="header" href="print.html#interior-mutability" id="interior-mutability"><h1>Interior Mutability</h1></a>
 <p>Sometimes a type needs be mutated while having multiple aliases, in Rust this
 is achieved using a pattern called <em>interior mutability</em>. A type has interior
-mutability if its internal state can be changed through a <a href="types.html#shared-references">shared reference</a> to
+mutability if its internal state can be changed through a <a href="types.html#shared-references-">shared reference</a> to
 it. This goes against the usual <a href="behavior-considered-undefined.html">requirement</a> that the value pointed to by a
 shared reference is not mutated.</p>
 <p><a href="../std/cell/struct.UnsafeCell.html"><code>std::cell::UnsafeCell&lt;T&gt;</code></a> type is the only legal way in Rust to disable this
@@ -6184,7 +6190,7 @@ aliases.</p>
 a field. The standard library provides a variety of types that provide safe
 interior mutability APIs. For example, <a href="../std/cell/struct.RefCell.html"><code>std::cell::RefCell&lt;T&gt;</code></a> uses run-time
 borrow checks to ensure the usual rules around multiple references. The
-<a href="../std/sync/atomic.html"><code>std::sync::atomic</code></a> module contains types that wrap a value that is only
+<a href="../std/sync/atomic/index.html"><code>std::sync::atomic</code></a> module contains types that wrap a value that is only
 accessed with atomic operations, allowing the value to be shared and mutated
 across threads.</p>
 <a class="header" href="print.html#subtyping" id="subtyping"><h1>Subtyping</h1></a>

@@ -163,7 +163,8 @@ let log_pi = pi.unwrap_or(1.0).log(2.72);
 
 #}</code></pre></pre>
 <p>When resolving method calls on an expression of type <code>A</code>, Rust will use the
-following order:</p>
+following order, only looking at methods that are
+<a href="expressions/method-call-expr.html#visibility-and-privacy.html">visible</a> and traits that are in scope:</p>
 <ol>
 <li>Inherent methods, with receiver of type <code>A</code>, <code>&amp;A</code>, <code>&amp;mut A</code>.</li>
 <li>Trait methods with receiver of type <code>A</code>.</li>
