@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>The Rust Reference</title>
+        <title>Attributes - </title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,58 +21,10 @@
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
         <link rel="stylesheet" href="ayu-highlight.css">
-        <style>
-            .page-wrapper.has-warning > .nav-chapters {
-              /* add height for warning content & margin */
-              top: 120px;
-            }
-
-            p.warning {
-                background-color: rgb(242, 222, 222);
-                border-bottom-color: rgb(238, 211, 215);
-                border-bottom-left-radius: 4px;
-                border-bottom-right-radius: 4px;
-                border-bottom-style: solid;
-                border-bottom-width: 0.666667px;
-                border-image-outset: 0 0 0 0;
-                border-image-repeat: stretch stretch;
-                border-image-slice: 100% 100% 100% 100%;
-                border-image-source: none;
-                border-image-width: 1 1 1 1;
-                border-left-color: rgb(238, 211, 215);
-                border-left-style: solid;
-                border-left-width: 0.666667px;
-                border-right-color: rgb(238, 211, 215);
-                border-right-style: solid;
-                border-right-width: 0.666667px;
-                border-top-color: rgb(238, 211, 215);
-                border-top-left-radius: 4px;
-                border-top-right-radius: 4px;
-                border-top-style: solid;
-                border-top-width: 0.666667px;
-                color: rgb(185, 74, 72);
-                margin-bottom: 0px;
-                margin-left: 0px;
-                margin-right: 0px;
-                margin-top: 30px;
-                padding-bottom: 8px;
-                padding-left: 14px;
-                padding-right: 35px;
-                padding-top: 8px;
-            }
-            p.warning strong {
-                color: rgb(185, 74, 72)
-            }
-            p.warning a {
-                color: rgb(0, 136, 204)
-            }
-
-            a .hljs {
-                color: #4183c4;
-            }
-        </style>
 
         <!-- Custom theme -->
+        
+        <link rel="stylesheet" href="src/theme/reference.css">
         
 
         
@@ -116,19 +68,12 @@
         </script>
 
         <div id="sidebar" class="sidebar">
-            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="notation.html"><strong>1.</strong> Notation</a></li><li><a href="lexical-structure.html"><strong>2.</strong> Lexical structure</a></li><li><ul class="section"><li><a href="input-format.html"><strong>2.1.</strong> Input format</a></li><li><a href="keywords.html"><strong>2.2.</strong> Keywords</a></li><li><a href="identifiers.html"><strong>2.3.</strong> Identifiers</a></li><li><a href="comments.html"><strong>2.4.</strong> Comments</a></li><li><a href="whitespace.html"><strong>2.5.</strong> Whitespace</a></li><li><a href="tokens.html"><strong>2.6.</strong> Tokens</a></li></ul></li><li><a href="macros.html"><strong>3.</strong> Macros</a></li><li><ul class="section"><li><a href="macros-by-example.html"><strong>3.1.</strong> Macros By Example</a></li><li><a href="procedural-macros.html"><strong>3.2.</strong> Procedural Macros</a></li></ul></li><li><a href="crates-and-source-files.html"><strong>4.</strong> Crates and source files</a></li><li><a href="items-and-attributes.html"><strong>5.</strong> Items and attributes</a></li><li><ul class="section"><li><a href="items.html"><strong>5.1.</strong> Items</a></li><li><ul class="section"><li><a href="items/modules.html"><strong>5.1.1.</strong> Modules</a></li><li><a href="items/extern-crates.html"><strong>5.1.2.</strong> Extern crates</a></li><li><a href="items/use-declarations.html"><strong>5.1.3.</strong> Use declarations</a></li><li><a href="items/functions.html"><strong>5.1.4.</strong> Functions</a></li><li><a href="items/type-aliases.html"><strong>5.1.5.</strong> Type aliases</a></li><li><a href="items/structs.html"><strong>5.1.6.</strong> Structs</a></li><li><a href="items/enumerations.html"><strong>5.1.7.</strong> Enumerations</a></li><li><a href="items/unions.html"><strong>5.1.8.</strong> Unions</a></li><li><a href="items/constant-items.html"><strong>5.1.9.</strong> Constant items</a></li><li><a href="items/static-items.html"><strong>5.1.10.</strong> Static items</a></li><li><a href="items/traits.html"><strong>5.1.11.</strong> Traits</a></li><li><a href="items/implementations.html"><strong>5.1.12.</strong> Implementations</a></li><li><a href="items/external-blocks.html"><strong>5.1.13.</strong> External blocks</a></li></ul></li><li><a href="visibility-and-privacy.html"><strong>5.2.</strong> Visibility and Privacy</a></li><li><a href="attributes.html" class="active"><strong>5.3.</strong> Attributes</a></li></ul></li><li><a href="statements-and-expressions.html"><strong>6.</strong> Statements and expressions</a></li><li><ul class="section"><li><a href="statements.html"><strong>6.1.</strong> Statements</a></li><li><a href="expressions.html"><strong>6.2.</strong> Expressions</a></li><li><ul class="section"><li><a href="expressions/literal-expr.html"><strong>6.2.1.</strong> Literal expressions</a></li><li><a href="expressions/path-expr.html"><strong>6.2.2.</strong> Path expressions</a></li><li><a href="expressions/block-expr.html"><strong>6.2.3.</strong> Block expressions</a></li><li><a href="expressions/operator-expr.html"><strong>6.2.4.</strong> Operator expressions</a></li><li><a href="expressions/array-expr.html"><strong>6.2.5.</strong> Array and index expressions</a></li><li><a href="expressions/tuple-expr.html"><strong>6.2.6.</strong> Tuple and index expressions</a></li><li><a href="expressions/struct-expr.html"><strong>6.2.7.</strong> Struct expressions</a></li><li><a href="expressions/enum-variant-expr.html"><strong>6.2.8.</strong> Enum variant expressions</a></li><li><a href="expressions/call-expr.html"><strong>6.2.9.</strong> Call expressions</a></li><li><a href="expressions/method-call-expr.html"><strong>6.2.10.</strong> Method call expressions</a></li><li><a href="expressions/field-expr.html"><strong>6.2.11.</strong> Field access expressions</a></li><li><a href="expressions/closure-expr.html"><strong>6.2.12.</strong> Closure expressions</a></li><li><a href="expressions/loop-expr.html"><strong>6.2.13.</strong> Loop expressions</a></li><li><a href="expressions/range-expr.html"><strong>6.2.14.</strong> Range expressions</a></li><li><a href="expressions/if-expr.html"><strong>6.2.15.</strong> If and if let expressions</a></li><li><a href="expressions/match-expr.html"><strong>6.2.16.</strong> Match expressions</a></li><li><a href="expressions/return-expr.html"><strong>6.2.17.</strong> Return expressions</a></li></ul></li><li><a href="paths.html"><strong>6.3.</strong> Paths</a></li><li><a href="patterns.html"><strong>6.4.</strong> Patterns</a></li></ul></li><li><a href="type-system.html"><strong>7.</strong> Type system</a></li><li><ul class="section"><li><a href="types.html"><strong>7.1.</strong> Types</a></li><li><a href="dynamically-sized-types.html"><strong>7.2.</strong> Dynamically Sized Types</a></li><li><a href="interior-mutability.html"><strong>7.3.</strong> Interior mutability</a></li><li><a href="subtyping.html"><strong>7.4.</strong> Subtyping</a></li><li><a href="type-coercions.html"><strong>7.5.</strong> Type coercions</a></li></ul></li><li><a href="special-traits.html"><strong>8.</strong> Special traits</a></li><li><ul class="section"><li><a href="the-copy-trait.html"><strong>8.1.</strong> The Copy trait</a></li><li><a href="the-sized-trait.html"><strong>8.2.</strong> The Sized trait</a></li><li><a href="the-drop-trait.html"><strong>8.3.</strong> The Drop trait</a></li><li><a href="the-deref-trait.html"><strong>8.4.</strong> The Deref trait</a></li><li><a href="the-send-trait.html"><strong>8.5.</strong> The Send trait</a></li><li><a href="the-sync-trait.html"><strong>8.6.</strong> The Sync trait</a></li></ul></li><li><a href="memory-model.html"><strong>9.</strong> Memory model</a></li><li><ul class="section"><li><a href="memory-allocation-and-lifetime.html"><strong>9.1.</strong> Memory allocation and lifetime</a></li><li><a href="memory-ownership.html"><strong>9.2.</strong> Memory ownership</a></li><li><a href="variables.html"><strong>9.3.</strong> Variables</a></li></ul></li><li><a href="linkage.html"><strong>10.</strong> Linkage</a></li><li><a href="unsafety.html"><strong>11.</strong> Unsafety</a></li><li><ul class="section"><li><a href="unsafe-functions.html"><strong>11.1.</strong> Unsafe functions</a></li><li><a href="unsafe-blocks.html"><strong>11.2.</strong> Unsafe blocks</a></li><li><a href="behavior-considered-undefined.html"><strong>11.3.</strong> Behavior considered undefined</a></li><li><a href="behavior-not-considered-unsafe.html"><strong>11.4.</strong> Behavior not considered unsafe</a></li></ul></li><li><a href="influences.html">Appendix: Influences</a></li><li class="affix"><a href="undocumented.html">Appendix: As-yet-undocumented Features</a></li><li class="affix"><a href="glossory.html">Appendix: Glossory</a></li><li class="affix"><a href="grammar.html">Appendix: Grammar</a></li></ul>
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="notation.html"><strong>1.</strong> Notation</a></li><li><a href="lexical-structure.html"><strong>2.</strong> Lexical structure</a></li><li><ul class="section"><li><a href="input-format.html"><strong>2.1.</strong> Input format</a></li><li><a href="keywords.html"><strong>2.2.</strong> Keywords</a></li><li><a href="identifiers.html"><strong>2.3.</strong> Identifiers</a></li><li><a href="comments.html"><strong>2.4.</strong> Comments</a></li><li><a href="whitespace.html"><strong>2.5.</strong> Whitespace</a></li><li><a href="tokens.html"><strong>2.6.</strong> Tokens</a></li></ul></li><li><a href="macros.html"><strong>3.</strong> Macros</a></li><li><ul class="section"><li><a href="macros-by-example.html"><strong>3.1.</strong> Macros By Example</a></li><li><a href="procedural-macros.html"><strong>3.2.</strong> Procedural Macros</a></li></ul></li><li><a href="crates-and-source-files.html"><strong>4.</strong> Crates and source files</a></li><li><a href="items-and-attributes.html"><strong>5.</strong> Items and attributes</a></li><li><ul class="section"><li><a href="items.html"><strong>5.1.</strong> Items</a></li><li><ul class="section"><li><a href="items/modules.html"><strong>5.1.1.</strong> Modules</a></li><li><a href="items/extern-crates.html"><strong>5.1.2.</strong> Extern crates</a></li><li><a href="items/use-declarations.html"><strong>5.1.3.</strong> Use declarations</a></li><li><a href="items/functions.html"><strong>5.1.4.</strong> Functions</a></li><li><a href="items/type-aliases.html"><strong>5.1.5.</strong> Type aliases</a></li><li><a href="items/structs.html"><strong>5.1.6.</strong> Structs</a></li><li><a href="items/enumerations.html"><strong>5.1.7.</strong> Enumerations</a></li><li><a href="items/unions.html"><strong>5.1.8.</strong> Unions</a></li><li><a href="items/constant-items.html"><strong>5.1.9.</strong> Constant items</a></li><li><a href="items/static-items.html"><strong>5.1.10.</strong> Static items</a></li><li><a href="items/traits.html"><strong>5.1.11.</strong> Traits</a></li><li><a href="items/implementations.html"><strong>5.1.12.</strong> Implementations</a></li><li><a href="items/external-blocks.html"><strong>5.1.13.</strong> External blocks</a></li></ul></li><li><a href="items/associated-items.html"><strong>5.2.</strong> Associated Items</a></li><li><a href="visibility-and-privacy.html"><strong>5.3.</strong> Visibility and Privacy</a></li><li><a href="attributes.html" class="active"><strong>5.4.</strong> Attributes</a></li></ul></li><li><a href="statements-and-expressions.html"><strong>6.</strong> Statements and expressions</a></li><li><ul class="section"><li><a href="statements.html"><strong>6.1.</strong> Statements</a></li><li><a href="expressions.html"><strong>6.2.</strong> Expressions</a></li><li><ul class="section"><li><a href="expressions/literal-expr.html"><strong>6.2.1.</strong> Literal expressions</a></li><li><a href="expressions/path-expr.html"><strong>6.2.2.</strong> Path expressions</a></li><li><a href="expressions/block-expr.html"><strong>6.2.3.</strong> Block expressions</a></li><li><a href="expressions/operator-expr.html"><strong>6.2.4.</strong> Operator expressions</a></li><li><a href="expressions/grouped-expr.html"><strong>6.2.5.</strong> Grouped expressions</a></li><li><a href="expressions/array-expr.html"><strong>6.2.6.</strong> Array and index expressions</a></li><li><a href="expressions/tuple-expr.html"><strong>6.2.7.</strong> Tuple and index expressions</a></li><li><a href="expressions/struct-expr.html"><strong>6.2.8.</strong> Struct expressions</a></li><li><a href="expressions/enum-variant-expr.html"><strong>6.2.9.</strong> Enum variant expressions</a></li><li><a href="expressions/call-expr.html"><strong>6.2.10.</strong> Call expressions</a></li><li><a href="expressions/method-call-expr.html"><strong>6.2.11.</strong> Method call expressions</a></li><li><a href="expressions/field-expr.html"><strong>6.2.12.</strong> Field access expressions</a></li><li><a href="expressions/closure-expr.html"><strong>6.2.13.</strong> Closure expressions</a></li><li><a href="expressions/loop-expr.html"><strong>6.2.14.</strong> Loop expressions</a></li><li><a href="expressions/range-expr.html"><strong>6.2.15.</strong> Range expressions</a></li><li><a href="expressions/if-expr.html"><strong>6.2.16.</strong> If and if let expressions</a></li><li><a href="expressions/match-expr.html"><strong>6.2.17.</strong> Match expressions</a></li><li><a href="expressions/return-expr.html"><strong>6.2.18.</strong> Return expressions</a></li></ul></li><li><a href="paths.html"><strong>6.3.</strong> Paths</a></li></ul></li><li><a href="patterns.html"><strong>7.</strong> Patterns</a></li><li><a href="type-system.html"><strong>8.</strong> Type system</a></li><li><ul class="section"><li><a href="types.html"><strong>8.1.</strong> Types</a></li><li><a href="dynamically-sized-types.html"><strong>8.2.</strong> Dynamically Sized Types</a></li><li><a href="type-layout.html"><strong>8.3.</strong> Type layout</a></li><li><a href="interior-mutability.html"><strong>8.4.</strong> Interior mutability</a></li><li><a href="subtyping.html"><strong>8.5.</strong> Subtyping</a></li><li><a href="type-coercions.html"><strong>8.6.</strong> Type coercions</a></li><li><a href="destructors.html"><strong>8.7.</strong> Destructors</a></li><li><a href="lifetime-elision.html"><strong>8.8.</strong> Lifetime elision</a></li></ul></li><li><a href="special-types-and-traits.html"><strong>9.</strong> Special types and traits</a></li><li><a href="memory-model.html"><strong>10.</strong> Memory model</a></li><li><ul class="section"><li><a href="memory-allocation-and-lifetime.html"><strong>10.1.</strong> Memory allocation and lifetime</a></li><li><a href="memory-ownership.html"><strong>10.2.</strong> Memory ownership</a></li><li><a href="variables.html"><strong>10.3.</strong> Variables</a></li></ul></li><li><a href="linkage.html"><strong>11.</strong> Linkage</a></li><li><a href="unsafety.html"><strong>12.</strong> Unsafety</a></li><li><ul class="section"><li><a href="unsafe-functions.html"><strong>12.1.</strong> Unsafe functions</a></li><li><a href="unsafe-blocks.html"><strong>12.2.</strong> Unsafe blocks</a></li><li><a href="behavior-considered-undefined.html"><strong>12.3.</strong> Behavior considered undefined</a></li><li><a href="behavior-not-considered-unsafe.html"><strong>12.4.</strong> Behavior not considered unsafe</a></li></ul></li><li><a href="influences.html">Appendix: Influences</a></li><li class="affix"><a href="undocumented.html">Appendix: As-yet-undocumented Features</a></li><li class="affix"><a href="glossary.html">Appendix: Glossary</a></li><li class="affix"><a href="grammar.html">Appendix: Grammar</a></li></ul>
         </div>
 
-        <div id="page-wrapper" class="page-wrapper has-warning">
+        <div id="page-wrapper" class="page-wrapper">
 
             <div class="page" tabindex="-1">
-                <header><p class="warning">
-                    For now, this reference is a best-effort document. We strive for validity and completeness, but are
-                    not yet there. In the future, the docs and lang teams will work together to figure out how
-                    best to do this. Until then, this is a best-effort attempt. If you find something wrong or
-                    missing, file an <a href="https://github.com/rust-lang-nursery/reference/issues">issue</a> or send in a
-                    pull request.
-                </p></header>
                 <div id="menu-bar" class="menu-bar">
                     <div class="left-buttons">
                         <i id="sidebar-toggle" class="fa fa-bars"></i>
@@ -138,7 +83,9 @@
                     <h1 class="menu-title"></h1>
 
                     <div class="right-buttons">
-                        <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
                     </div>
                 </div>
 
@@ -155,6 +102,7 @@
 <p><em>MetaItem</em> :<br />
       IDENTIFIER<br />
    | IDENTIFIER <code>=</code> LITERAL<br />
+   | IDENTIFIER <code>(</code> LITERAL <code>)</code><br />
    | IDENTIFIER <code>(</code> <em>MetaSeq</em> <code>)</code><br />
    | IDENTIFIER <code>(</code> <em>MetaSeq</em> <code>,</code> <code>)</code></p>
 <p><em>MetaSeq</em> :<br />
@@ -171,13 +119,16 @@ may appear as any of:</p>
 <li>A single identifier, the attribute name</li>
 <li>An identifier followed by the equals sign '=' and a literal, providing a
 key/value pair</li>
+<li>An identifier followed by a parenthesized literal, providing a
+key/value pair</li>
 <li>An identifier followed by a parenthesized list of sub-attribute arguments</li>
 </ul>
 <p>Attributes with a bang (&quot;!&quot;) after the hash (&quot;#&quot;) apply to the item that the
 attribute is declared within. Attributes that do not have a bang after the hash
 apply to the item that follows the attribute.</p>
 <p>An example of attributes:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 // General metadata applied to the enclosing module or crate.
 #![crate_type = &quot;lib&quot;]
@@ -197,19 +148,11 @@ mod bar {
 // A lint attribute used to suppress a warning/error
 #[allow(non_camel_case_types)]
 type int8_t = i8;
-
 #}</code></pre></pre>
-<blockquote>
-<p><strong>Note:</strong> At some point in the future, the compiler will distinguish between
-language-reserved and user-available attributes. Until then, there is
-effectively no difference between an attribute handled by a loadable syntax
-extension and the compiler.</p>
-</blockquote>
 <a class="header" href="attributes.html#crate-only-attributes" id="crate-only-attributes"><h2>Crate-only attributes</h2></a>
 <ul>
 <li><code>crate_name</code> - specify the crate's crate name.</li>
 <li><code>crate_type</code> - see <a href="linkage.html">linkage</a>.</li>
-<li><code>feature</code> - see <a href="attributes.html#compiler-features">compiler features</a>.</li>
 <li><code>no_builtins</code> - disable optimizing certain code patterns to invocations of
 library functions that are assumed to exist</li>
 <li><code>no_main</code> - disable emitting the <code>main</code> symbol. Useful when some other
@@ -217,11 +160,6 @@ object being linked to defines <code>main</code>.</li>
 <li><code>no_start</code> - disable linking to the <code>native</code> crate, which specifies the
 &quot;start&quot; language item.</li>
 <li><code>no_std</code> - disable linking to the <code>std</code> crate.</li>
-<li><code>plugin</code> - load a list of named crates as compiler plugins, e.g.
-<code>#![plugin(foo, bar)]</code>. Optional arguments for each plugin,
-i.e. <code>#![plugin(foo(... args ...))]</code>, are provided to the plugin's
-registrar function.  The <code>plugin</code> feature gate is required to use
-this attribute.</li>
 <li><code>recursion_limit</code> - Sets the maximum depth for potentially
 infinitely-recursive compile-time operations like
 auto-dereference or macro expansion. The default is
@@ -234,7 +172,7 @@ those two respective subsystems. More subsystems may be
 allowed in the future, and this attribute is ignored on
 non-Windows targets.</li>
 </ul>
-<a class="header" href="attributes.html#module-only-attributes" id="module-only-attributes"><h3>Module-only attributes</h3></a>
+<a class="header" href="attributes.html#module-only-attributes" id="module-only-attributes"><h2>Module-only attributes</h2></a>
 <ul>
 <li><code>no_implicit_prelude</code> - disable injecting <code>use std::prelude::*</code> in this
 module.</li>
@@ -245,11 +183,6 @@ taken relative to the directory that the current module is in.</li>
 <ul>
 <li><code>main</code> - indicates that this function should be passed to the entry point,
 rather than the function in the crate root named <code>main</code>.</li>
-<li><code>plugin_registrar</code> - mark this function as the registration point for
-[compiler plugins][plugin], such as loadable syntax extensions.</li>
-<li><code>start</code> - indicates that this function should be used as the entry point,
-overriding the &quot;start&quot; language item. See the &quot;start&quot; <a href="attributes.html#language-items">language
-item</a> for more details.</li>
 <li><code>test</code> - indicates that this function is a test function, to only be compiled
 in case of <code>--test</code>.
 <ul>
@@ -259,14 +192,6 @@ in case of <code>--test</code>.
 <li><code>should_panic</code> - indicates that this test function should panic, inverting the success condition.</li>
 <li><code>cold</code> - The function is unlikely to be executed, so optimize it (and calls
 to it) differently.</li>
-<li><code>naked</code> - The function utilizes a custom ABI or custom inline ASM that requires
-epilogue and prologue to be skipped.</li>
-</ul>
-<a class="header" href="attributes.html#static-only-attributes" id="static-only-attributes"><h2>Static-only attributes</h2></a>
-<ul>
-<li><code>thread_local</code> - on a <code>static mut</code>, this signals that the value of this
-static may change depending on the current thread. The exact consequences of
-this are implementation-defined.</li>
 </ul>
 <a class="header" href="attributes.html#ffi-attributes" id="ffi-attributes"><h2>FFI attributes</h2></a>
 <p>On an <code>extern</code> block, the following attributes are interpreted:</p>
@@ -294,23 +219,8 @@ imported as.</li>
 <li><code>linkage</code> - on a static, this specifies the <a href="http://llvm.org/docs/LangRef.html#linkage-types">linkage
 type</a>.</li>
 </ul>
-<p>On <code>enum</code>s:</p>
-<ul>
-<li><code>repr</code> - on C-like enums, this sets the underlying type used for
-representation. Takes one argument, which is the primitive
-type this enum should be represented for, or <code>C</code>, which specifies that it
-should be the default <code>enum</code> size of the C ABI for that platform. Note that
-enum representation in C is undefined, and this may be incorrect when the C
-code is compiled with certain flags.</li>
-</ul>
-<p>On <code>struct</code>s:</p>
-<ul>
-<li><code>repr</code> - specifies the representation to use for this struct. Takes a list
-of options. The currently accepted ones are <code>C</code> and <code>packed</code>, which may be
-combined. <code>C</code> will use a C ABI compatible struct layout, and <code>packed</code> will
-remove any padding between fields (note that this is very fragile and may
-break platforms which require aligned access).</li>
-</ul>
+<p>See <a href="type-layout.html">type layout</a> for documentation on the <code>repr</code> attribute
+which can be used to control type layout.</p>
 <a class="header" href="attributes.html#macro-related-attributes" id="macro-related-attributes"><h2>Macro-related attributes</h2></a>
 <ul>
 <li>
@@ -340,46 +250,48 @@ book</a> for more information on
 macro scope.</p>
 <a class="header" href="attributes.html#miscellaneous-attributes" id="miscellaneous-attributes"><h2>Miscellaneous attributes</h2></a>
 <ul>
-<li><code>deprecated</code> - mark the item as deprecated; the full attribute is
-<code>#[deprecated(since = &quot;crate version&quot;, note = &quot;...&quot;)</code>, where both arguments
-are optional.</li>
 <li><code>export_name</code> - on statics and functions, this determines the name of the
 exported symbol.</li>
 <li><code>link_section</code> - on statics and functions, this specifies the section of the
 object file that this item's contents will be placed into.</li>
 <li><code>no_mangle</code> - on any item, do not apply the standard name mangling. Set the
 symbol for this item to its identifier.</li>
-<li><code>simd</code> - on certain tuple structs, derive the arithmetic operators, which
-lower to the target's SIMD instructions, if any; the <code>simd</code> feature gate
-is necessary to use this attribute.</li>
-<li><code>unsafe_destructor_blind_to_params</code> - on <code>Drop::drop</code> method, asserts that the
-destructor code (and all potential specializations of that code) will
-never attempt to read from nor write to any references with lifetimes
-that come in via generic parameters. This is a constraint we cannot
-currently express via the type system, and therefore we rely on the
-programmer to assert that it holds. Adding this to a Drop impl causes
-the associated destructor to be considered &quot;uninteresting&quot; by the
-Drop-Check rule, and thus it can help sidestep data ordering
-constraints that would otherwise be introduced by the Drop-Check
-rule. Such sidestepping of the constraints, if done incorrectly, can
-lead to undefined behavior (in the form of reading or writing to data
-outside of its dynamic extent), and thus this attribute has the word
-&quot;unsafe&quot; in its name. To use this, the
-<code>unsafe_destructor_blind_to_params</code> feature gate must be enabled.</li>
-<li><code>doc</code> - Doc comments such as <code>/// foo</code> are equivalent to <code>#[doc = &quot;foo&quot;]</code>.</li>
-<li><code>rustc_on_unimplemented</code> - Write a custom note to be shown along with the error
-when the trait is found to be unimplemented on a type.
-You may use format arguments like <code>{T}</code>, <code>{A}</code> to correspond to the
-types at the point of use corresponding to the type parameters of the
-trait of the same name. <code>{Self}</code> will be replaced with the type that is supposed
-to implement the trait but doesn't. You can also use the trait's name which will
-be replaced with the full path for the trait, for example for the trait <code>Foo</code> in
-module <code>Bar</code>, <code>{Foo}</code> can be used and will show up as <code>Bar::Foo</code>.
-To use this, the <code>on_unimplemented</code> feature gate must be enabled.</li>
 <li><code>must_use</code> - on structs and enums, will warn if a value of this type isn't used or
 assigned to a variable. You may also include an optional message by using
 <code>#[must_use = &quot;message&quot;]</code> which will be given alongside the warning.</li>
 </ul>
+<a class="header" href="attributes.html#deprecation" id="deprecation"><h3>Deprecation</h3></a>
+<p>The <code>deprecated</code> attribute marks an item as deprecated. It has two optional
+fields, <code>since</code> and <code>note</code>.</p>
+<ul>
+<li><code>since</code> expects a version number, as in <code>#[deprecated(since = &quot;1.4.1&quot;)]</code>
+<ul>
+<li><code>rustc</code> doesn't know anything about versions, but external tools like
+<code>clippy</code> may check the validity of this field.</li>
+</ul>
+</li>
+<li><code>note</code> is a free text field, allowing you to provide an explanation about
+the deprecation and preferred alternatives.</li>
+</ul>
+<p>Only <a href="visibility-and-privacy.html">public items</a> can be given the
+<code>#[deprecated]</code> attribute. <code>#[deprecated]</code> on a module is inherited by all
+child items of that module.</p>
+<p><code>rustc</code> will issue warnings on usage of <code>#[deprecated]</code> items. <code>rustdoc</code> will
+show item deprecation, including the <code>since</code> version and <code>note</code>, if available.</p>
+<p>Here's an example.</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+#[deprecated(since = &quot;5.2&quot;, note = &quot;foo was rarely used. Users should instead use bar&quot;)]
+pub fn foo() {}
+
+pub fn bar() {}
+#}</code></pre></pre>
+<p>The <a href="https://github.com/rust-lang/rfcs/blob/master/text/1270-deprecation.md">RFC</a> contains motivations and more details.</p>
+<a class="header" href="attributes.html#documentation" id="documentation"><h3>Documentation</h3></a>
+<p>The <code>doc</code> attribute is used to document items and fields. <a href="comments.html#doc-comments">Doc comments</a>
+are transformed into <code>doc</code> attributes.</p>
+<p>See <a href="../rustdoc/the-doc-attribute.html">The Rustdoc Book</a> for reference material on this attribute.</p>
 <a class="header" href="attributes.html#conditional-compilation" id="conditional-compilation"><h3>Conditional compilation</h3></a>
 <p>Sometimes one wants to have different compiler outputs from the same code,
 depending on build target, such as targeted operating system, or to enable
@@ -392,7 +304,8 @@ or unset independently.</p>
 <p>Configuration options are either provided by the compiler or passed in on the
 command line using <code>--cfg</code> (e.g. <code>rustc main.rs --cfg foo --cfg 'bar=&quot;baz&quot;'</code>).
 Rust code then checks for their presence using the <code>#[cfg(...)]</code> attribute:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 // The function is only included in the build when compiling for macOS
 #[cfg(target_os = &quot;macos&quot;)]
@@ -418,7 +331,6 @@ fn on_32bit_unix() {
 fn needs_not_foo() {
   // ...
 }
-
 #}</code></pre></pre>
 <p>This illustrates some conditional compilation can be achieved using the
 <code>#[cfg(...)]</code> attribute. <code>any</code>, <code>all</code> and <code>not</code> can be used to assemble
@@ -501,7 +413,8 @@ plugins</a> can provide additional lint checks.</p>
 </code></pre>
 <p>This example shows how one can use <code>allow</code> and <code>warn</code> to toggle a particular
 check on and off:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 #[warn(missing_docs)]
 pub mod m2{
@@ -519,7 +432,6 @@ pub mod m2{
     // Missing documentation signals a warning here
     pub fn undocumented_too() -&gt; i32 { 3 }
 }
-
 #}</code></pre></pre>
 <p>This example shows how one can use <code>forbid</code> to disallow uses of <code>allow</code> for
 that lint check:</p>
@@ -531,14 +443,7 @@ pub mod m3 {
     pub fn undocumented_too() -&gt; i32 { 2 }
 }
 </code></pre>
-<a class="header" href="attributes.html#language-items" id="language-items"><h3>Language items</h3></a>
-<p>Some primitive Rust operations are defined in Rust code, rather than being
-implemented directly in C or assembly language. The definitions of these
-operations have to be easy for the compiler to find. The <code>lang</code> attribute
-makes it possible to declare these operations.
-The set of language items is currently considered unstable. A complete
-list of the built-in language items will be added in the future.</p>
-<a class="header" href="attributes.html#inline-attributes" id="inline-attributes"><h3>Inline attributes</h3></a>
+<a class="header" href="attributes.html#inline-attribute" id="inline-attribute"><h3>Inline attribute</h3></a>
 <p>The inline attribute suggests that the compiler should place a copy of
 the function or static in the caller, rather than generating code to
 call the function or access the static where it is defined.</p>
@@ -558,17 +463,18 @@ into the crate metadata to allow cross-crate inlining.</p>
 for data structures. For example, the following will create an <code>impl</code> for the
 <code>PartialEq</code> and <code>Clone</code> traits for <code>Foo</code>, the type parameter <code>T</code> will be given
 the <code>PartialEq</code> or <code>Clone</code> constraints for the appropriate <code>impl</code>:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 #[derive(PartialEq, Clone)]
 struct Foo&lt;T&gt; {
     a: i32,
     b: T,
 }
-
 #}</code></pre></pre>
 <p>The generated <code>impl</code> for <code>PartialEq</code> is equivalent to</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # struct Foo&lt;T&gt; { a: i32, b: T }
 impl&lt;T: PartialEq&gt; PartialEq for Foo&lt;T&gt; {
@@ -580,33 +486,8 @@ impl&lt;T: PartialEq&gt; PartialEq for Foo&lt;T&gt; {
         self.a != other.a || self.b != other.b
     }
 }
-
 #}</code></pre></pre>
-<p>You can implement <code>derive</code> for your own type through <a href="procedural-macros.html">procedural
-macros</a>.</p>
-<a class="header" href="attributes.html#compiler-features" id="compiler-features"><h3>Compiler Features</h3></a>
-<p>Certain aspects of Rust may be implemented in the compiler, but they're not
-necessarily ready for every-day use. These features are often of &quot;prototype
-quality&quot; or &quot;almost production ready&quot;, but may not be stable enough to be
-considered a full-fledged language feature.</p>
-<p>For this reason, Rust recognizes a special crate-level attribute of the form:</p>
-<pre><code class="language-rust ignore">#![feature(feature1, feature2, feature3)]
-</code></pre>
-<p>This directive informs the compiler that the feature list: <code>feature1</code>,
-<code>feature2</code>, and <code>feature3</code> should all be enabled. This is only recognized at a
-crate-level, not at a module-level. Without this directive, all features are
-considered off, and using the features will result in a compiler error.</p>
-<p>The currently implemented features of the reference compiler are documented in
-<a href="https://doc.rust-lang.org/nightly/unstable-book/">The Unstable Book</a>.</p>
-<p>If a feature is promoted to a language feature, then all existing programs will
-start to receive compilation warnings about <code>#![feature]</code> directives which enabled
-the new feature (because the directive is no longer necessary). However, if a
-feature is decided to be removed from the language, errors will be issued (if
-there isn't a parser error first). The directive in this case is no longer
-necessary, and it's likely that existing code will break if the feature isn't
-removed.</p>
-<p>If an unknown feature is found in a directive, it results in a compiler error.
-An unknown feature is one which has never been recognized by the compiler.</p>
+<p>You can implement <code>derive</code> for your own type through <a href="procedural-macros.html">procedural macros</a>.</p>
 
                 </div>
 

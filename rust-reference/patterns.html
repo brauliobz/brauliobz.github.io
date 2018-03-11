@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>The Rust Reference</title>
+        <title>Patterns - </title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,58 +21,10 @@
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
         <link rel="stylesheet" href="ayu-highlight.css">
-        <style>
-            .page-wrapper.has-warning > .nav-chapters {
-              /* add height for warning content & margin */
-              top: 120px;
-            }
-
-            p.warning {
-                background-color: rgb(242, 222, 222);
-                border-bottom-color: rgb(238, 211, 215);
-                border-bottom-left-radius: 4px;
-                border-bottom-right-radius: 4px;
-                border-bottom-style: solid;
-                border-bottom-width: 0.666667px;
-                border-image-outset: 0 0 0 0;
-                border-image-repeat: stretch stretch;
-                border-image-slice: 100% 100% 100% 100%;
-                border-image-source: none;
-                border-image-width: 1 1 1 1;
-                border-left-color: rgb(238, 211, 215);
-                border-left-style: solid;
-                border-left-width: 0.666667px;
-                border-right-color: rgb(238, 211, 215);
-                border-right-style: solid;
-                border-right-width: 0.666667px;
-                border-top-color: rgb(238, 211, 215);
-                border-top-left-radius: 4px;
-                border-top-right-radius: 4px;
-                border-top-style: solid;
-                border-top-width: 0.666667px;
-                color: rgb(185, 74, 72);
-                margin-bottom: 0px;
-                margin-left: 0px;
-                margin-right: 0px;
-                margin-top: 30px;
-                padding-bottom: 8px;
-                padding-left: 14px;
-                padding-right: 35px;
-                padding-top: 8px;
-            }
-            p.warning strong {
-                color: rgb(185, 74, 72)
-            }
-            p.warning a {
-                color: rgb(0, 136, 204)
-            }
-
-            a .hljs {
-                color: #4183c4;
-            }
-        </style>
 
         <!-- Custom theme -->
+        
+        <link rel="stylesheet" href="src/theme/reference.css">
         
 
         
@@ -116,19 +68,12 @@
         </script>
 
         <div id="sidebar" class="sidebar">
-            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="notation.html"><strong>1.</strong> Notation</a></li><li><a href="lexical-structure.html"><strong>2.</strong> Lexical structure</a></li><li><ul class="section"><li><a href="input-format.html"><strong>2.1.</strong> Input format</a></li><li><a href="keywords.html"><strong>2.2.</strong> Keywords</a></li><li><a href="identifiers.html"><strong>2.3.</strong> Identifiers</a></li><li><a href="comments.html"><strong>2.4.</strong> Comments</a></li><li><a href="whitespace.html"><strong>2.5.</strong> Whitespace</a></li><li><a href="tokens.html"><strong>2.6.</strong> Tokens</a></li></ul></li><li><a href="macros.html"><strong>3.</strong> Macros</a></li><li><ul class="section"><li><a href="macros-by-example.html"><strong>3.1.</strong> Macros By Example</a></li><li><a href="procedural-macros.html"><strong>3.2.</strong> Procedural Macros</a></li></ul></li><li><a href="crates-and-source-files.html"><strong>4.</strong> Crates and source files</a></li><li><a href="items-and-attributes.html"><strong>5.</strong> Items and attributes</a></li><li><ul class="section"><li><a href="items.html"><strong>5.1.</strong> Items</a></li><li><ul class="section"><li><a href="items/modules.html"><strong>5.1.1.</strong> Modules</a></li><li><a href="items/extern-crates.html"><strong>5.1.2.</strong> Extern crates</a></li><li><a href="items/use-declarations.html"><strong>5.1.3.</strong> Use declarations</a></li><li><a href="items/functions.html"><strong>5.1.4.</strong> Functions</a></li><li><a href="items/type-aliases.html"><strong>5.1.5.</strong> Type aliases</a></li><li><a href="items/structs.html"><strong>5.1.6.</strong> Structs</a></li><li><a href="items/enumerations.html"><strong>5.1.7.</strong> Enumerations</a></li><li><a href="items/unions.html"><strong>5.1.8.</strong> Unions</a></li><li><a href="items/constant-items.html"><strong>5.1.9.</strong> Constant items</a></li><li><a href="items/static-items.html"><strong>5.1.10.</strong> Static items</a></li><li><a href="items/traits.html"><strong>5.1.11.</strong> Traits</a></li><li><a href="items/implementations.html"><strong>5.1.12.</strong> Implementations</a></li><li><a href="items/external-blocks.html"><strong>5.1.13.</strong> External blocks</a></li></ul></li><li><a href="visibility-and-privacy.html"><strong>5.2.</strong> Visibility and Privacy</a></li><li><a href="attributes.html"><strong>5.3.</strong> Attributes</a></li></ul></li><li><a href="statements-and-expressions.html"><strong>6.</strong> Statements and expressions</a></li><li><ul class="section"><li><a href="statements.html"><strong>6.1.</strong> Statements</a></li><li><a href="expressions.html"><strong>6.2.</strong> Expressions</a></li><li><ul class="section"><li><a href="expressions/literal-expr.html"><strong>6.2.1.</strong> Literal expressions</a></li><li><a href="expressions/path-expr.html"><strong>6.2.2.</strong> Path expressions</a></li><li><a href="expressions/block-expr.html"><strong>6.2.3.</strong> Block expressions</a></li><li><a href="expressions/operator-expr.html"><strong>6.2.4.</strong> Operator expressions</a></li><li><a href="expressions/array-expr.html"><strong>6.2.5.</strong> Array and index expressions</a></li><li><a href="expressions/tuple-expr.html"><strong>6.2.6.</strong> Tuple and index expressions</a></li><li><a href="expressions/struct-expr.html"><strong>6.2.7.</strong> Struct expressions</a></li><li><a href="expressions/enum-variant-expr.html"><strong>6.2.8.</strong> Enum variant expressions</a></li><li><a href="expressions/call-expr.html"><strong>6.2.9.</strong> Call expressions</a></li><li><a href="expressions/method-call-expr.html"><strong>6.2.10.</strong> Method call expressions</a></li><li><a href="expressions/field-expr.html"><strong>6.2.11.</strong> Field access expressions</a></li><li><a href="expressions/closure-expr.html"><strong>6.2.12.</strong> Closure expressions</a></li><li><a href="expressions/loop-expr.html"><strong>6.2.13.</strong> Loop expressions</a></li><li><a href="expressions/range-expr.html"><strong>6.2.14.</strong> Range expressions</a></li><li><a href="expressions/if-expr.html"><strong>6.2.15.</strong> If and if let expressions</a></li><li><a href="expressions/match-expr.html"><strong>6.2.16.</strong> Match expressions</a></li><li><a href="expressions/return-expr.html"><strong>6.2.17.</strong> Return expressions</a></li></ul></li><li><a href="paths.html"><strong>6.3.</strong> Paths</a></li><li><a href="patterns.html" class="active"><strong>6.4.</strong> Patterns</a></li></ul></li><li><a href="type-system.html"><strong>7.</strong> Type system</a></li><li><ul class="section"><li><a href="types.html"><strong>7.1.</strong> Types</a></li><li><a href="dynamically-sized-types.html"><strong>7.2.</strong> Dynamically Sized Types</a></li><li><a href="interior-mutability.html"><strong>7.3.</strong> Interior mutability</a></li><li><a href="subtyping.html"><strong>7.4.</strong> Subtyping</a></li><li><a href="type-coercions.html"><strong>7.5.</strong> Type coercions</a></li></ul></li><li><a href="special-traits.html"><strong>8.</strong> Special traits</a></li><li><ul class="section"><li><a href="the-copy-trait.html"><strong>8.1.</strong> The Copy trait</a></li><li><a href="the-sized-trait.html"><strong>8.2.</strong> The Sized trait</a></li><li><a href="the-drop-trait.html"><strong>8.3.</strong> The Drop trait</a></li><li><a href="the-deref-trait.html"><strong>8.4.</strong> The Deref trait</a></li><li><a href="the-send-trait.html"><strong>8.5.</strong> The Send trait</a></li><li><a href="the-sync-trait.html"><strong>8.6.</strong> The Sync trait</a></li></ul></li><li><a href="memory-model.html"><strong>9.</strong> Memory model</a></li><li><ul class="section"><li><a href="memory-allocation-and-lifetime.html"><strong>9.1.</strong> Memory allocation and lifetime</a></li><li><a href="memory-ownership.html"><strong>9.2.</strong> Memory ownership</a></li><li><a href="variables.html"><strong>9.3.</strong> Variables</a></li></ul></li><li><a href="linkage.html"><strong>10.</strong> Linkage</a></li><li><a href="unsafety.html"><strong>11.</strong> Unsafety</a></li><li><ul class="section"><li><a href="unsafe-functions.html"><strong>11.1.</strong> Unsafe functions</a></li><li><a href="unsafe-blocks.html"><strong>11.2.</strong> Unsafe blocks</a></li><li><a href="behavior-considered-undefined.html"><strong>11.3.</strong> Behavior considered undefined</a></li><li><a href="behavior-not-considered-unsafe.html"><strong>11.4.</strong> Behavior not considered unsafe</a></li></ul></li><li><a href="influences.html">Appendix: Influences</a></li><li class="affix"><a href="undocumented.html">Appendix: As-yet-undocumented Features</a></li><li class="affix"><a href="glossory.html">Appendix: Glossory</a></li><li class="affix"><a href="grammar.html">Appendix: Grammar</a></li></ul>
+            <ul class="chapter"><li class="affix"><a href="introduction.html">Introduction</a></li><li><a href="notation.html"><strong>1.</strong> Notation</a></li><li><a href="lexical-structure.html"><strong>2.</strong> Lexical structure</a></li><li><ul class="section"><li><a href="input-format.html"><strong>2.1.</strong> Input format</a></li><li><a href="keywords.html"><strong>2.2.</strong> Keywords</a></li><li><a href="identifiers.html"><strong>2.3.</strong> Identifiers</a></li><li><a href="comments.html"><strong>2.4.</strong> Comments</a></li><li><a href="whitespace.html"><strong>2.5.</strong> Whitespace</a></li><li><a href="tokens.html"><strong>2.6.</strong> Tokens</a></li></ul></li><li><a href="macros.html"><strong>3.</strong> Macros</a></li><li><ul class="section"><li><a href="macros-by-example.html"><strong>3.1.</strong> Macros By Example</a></li><li><a href="procedural-macros.html"><strong>3.2.</strong> Procedural Macros</a></li></ul></li><li><a href="crates-and-source-files.html"><strong>4.</strong> Crates and source files</a></li><li><a href="items-and-attributes.html"><strong>5.</strong> Items and attributes</a></li><li><ul class="section"><li><a href="items.html"><strong>5.1.</strong> Items</a></li><li><ul class="section"><li><a href="items/modules.html"><strong>5.1.1.</strong> Modules</a></li><li><a href="items/extern-crates.html"><strong>5.1.2.</strong> Extern crates</a></li><li><a href="items/use-declarations.html"><strong>5.1.3.</strong> Use declarations</a></li><li><a href="items/functions.html"><strong>5.1.4.</strong> Functions</a></li><li><a href="items/type-aliases.html"><strong>5.1.5.</strong> Type aliases</a></li><li><a href="items/structs.html"><strong>5.1.6.</strong> Structs</a></li><li><a href="items/enumerations.html"><strong>5.1.7.</strong> Enumerations</a></li><li><a href="items/unions.html"><strong>5.1.8.</strong> Unions</a></li><li><a href="items/constant-items.html"><strong>5.1.9.</strong> Constant items</a></li><li><a href="items/static-items.html"><strong>5.1.10.</strong> Static items</a></li><li><a href="items/traits.html"><strong>5.1.11.</strong> Traits</a></li><li><a href="items/implementations.html"><strong>5.1.12.</strong> Implementations</a></li><li><a href="items/external-blocks.html"><strong>5.1.13.</strong> External blocks</a></li></ul></li><li><a href="items/associated-items.html"><strong>5.2.</strong> Associated Items</a></li><li><a href="visibility-and-privacy.html"><strong>5.3.</strong> Visibility and Privacy</a></li><li><a href="attributes.html"><strong>5.4.</strong> Attributes</a></li></ul></li><li><a href="statements-and-expressions.html"><strong>6.</strong> Statements and expressions</a></li><li><ul class="section"><li><a href="statements.html"><strong>6.1.</strong> Statements</a></li><li><a href="expressions.html"><strong>6.2.</strong> Expressions</a></li><li><ul class="section"><li><a href="expressions/literal-expr.html"><strong>6.2.1.</strong> Literal expressions</a></li><li><a href="expressions/path-expr.html"><strong>6.2.2.</strong> Path expressions</a></li><li><a href="expressions/block-expr.html"><strong>6.2.3.</strong> Block expressions</a></li><li><a href="expressions/operator-expr.html"><strong>6.2.4.</strong> Operator expressions</a></li><li><a href="expressions/grouped-expr.html"><strong>6.2.5.</strong> Grouped expressions</a></li><li><a href="expressions/array-expr.html"><strong>6.2.6.</strong> Array and index expressions</a></li><li><a href="expressions/tuple-expr.html"><strong>6.2.7.</strong> Tuple and index expressions</a></li><li><a href="expressions/struct-expr.html"><strong>6.2.8.</strong> Struct expressions</a></li><li><a href="expressions/enum-variant-expr.html"><strong>6.2.9.</strong> Enum variant expressions</a></li><li><a href="expressions/call-expr.html"><strong>6.2.10.</strong> Call expressions</a></li><li><a href="expressions/method-call-expr.html"><strong>6.2.11.</strong> Method call expressions</a></li><li><a href="expressions/field-expr.html"><strong>6.2.12.</strong> Field access expressions</a></li><li><a href="expressions/closure-expr.html"><strong>6.2.13.</strong> Closure expressions</a></li><li><a href="expressions/loop-expr.html"><strong>6.2.14.</strong> Loop expressions</a></li><li><a href="expressions/range-expr.html"><strong>6.2.15.</strong> Range expressions</a></li><li><a href="expressions/if-expr.html"><strong>6.2.16.</strong> If and if let expressions</a></li><li><a href="expressions/match-expr.html"><strong>6.2.17.</strong> Match expressions</a></li><li><a href="expressions/return-expr.html"><strong>6.2.18.</strong> Return expressions</a></li></ul></li><li><a href="paths.html"><strong>6.3.</strong> Paths</a></li></ul></li><li><a href="patterns.html" class="active"><strong>7.</strong> Patterns</a></li><li><a href="type-system.html"><strong>8.</strong> Type system</a></li><li><ul class="section"><li><a href="types.html"><strong>8.1.</strong> Types</a></li><li><a href="dynamically-sized-types.html"><strong>8.2.</strong> Dynamically Sized Types</a></li><li><a href="type-layout.html"><strong>8.3.</strong> Type layout</a></li><li><a href="interior-mutability.html"><strong>8.4.</strong> Interior mutability</a></li><li><a href="subtyping.html"><strong>8.5.</strong> Subtyping</a></li><li><a href="type-coercions.html"><strong>8.6.</strong> Type coercions</a></li><li><a href="destructors.html"><strong>8.7.</strong> Destructors</a></li><li><a href="lifetime-elision.html"><strong>8.8.</strong> Lifetime elision</a></li></ul></li><li><a href="special-types-and-traits.html"><strong>9.</strong> Special types and traits</a></li><li><a href="memory-model.html"><strong>10.</strong> Memory model</a></li><li><ul class="section"><li><a href="memory-allocation-and-lifetime.html"><strong>10.1.</strong> Memory allocation and lifetime</a></li><li><a href="memory-ownership.html"><strong>10.2.</strong> Memory ownership</a></li><li><a href="variables.html"><strong>10.3.</strong> Variables</a></li></ul></li><li><a href="linkage.html"><strong>11.</strong> Linkage</a></li><li><a href="unsafety.html"><strong>12.</strong> Unsafety</a></li><li><ul class="section"><li><a href="unsafe-functions.html"><strong>12.1.</strong> Unsafe functions</a></li><li><a href="unsafe-blocks.html"><strong>12.2.</strong> Unsafe blocks</a></li><li><a href="behavior-considered-undefined.html"><strong>12.3.</strong> Behavior considered undefined</a></li><li><a href="behavior-not-considered-unsafe.html"><strong>12.4.</strong> Behavior not considered unsafe</a></li></ul></li><li><a href="influences.html">Appendix: Influences</a></li><li class="affix"><a href="undocumented.html">Appendix: As-yet-undocumented Features</a></li><li class="affix"><a href="glossary.html">Appendix: Glossary</a></li><li class="affix"><a href="grammar.html">Appendix: Grammar</a></li></ul>
         </div>
 
-        <div id="page-wrapper" class="page-wrapper has-warning">
+        <div id="page-wrapper" class="page-wrapper">
 
             <div class="page" tabindex="-1">
-                <header><p class="warning">
-                    For now, this reference is a best-effort document. We strive for validity and completeness, but are
-                    not yet there. In the future, the docs and lang teams will work together to figure out how
-                    best to do this. Until then, this is a best-effort attempt. If you find something wrong or
-                    missing, file an <a href="https://github.com/rust-lang-nursery/reference/issues">issue</a> or send in a
-                    pull request.
-                </p></header>
                 <div id="menu-bar" class="menu-bar">
                     <div class="left-buttons">
                         <i id="sidebar-toggle" class="fa fa-bars"></i>
@@ -138,7 +83,9 @@
                     <h1 class="menu-title"></h1>
 
                     <div class="right-buttons">
-                        <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
                     </div>
                 </div>
 
@@ -146,25 +93,25 @@
                     <a class="header" href="patterns.html#patterns" id="patterns"><h1>Patterns</h1></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-<em>Pattern</em> :<a name="pattern-syntax"></a><br />
-      <a href="patterns.html#literal-pattern-syntax"><em>LiteralPattern</em></a><br />
-   | <a href="patterns.html#wildcard-pattern-syntax"><em>WildcardPattern</em></a><br />
-   | <a href="patterns.html#range-pattern-syntax"><em>RangePattern</em></a><br />
-   | <a href="patterns.html#reference-pattern-syntax"><em>ReferencePattern</em></a><br />
-   | <a href="patterns.html#identifier-pattern-syntax"><em>IdentifierPattern</em></a><br />
-   | <a href="patterns.html#box-pattern-syntax"><em>BoxPattern</em></a><br />
-   | <a href="patterns.html#struct-pattern-syntax"><em>StructPattern</em></a><br />
-   | <a href="patterns.html#tuple-pattern-syntax"><em>TuplePattern</em></a><br />
-   | <a href="patterns.html#tuplestruct-pattern-syntax"><em>TupleStructPattern</em></a><br />
-   | <a href="patterns.html#slice-pattern-syntax"><em>SlicePattern</em></a><br />
-   | <a href="patterns.html#path-pattern-syntax"><em>PathPattern</em></a></p>
+<em>Pattern</em> :<br />
+      <a href="patterns.html#literal-patterns"><em>LiteralPattern</em></a><br />
+   | <a href="patterns.html#wildcard-pattern"><em>WildcardPattern</em></a><br />
+   | <a href="patterns.html#range-patterns"><em>RangePattern</em></a><br />
+   | <a href="patterns.html#reference-patterns"><em>ReferencePattern</em></a><br />
+   | <a href="patterns.html#identifier-patterns"><em>IdentifierPattern</em></a><br />
+   | <a href="patterns.html#struct-patterns"><em>StructPattern</em></a><br />
+   | <a href="patterns.html#tuple-patterns"><em>TuplePattern</em></a><br />
+   | <a href="patterns.html#tuplestruct-patterns"><em>TupleStructPattern</em></a><br />
+   | <a href="patterns.html#path-patterns"><em>PathPattern</em></a></p>
 </blockquote>
 <p>Patterns in Rust are used to match values against structures and to,
 optionally, bind variables to values inside these structures. They are also
-used in variable declarations and function/closure parameters, though most of
-the time simply as an identifier that binds to a value.</p>
+used in variable declarations and function/closure parameters, though in these
+cases most of the time they are simply used as an identifier that binds to a
+value.</p>
 <p>For example, the pattern used in:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # struct Car;
 # struct Computer;
@@ -190,7 +137,6 @@ if let
 {
     println!(&quot;{} has a car and is {} years old.&quot;, person_name, person_age);
 }
-
 #}</code></pre></pre>
 <p>does four things:</p>
 <ul>
@@ -219,7 +165,8 @@ not numbered) fields, it is allowed to write <code>fieldname</code> as a shortha
 <code>fieldname: fieldname</code>. In a pattern whose head expression has a <code>struct</code>,
 <code>enum</code> or <code>tupl</code> type, a placeholder (<code>_</code>) stands for a <em>single</em> data field,
 whereas a wildcard <code>..</code> stands for <em>all</em> the remaining fields of a particular variant.</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # enum Message {
 #     Quit,
@@ -237,13 +184,13 @@ match message {
         println!(&quot;color change, red: {}, green: {}&quot;, red, green);
     }
 };
-
 #}</code></pre></pre>
 <a class="header" href="patterns.html#refutability" id="refutability"><h2>Refutability</h2></a>
 <p>A pattern is said to be <em>Refutable</em> when it <strong>has the possibily of not being matched</strong>
 by the value it is being matched against. <em>Irrefutable</em> patterns, on the other hand,
-always match the value they are being matched againt. Examples:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+always match the value they are being matched against. Examples:</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 let (x, y) = (1, 2);               // &quot;(x, y)&quot; is an irrefutable pattern
 
@@ -252,21 +199,20 @@ if let (a, 3) = (1, 2) {           // &quot;(a, 3)&quot; is refutable, and will 
 } else if let (a, 4) = (3, 4) {    // &quot;(a, 4)&quot; is refutable, and will match
     println!(&quot;Matched ({}, 4)&quot;, a);
 }
-
 #}</code></pre></pre>
 <a class="header" href="patterns.html#literal-patterns" id="literal-patterns"><h2>Literal patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-<em>LiteralPattern</em> :<a name="literal-pattern-syntax"></a><br />
-      BOOLEAN_LITERAL<br />
-   | CHAR_LITERAL<br />
-   | BYTE_LITERAL<br />
-   | STRING_LITERAL<br />
-   | RAW_STRING_LITERAL<br />
-   | BYTE_STRING_LITERAL<br />
-   | RAW_BYTE_STRING_LITERAL<br />
-   | <code>-</code><sup>?</sup> INTEGER_LITERAL<br />
-   | <code>-</code><sup>?</sup> FLOAT_LITERAL</p>
+<em>LiteralPattern</em> :<br />
+      <a href="tokens.html#boolean-literals">BOOLEAN_LITERAL</a><br />
+   | <a href="tokens.html#character-literals">CHAR_LITERAL</a><br />
+   | <a href="tokens.html#byte-literals">BYTE_LITERAL</a><br />
+   | <a href="tokens.html#string-literals">STRING_LITERAL</a><br />
+   | <a href="tokens.html#raw-string-literals">RAW_STRING_LITERAL</a><br />
+   | <a href="tokens.html#byte-string-literals">BYTE_STRING_LITERAL</a><br />
+   | <a href="tokens.html#raw-byte-string-literals">RAW_BYTE_STRING_LITERAL</a><br />
+   | <code>-</code><sup>?</sup> <a href="tokens.html#integer-literals">INTEGER_LITERAL</a><br />
+   | <code>-</code><sup>?</sup> <a href="tokens.html#floating-point-literals">FLOAT_LITERAL</a></p>
 </blockquote>
 <p><em>Literal patterns</em> match exactly the value they represent. Since negative numbers are
 not literals in Rust, literal patterns also accept an optional minus sign before the
@@ -276,8 +222,8 @@ them, they are going to be forbidden on literal patterns in a future version of 
 <a href="https://github.com/rust-lang/rust/issues/41620">issue #41620</a>).</p>
 <p>Literal patterns are always refutable.</p>
 <p>Examples:</p>
-<!-- FIXME more examples -->
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 for i in -2..5 {
     match i {
@@ -287,45 +233,62 @@ for i in -2..5 {
         _ =&gt; println!(&quot;Matched none of the arms&quot;),
     }
 }
-
 #}</code></pre></pre>
 <a class="header" href="patterns.html#wildcard-pattern" id="wildcard-pattern"><h2>Wildcard pattern</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-<em>WildcardPattern</em> :<a name="wildcard-pattern-syntax"></a><br />
+<em>WildcardPattern</em> :<br />
    <code>_</code></p>
 </blockquote>
-<!-- FIXME explain the wildcard pattern -->
-<p>The <em>wildcard pattern</em> matches any value.</p>
-<p>For example:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<p>The <em>wildcard pattern</em> matches any value. It is used to ignore values when they don't
+matter.</p>
+<p>Examples:</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # let x = 20;
 let (a, _) = (10, x);   // the x is always matched by _
 # assert_eq!(a, 10);
 
+// ignore a function/closure param
+let real_part = |a: f64, _: f64| { a };
+
+// ignore a field from a struct
+# struct RGBA {
+#    r: f32,
+#    g: f32,
+#    b: f32,
+#    a: f32,
+# }
+# let color = RGBA{r: 0.4, g: 0.1, b: 0.9, a: 0.5};
+let RGBA{r: red, g: green, b: blue, a: _} = color;
+# assert_eq!(color.r, red);
+# assert_eq!(color.g, green);
+# assert_eq!(color.b, blue);
+
+// accept any Some, with any value
+# let x = Some(10);
+if let Some(_) = x {}
 #}</code></pre></pre>
 <p>The wildcard pattern is always irrefutable.</p>
-<!-- FIXME examples -->
-<!-- FIXME example: ignore function parameter -->
-<!-- FIXME example: ignore a field from a tuple -->
-<!-- FIXME example: ignore a field from a struct -->
-<!-- FIXME example: ignore the field of an enum: use Some(_) -->
 <a class="header" href="patterns.html#range-patterns" id="range-patterns"><h2>Range patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-<em>RangePattern</em> :<a name="range-pattern-syntax"></a><br />
+<em>RangePattern</em> :<br />
     <em>RangePatternBound</em> <code>...</code> <em>RangePatternBound</em></p>
 <p><em>RangePatternBound</em> :<br />
-      <em>Literal</em><br />
-   | <em>PathForExpression</em><br />
-   | <em>QualifiedPathForExpression</em></p>
+      <a href="tokens.html#character-literals">CHAR_LITERAL</a><br />
+   | <a href="tokens.html#byte-literals">BYTE_LITERAL</a><br />
+   | <code>-</code><sup>?</sup> <a href="tokens.html#integer-literals">INTEGER_LITERAL</a><br />
+   | <code>-</code><sup>?</sup> <a href="tokens.html#floating-point-literals">FLOAT_LITERAL</a><br />
+   | <a href="paths.html"><em>PathInExpression</em></a><br />
+   | <a href="paths.html"><em>QualifiedPathInExpression</em></a></p>
 </blockquote>
 <p>Range patterns match values that are within the closed range defined by its lower and
 upper bounds. For example, a pattern <code>'m'...'p'</code> will match only the values <code>'m'</code>, <code>'n'</code>,
 <code>'o'</code>, and <code>'p'</code>. The bounds can be literals or paths that point to constant values.</p>
 <p>A pattern a <code>...</code> b must always have a ≤ b. Thus, it is not possible to have a range
-pattern <code>10...0</code>.</p>
+pattern <code>10...0</code>, for example.</p>
 <p>Range patterns only work on scalar types. The accepted types are:</p>
 <ul>
 <li>Integer types (u8, i8, u16, i16, usize, isize, etc.).</li>
@@ -335,7 +298,8 @@ in a future version of Rust (see
 <a href="https://github.com/rust-lang/rust/issues/41620">issue #41620</a>).</li>
 </ul>
 <p>Examples:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # let c = 'f';
 let valid_variable = match c {
@@ -402,125 +366,123 @@ println!(&quot;{}&quot;, match 0xfacade {
     _ =&gt; &quot;too big&quot;,
 });
 
-
 #}</code></pre></pre>
-<p>Range patterns are always refutable, even when they cover the complete set of possible
-values of a type. For example, <code>0u8...255u8</code> is refutable even though it covers all
-possible values of <code>u8</code>.</p>
-<!-- FIXME change _PathForExpression_ to _PathInExpression_ ? -->
-<!-- FIXME put this on the match section
-A range pattern may not be a sub-range of another range pattern inside the same `match`.
--->
+<p>Range patterns are a priori always refutable, even when they cover the complete set
+of possible values of a type. For example, <code>0u8...255u8</code> is refutable even though
+it covers all possible values of <code>u8</code>.</p>
 <a class="header" href="patterns.html#reference-patterns" id="reference-patterns"><h2>Reference patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-<em>ReferencePattern</em> :<a name="reference-pattern-syntax"></a><br />
+<em>ReferencePattern</em> :<br />
    (<code>&amp;</code>|<code>&amp;&amp;</code>) <code>mut</code><sup>?</sup> <em>Pattern</em></p>
 </blockquote>
 <!-- FIXME: explain reference patterns  -->
-<!-- FIXME: explain why the `&&` is part of the grammar -->
-<p>Patterns can also dereference pointers by using the <code>&amp;</code>, <code>&amp;mut</code> and <code>box</code>
-symbols, as appropriate. For example, these two matches on <code>x: &amp;i32</code> are
-equivalent:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<!-- FIXME: explain that they only dereference one time -->
+<p>Reference patterns dereference the pointers that are being matched
+and, thus, borrow them.</p>
+<p>For example, these two matches on <code>x: &amp;i32</code> are equivalent:</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 # let x = &amp;3;
 let y = match *x { 0 =&gt; &quot;zero&quot;, _ =&gt; &quot;some&quot; };
 let z = match x { &amp;0 =&gt; &quot;zero&quot;, _ =&gt; &quot;some&quot; };
 
 assert_eq!(y, z);
-
 #}</code></pre></pre>
-<!-- when is this pattern type refutable? -->
+<!-- FIXME: explain why the `&&` is part of the grammar -->
+<p>The grammar production for reference patterns has to match the token <code>&amp;&amp;</code>
+because is is a token by itself, not two <code>&amp;</code> tokens.</p>
+<!-- FIXME: example with 3 or more & -->
+<p>Reference patterns are always irrefutable.</p>
 <a class="header" href="patterns.html#identifier-patterns" id="identifier-patterns"><h2>Identifier patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-<em>IdentifierPattern</em> :<a name="identifier-pattern-syntax"></a><br />
-      <code>mut</code><sup>?</sup> IDENTIFIER (<code>@</code> <a href="patterns.html#pattern-syntax"><em>Pattern</em></a> ) <sup>?</sup><br />
-   | <code>ref</code> <code>mut</code><sup>?</sup> IDENTIFIER (<code>@</code> <a href="patterns.html#pattern-syntax"><em>Pattern</em></a> ) <sup>?</sup></p>
+<em>IdentifierPattern</em> :<br />
+      <code>mut</code><sup>?</sup> IDENTIFIER (<code>@</code> <a href="patterns.html#patterns"><em>Pattern</em></a> ) <sup>?</sup><br />
+   | <code>ref</code> <code>mut</code><sup>?</sup> IDENTIFIER (<code>@</code> <a href="patterns.html#patterns"><em>Pattern</em></a> ) <sup>?</sup></p>
 </blockquote>
 <!-- FIXME: explain identifier patterns -->
 <!-- FIXME: mention that IDENTIFIER pattern is the commonly used one in let and function parameters -->
-<p><em>Identifier patterns</em> bind the value they match to a variable.</p>
+<p><em>Identifier patterns</em> bind the value they match to a <strong>previously undeclared</strong> variable.</p>
 <p>Patterns that consist of only an identifier, possibly with a <code>mut</code>, like
 <code>variable</code>, <code>x</code>, and <code>y</code> below:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
 let mut variable = 10;
 fn sum(x: i32, y: i32) -&gt; i32 {
 #    x + y
-#}
-
+# }
 #}</code></pre></pre>
 <p>match any value and bind it to that identifier. This is the most commonly
 used pattern in variable declarations and function/closure parameters.</p>
 <p>To bind non-trivial patterns to a variable, the use of the syntax <code>variable @ subpattern</code> is needed. For example:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
-let x = 1;
+let x = 2;
 
 match x {
     e @ 1 ... 5 =&gt; println!(&quot;got a range element {}&quot;, e),
     _ =&gt; println!(&quot;anything&quot;),
 }
-
 #}</code></pre></pre>
-<p>binds to <code>e</code> the value 1 (not the entire range: the range is a range subpattern).</p>
-<p>By default, identifier patterns bind a variable to a copy or move of the
+<p>binds to <code>e</code> the value 2 (not the entire range: the range here is a range subpattern).</p>
+<p>By default, identifier patterns bind a variable to a copy of or move from the
 matched value (depending whether the matched value implements the Copy trait).
 This can be changed to bind to a reference by using the <code>ref</code> keyword,
 or to a mutable reference using <code>ref mut</code>. For example:</p>
-<pre><pre class="playpen"><code class="language-rust"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
 #fn main() {
-// TODO
+# let a = Some(10);
+match a {
+    None =&gt; (),
+    Some(value) =&gt; (),
+}
 
+match a {
+    None =&gt; (),
+    Some(ref value) =&gt; (),
+}
 #}</code></pre></pre>
-<p>in the first match arm, the value is copied. In the second one, a reference
-to the same memory location is bound to the variable. This syntax is needed
-because in destructuring subpatterns we can't apply the <code>&amp;</code> operator to
+<p>in the first match expression, the value is copied (or moved). In the second match,
+a reference to the same memory location is bound to the variable value. This syntax is
+needed because in destructuring subpatterns we can't apply the <code>&amp;</code> operator to
 the value's fields. For example:</p>
-<pre><pre class="playpen"><code class="language-rust compile_fail"># #![allow(unused_variables)]
+<pre><pre class="playpen"><code class="language-rust compile_fail">
+# #![allow(unused_variables)]
 #fn main() {
-// TODO
-
-struct Person {
-    name: String,
-}
-
-if let Person{&amp; name: person_name} = value {
-}
-
-
+# struct Person {
+#    name: String,
+#    age: u8,
+# }
+# let value = Person{ name: String::from(&quot;John&quot;), age: 23 };
+if let Person{&amp; name: person_name, age: 18...150} = value { }
 #}</code></pre></pre>
 <p>is not valid. What we must do is:</p>
-<pre><code>// TODO
-
-struct Person {
-    name: String,
-}
-
-if let Person(name: ref person_name) = value {
-}
-</code></pre>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+# struct Person {
+#    name: String,
+#    age: u8,
+# }
+# let value = Person{ name: String::from(&quot;John&quot;), age: 23 };
+if let Person{name: ref person_name, age: 18...150} = value { }
+#}</code></pre></pre>
 <p>Thus, <code>ref</code> is not something that is being matched against. Its objective is
 exclusively to make the matched binding a reference, instead of potentially
-copying or moving the value of what was matched.</p>
+copying or moving what was matched.</p>
+<!-- FIXME: identifier patterns that don't have mut/ref/@ and that refer to an identifier -->
 <!-- FIXME cannot bind by-move and by-ref in the same pattern -->
 <!-- FIXME explain the difference between `& var` and `ref var` in patterns -->
-<!-- when is this pattern type refutable? -->
-<a class="header" href="patterns.html#box-pattern" id="box-pattern"><h2>Box pattern</h2></a>
-<blockquote>
-<p><strong><sup>Syntax</sup></strong><br />
-<em>BoxPattern</em> :<a name="box-pattern-syntax"></a><br />
-   <code>box</code> <a href="patterns.html#pattern-syntax"><em>Pattern</em></a></p>
-</blockquote>
-<!-- FIXME: explain box patterns -->
-<!-- FIXME: they're not stable -->
 <!-- when is this pattern type refutable? -->
 <a class="header" href="patterns.html#struct-patterns" id="struct-patterns"><h2>Struct patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-<em>StructPattern</em> :<a name="struct-pattern-syntax"></a><br />
+<em>StructPattern</em> :<br />
    <em>Path</em> <code>{</code><br />
       <em>StructPatternElements</em> <sup>?</sup><br />
    <code>}</code></p>
@@ -532,10 +494,9 @@ copying or moving the value of what was matched.</p>
 <p><em>StructPatternField</em> :<br />
    <em>OuterAttribute</em> <sup>*</sup><br />
    (<br />
-         INTEGER_LITERAL <code>:</code> <a href="patterns.html#pattern-syntax"><em>Pattern</em></a><br />
-      | IDENTIFIER <code>:</code> <a href="patterns.html#pattern-syntax"><em>Pattern</em></a><br />
-      | <code>box</code><sup>?</sup> <code>ref</code><sup>?</sup> <code>mut</code><sup>?</sup>
-IDENTIFIER<br />
+         INTEGER_LITERAL <code>:</code> <a href="patterns.html#patterns"><em>Pattern</em></a><br />
+      | IDENTIFIER <code>:</code> <a href="patterns.html#patterns"><em>Pattern</em></a><br />
+      | <code>ref</code><sup>?</sup> <code>mut</code><sup>?</sup> IDENTIFIER<br />
    )</p>
 <p><em>StructPatternEtCetera</em> :<br />
    <em>OuterAttribute</em> <sup>*</sup><br />
@@ -543,52 +504,146 @@ IDENTIFIER<br />
 </blockquote>
 <!-- FIXME: explain struct patterns -->
 <!-- FIXME: destructuring patterns -->
-<p>Struct patterns match ...</p>
-<!-- when is this pattern type refutable? -->
+<p>Struct patterns match struct values that match all criteria defined by its subpatterns.
+They are also used to <a href="destructuring">destructure</a> a struct.</p>
+<p>On a struct pattern, the fields are referenced by name, index (in the case of tuples
+structs) or ignored by use of <code>..</code>:</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+# struct Point {
+#     x: u32,
+#     y: u32,
+# }
+# let s = Point {x: 1, y: 1};
+# 
+match s {
+    Point {x: 10, y: 20} =&gt; (),
+    Point {y: 10, x: 20} =&gt; (),    // order doesn't matter
+    Point {x: 10, ..} =&gt; (),
+    Point {..} =&gt; (),
+}
+
+# struct PointTuple (
+#     u32,
+#     u32,
+# );
+# let t = PointTuple(1, 2);
+# 
+match t {
+    PointTuple {0: 10, 1: 20} =&gt; (),
+    PointTuple {1: 10, 0: 20} =&gt; (),   // order doesn't matter
+    PointTuple {0: 10, ..} =&gt; (),
+    PointTuple {..} =&gt; (),
+}
+#}</code></pre></pre>
+<p>If <code>..</code> is not used, it is required to match all fields:</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+# struct Struct {
+#    a: i32,
+#    b: char,
+#    c: bool,
+# }
+# let mut struct_value = Struct{a: 10, b: 'X', c: false};
+# 
+match struct_value {
+    Struct{a: 10, b: 'X', c: false} =&gt; (),
+    Struct{a: 10, b: 'X', ref c} =&gt; (),
+    Struct{a: 10, b: 'X', ref mut c} =&gt; (),
+    Struct{a: 10, b: 'X', c: _} =&gt; (),
+    Struct{a: _, b: _, c: _} =&gt; (),
+}
+#}</code></pre></pre>
+<p>The <code>ref</code> and/or <code>mut</code> <em>IDENTIFIER</em> syntax matches any value and binds it to
+a variable with the same name as the given field.</p>
+<!-- TODO: explain the scope of this new variable
+The scope of this variable
+is the corresponding block of the pattern match. For example, for `match`
+expressions, the block is the 
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+match .. {
+    
+}
+#}</code></pre></pre>
+<p>--&gt;</p>
+<!-- FIXME: example: identifier all fields -->
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+# struct Struct {
+#    a: i32,
+#    b: char,
+#    c: bool,
+# }
+# let struct_value = Struct{a: 10, b: 'X', c: false};
+# 
+let Struct{a: x, b: y, c: z} = struct_value;          // destructure all fields
+#}</code></pre></pre>
+<!-- FIXME: example: etcetera (after identifiers) -->
+<!-- FIXME: example: integer literal -->
+<!-- FIXME: example: etcetera (integer literal) -->
+<!-- FIXME: example: ref -->
+<!-- FIXME: example: mut -->
+<!-- FIXME: example: ref mut -->
+<p>A struct pattern is refutable when one of its subpatterns is refutable.</p>
 <a class="header" href="patterns.html#tuplestruct-patterns" id="tuplestruct-patterns"><h2>TupleStruct patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-<em>TupleStructPattern</em> :<a name="tuplestruct-pattern-syntax"></a><br />
+<em>TupleStructPattern</em> :<br />
    <em>Path</em> <code>(</code> <em>TupleStructItems</em> <code>)</code></p>
 <p><em>TupleStructItems</em> :<br />
-      <a href="patterns.html#pattern-syntax"><em>Pattern</em></a> ( <code>,</code> <a href="patterns.html#pattern-syntax"><em>Pattern</em></a> )<sup>*</sup> <code>,</code><sup>?</sup><br />
-   | (<a href="patterns.html#pattern-syntax"><em>Pattern</em></a> <code>,</code>)<sup>*</sup> <code>..</code> ( (<code>,</code> <a href="patterns.html#pattern-syntax"><em>Pattern</em></a>)<sup>+</sup> <code>,</code><sup>?</sup> )<sup>?</sup></p>
+      <a href="patterns.html#patterns"><em>Pattern</em></a> ( <code>,</code> <a href="patterns.html#patterns"><em>Pattern</em></a> )<sup>*</sup> <code>,</code><sup>?</sup><br />
+   | (<a href="patterns.html#patterns"><em>Pattern</em></a> <code>,</code>)<sup>*</sup> <code>..</code> ( (<code>,</code> <a href="patterns.html#patterns"><em>Pattern</em></a>)<sup>+</sup> <code>,</code><sup>?</sup> )<sup>?</sup></p>
 </blockquote>
+<p>TupleStruct patterns match tuple struct and enum values that match all criteria defined
+by its subpatterns. They are also used to <a href="destructuring">destructure</a> a tuple struct or
+enum value.</p>
 <!-- FIXME: explain tuple struct patterns -->
 <!-- FIXME: includes enum variants? Yes! -->
-<!-- when is this pattern type refutable? -->
+<!-- FIXME: examples -->
+<p>A TupleStruct pattern is refutable when one of its subpatterns is refutable.</p>
 <a class="header" href="patterns.html#tuple-patterns" id="tuple-patterns"><h2>Tuple patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
 <em>TuplePattern</em> :<a name="tuple-pattern-syntax"></a><br />
    <code>(</code> <em>TupplePatternItems</em><sup>?</sup> <code>)</code></p>
 <p><em>TuplePatternItems</em> :<br />
-      <a href="patterns.html#pattern-syntax"><em>Pattern</em></a> <code>,</code><br />
-   | <a href="patterns.html#pattern-syntax"><em>Pattern</em></a> (<code>,</code> <a href="patterns.html#pattern-syntax"><em>Pattern</em></a>)<sup>+</sup> <code>,</code><sup>?</sup><br />
-   | (<a href="patterns.html#pattern-syntax"><em>Pattern</em></a> <code>,</code>)<sup>*</sup> <code>..</code> ( (<code>,</code> <a href="patterns.html#pattern-syntax"><em>Pattern</em></a>)<sup>+</sup> <code>,</code><sup>?</sup> )<sup>?</sup></p>
+      <a href="patterns.html#patterns"><em>Pattern</em></a> <code>,</code><br />
+   | <a href="patterns.html#patterns"><em>Pattern</em></a> (<code>,</code> <a href="patterns.html#patterns"><em>Pattern</em></a>)<sup>+</sup> <code>,</code><sup>?</sup><br />
+   | (<a href="patterns.html#patterns"><em>Pattern</em></a> <code>,</code>)<sup>*</sup> <code>..</code> ( (<code>,</code> <a href="patterns.html#patterns"><em>Pattern</em></a>)<sup>+</sup> <code>,</code><sup>?</sup> )<sup>?</sup></p>
 </blockquote>
 <!-- FIXME: explain tuple patterns -->
-<!-- when is this pattern type refutable? -->
-<!-- NOT STABLE:
-<a class="header" href="patterns.html#slice-patterns" id="slice-patterns"><h2>Slice patterns</h2></a>
-<blockquote>
-<p><strong><sup>Syntax</sup></strong><br />
-<em>SlicePattern</em> :<a name="slice-pattern-syntax"></a><br />
-   <code>[</code> <strong>FIXME</strong> <code>]</code></p>
-</blockquote>
-<p>--&gt;</p>
-<!-- FIXME: explain slice patterns -->
-<!-- FIXME: this is not stable -->
-<!-- when is this pattern type refutable? -->
+<!-- FIXME: examples -->
+<p>Tuple patterns match tuple values that match all criteria defined by its subpatterns.
+They are also used to <a href="destructuring">destructure</a> a tuple.</p>
+<p>This pattern is refutable when one of its subpatterns is refutable.</p>
 <a class="header" href="patterns.html#path-patterns" id="path-patterns"><h2>Path patterns</h2></a>
 <blockquote>
 <p><strong><sup>Syntax</sup></strong><br />
-<em>PathPattern</em> :<a name="path-pattern-syntax"></a><br />
+<em>PathPattern</em> :<br />
       <em>PathForExpression</em><br />
    | <em>QualifiedPathForExpression</em></p>
 </blockquote>
+<p><em>Path patterns</em> are patterns that refer either to constant values or
+to structs or enum variants that have no fields.</p>
+<!-- FIXME how to disambiguate between identifier patterns and path patterns -->
+<p>Unqualified path patterns can refer to:</p>
+<ul>
+<li>enum variants</li>
+<li>structs</li>
+<li>constants</li>
+<li>associated constants</li>
+</ul>
+<p>Qualified path patterns can only refer to associated constants.</p>
 <!-- FIXME: explain paths in patterns -->
-<!-- when is this pattern type refutable? -->
+<!-- FIXME examples -->
+<!-- FIXME when is this pattern type refutable? -->
+<p>Path patterns are irrefutable when they refer to constants or structs.
+They are refutable when the refer to enum variants.</p>
 
                 </div>
 
